@@ -35,7 +35,8 @@ public class Orbit : MonoBehaviour {
 	}
 	
 	void FixedUpdate(){
-		
+	
+
 	//calculate force and direction towards center of gravity 
 	Vector3 difference= centerBody.position-body.position;
 	float distance = difference.magnitude;

@@ -37,15 +37,16 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Users/kennedr/Desktop/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>D:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Users/kennedr/Desktop/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AimGun.cs" />
      <Compile Include="Assets\AttachGun.cs" />
+     <Compile Include="Assets\Bullet.cs" />
      <Compile Include="Assets\Orbit.cs" />
      <Compile Include="Assets\OrbitControl.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
