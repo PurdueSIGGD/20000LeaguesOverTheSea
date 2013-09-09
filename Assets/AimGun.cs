@@ -28,7 +28,7 @@ public class AimGun : MonoBehaviour {
 		if (showLine)
 		{
 			Vector3 initialPosition= this.transform.position+direction*2;
-			Vector3 initialVelocity = direction*shotVelocity;
+			Vector3 initialVelocity = direction*shotVelocity+parent.rigidbody.velocity;
 			
 			Vector3[] first = parentOrbit.getNextPosAndVel(initialPosition,initialVelocity);
 			parentOrbit.drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
@@ -41,7 +41,7 @@ public class AimGun : MonoBehaviour {
             //newBullet.transform.position = this.transform.position + direction * 5;
             newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
             newBullet.GetComponent<Orbit>().initialForce = 0;
-            newBullet.rigidbody.AddForce(shotVelocity * direction, ForceMode.VelocityChange);
+            newBullet.rigidbody.AddForce(shotVelocity * direction+parent.rigidbody.velocity, ForceMode.VelocityChange);
              
 
         }
