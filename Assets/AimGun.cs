@@ -8,7 +8,7 @@ public class AimGun : MonoBehaviour {
 	Orbit parentOrbit;
 	public bool showLine=false;
 	public float shotVelocity=30;
-
+	bool forceUp, forceDown;
 	// Use this for initialization
 	void Start () {
 	
@@ -19,6 +19,22 @@ public class AimGun : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			forceDown=true;
+		}
+		if (Input.GetKeyUp(KeyCode.Q))
+		{
+			forceDown=false;
+		}
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			forceUp=true;
+		}
+		if (Input.GetKeyUp(KeyCode.E))
+		{
+			forceUp=false;
+		}
 		
 		Ray MousePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
 		float distanceToXYPlane=-MousePosition.origin.z/MousePosition.direction.z;
@@ -45,5 +61,14 @@ public class AimGun : MonoBehaviour {
              
 
         }
+	}
+	
+	void FixedUpdate()
+	{
+		if (forceDown && shotVelocity>10)
+			shotVelocity--;
+		if (forceUp && shotVelocity<60)
+			shotVelocity++;
+		
 	}
 }
