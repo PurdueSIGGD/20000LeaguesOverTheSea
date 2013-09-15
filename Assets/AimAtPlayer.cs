@@ -9,6 +9,7 @@ public class AimAtPlayer: MonoBehaviour {
 	Orbit parentOrbit;
 	public bool showLine=false;
 	public float shotVelocity=30;
+	public int maxFrames=250;
 	int frameCount = 0;
 	
 	// Use this for initialization
@@ -31,7 +32,7 @@ public class AimAtPlayer: MonoBehaviour {
 		Vector3 direction = playerObject.transform.position - this.transform.position;
 		direction.Normalize();
 		
-		Vector3 initialPosition= this.transform.position + direction * 3;
+		Vector3 initialPosition= this.transform.position + direction * 5;
 		Vector3 initialVelocity = direction * shotVelocity + playerObject.rigidbody.velocity;
 		
 		if (showLine) {
@@ -40,9 +41,10 @@ public class AimAtPlayer: MonoBehaviour {
 			parentOrbit.drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
 		}
 		
-		if (frameCount == 75) {
+		if (frameCount == maxFrames) {
 			
 			GameObject newBullet = (GameObject)Instantiate(bullet,initialPosition,new Quaternion(0,0,0,0));
+			newBullet.GetComponent<Bullet>().maxLife=500;
         	newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
         	newBullet.GetComponent<Orbit>().initialForce = 0;
         	newBullet.rigidbody.AddForce(initialVelocity, ForceMode.VelocityChange);

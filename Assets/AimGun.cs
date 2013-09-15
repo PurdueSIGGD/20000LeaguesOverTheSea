@@ -43,7 +43,7 @@ public class AimGun : MonoBehaviour {
 		direction.Normalize();
 		if (showLine)
 		{
-			Vector3 initialPosition= this.transform.position+direction*2;
+			Vector3 initialPosition= this.transform.position+direction*3;
 			Vector3 initialVelocity = direction*shotVelocity+parent.rigidbody.velocity;
 			
 			Vector3[] first = parentOrbit.getNextPosAndVel(initialPosition,initialVelocity);
@@ -52,7 +52,7 @@ public class AimGun : MonoBehaviour {
 		}
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 2,new Quaternion(0,0,0,0));
+            GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 3,new Quaternion(0,0,0,0));
             //newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
             //newBullet.transform.position = this.transform.position + direction * 5;
             newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
