@@ -5,17 +5,21 @@ public class PlayerControl : MonoBehaviour {
 	
 	Rigidbody body;
 	bool up, left, down, right;
-	public int respawnTimer=120;
 	int respawnCountdown;
+	GameObject gunPrefab;
+	GameObject gun;
 	// Use this for initialization
 	void Start () {
 	body=this.GetComponent<Rigidbody>();
-	
+	gunPrefab = (GameObject)Resources.Load("PlayerGun");
+	attachGun ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+		if (gun==null)
+			attachGun ();
 		//input handling can only be done in update, but physics should be applied in fixedUpdate.
 		if (Input.GetKeyDown(KeyCode.W))
 			up=true;
@@ -70,19 +74,30 @@ public class PlayerControl : MonoBehaviour {
 			body.AddForce(perpDirection*.2f,ForceMode.Impulse);
 		}
 		
-		if (this.gameObject.activeSelf==false)
-		{
-			respawnCountdown--;
-			if (respawnCountdown==0)
-				this.gameObject.SetActive(true);
-		}
 			
 		
 	}
 	
 	public void hit()
 	{
+		resetInput();
 		this.gameObject.SetActive(false);
-		respawnCountdown=respawnTimer;
+
+	}
+	
+	void attachGun()
+	{
+		gunPrefab.GetComponent<AttachGun>().parent=this.gameObject;
+		gun= (GameObject)Instantiate(gunPrefab,this.transform.position,new Quaternion(0,0,0,0));
+		
+		
+	}
+	
+	void resetInput()
+	{
+		up=false;
+		down=false;
+		left=false;
+		right=false;
 	}
 }

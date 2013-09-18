@@ -21,11 +21,7 @@ public class Orbit : MonoBehaviour {
 	if (drawLine)
 	line= this.GetComponent<LineRenderer>();
 	//give intital velocity perpendicular to gravity
-	Vector3 difference= centerBody.position-body.position;
-	Vector3 perpDirection= new Vector3(-difference.y,difference.x,0)*-1;
-	perpDirection.Normalize();
-	body.AddForce(perpDirection*initialForce,ForceMode.VelocityChange);
-	PredictedPosAndVel=getNextPosAndVel(body.position,body.velocity);
+	givePerpBoost(initialForce);
 	}
 	
 	// Update is called once per frame
@@ -107,5 +103,15 @@ public class Orbit : MonoBehaviour {
 	Vector3 newPosition= newVelocity*Time.fixedDeltaTime+position;
 	Vector3[] ret = {newPosition,newVelocity};
 	return ret;
+	}
+	
+	public void givePerpBoost(float force)
+	{
+	//apply force perpindicular to direction of orbit.
+	Vector3 difference= centerBody.position-body.position;
+	Vector3 perpDirection= new Vector3(-difference.y,difference.x,0)*-1;
+	perpDirection.Normalize();
+	body.AddForce(perpDirection*force,ForceMode.VelocityChange);
+	PredictedPosAndVel=getNextPosAndVel(body.position,body.velocity);
 	}
 }

@@ -13,19 +13,12 @@ public class AttachGun : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (parent==null)
+		
+        if (parent==null || parent.activeSelf==false)
         { 
             GameObject.Destroy(this.gameObject);
             return;
         }
-		if (parent.activeSelf==false)
-		{
-			this.gameObject.SetActive(false);
-		}
-		else
-		{
-			this.gameObject.SetActive(true);
-		}
 			this.transform.position=parent.transform.position+offset;
 		
 	}

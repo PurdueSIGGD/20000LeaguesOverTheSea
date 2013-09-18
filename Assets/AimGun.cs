@@ -11,6 +11,7 @@ public class AimGun : MonoBehaviour {
 	bool forceUp, forceDown;
 	// Use this for initialization
 	void Start () {
+		
 	
 		parent=this.GetComponent<AttachGun>().parent;
 		parentOrbit=parent.GetComponent<Orbit>();

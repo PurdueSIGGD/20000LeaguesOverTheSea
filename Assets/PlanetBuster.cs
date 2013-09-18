@@ -15,12 +15,16 @@ public class PlanetBuster : MonoBehaviour {
 	    void OnCollisionEnter(Collision coll)
     {
         Collider other = coll.collider;
-        if (other.tag == "Ship" || other.tag == "Player")
+        if (other.tag == "Ship")
         {
             //need real death stuff
             GameObject.DestroyObject(coll.gameObject);
 
         }
+		if (other.tag=="Player")
+		{
+			other.gameObject.SetActive(false);
+		}
 		
 		if (other.tag== "Planet")
 		{
