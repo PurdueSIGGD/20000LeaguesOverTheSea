@@ -31,8 +31,12 @@ public class Bullet : MonoBehaviour {
     void OnCollisionEnter(Collision coll)
     {
         Collider other = coll.collider;
-				
-        if (other.tag == "Ship" || other.tag == "Player" || other.tag == "Enemy")
+		if (other.tag == "Player")
+		{
+			other.gameObject.GetComponent<PlayerControl>().hit ();
+			
+		}
+        if (other.tag == "Ship" || other.tag == "Enemy")
         {
             //need real death stuff
             GameObject.DestroyObject(coll.gameObject);
