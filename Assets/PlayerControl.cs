@@ -2,12 +2,14 @@
 using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
-	
+	int counter = 0;
 	Rigidbody body;
 	bool up, left, down, right;
 	int respawnCountdown;
 	GameObject gunPrefab;
 	GameObject gun;
+	public float maxx=110;
+	public float maxy=65;
 	// Use this for initialization
 	void Start () {
 	body=this.GetComponent<Rigidbody>();
@@ -17,7 +19,19 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(counter == 0)
+		{
+			if (Mathf.Abs(this.gameObject.transform.position.x)>maxx || Mathf.Abs(this.gameObject.transform.position.y)>maxy)
+				this.GetComponent<Rigidbody>().velocity*=-1;
+			counter++;
+		}
+		else
+		{
+			if(counter < 10)
+				counter++;
+			else
+				counter = 0;
+		}
 		if (gun==null)
 			attachGun ();
 		//input handling can only be done in update, but physics should be applied in fixedUpdate.

@@ -23,7 +23,7 @@ public class PlanetBuster : MonoBehaviour {
         }
 		if (other.tag=="Player")
 		{
-			other.gameObject.SetActive(false);
+			other.gameObject.GetComponent<PlayerControl>().hit ();
 		}
 		
 		if (other.tag== "Planet")
