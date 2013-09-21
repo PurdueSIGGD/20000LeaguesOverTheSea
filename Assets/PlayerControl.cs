@@ -92,12 +92,8 @@ public class PlayerControl : MonoBehaviour {
 		
 	}
 	
-	public void hit()
-	{
-		resetInput();
-		this.gameObject.SetActive(false);
-
-	}
+	
+	
 	
 	void attachGun()
 	{
@@ -107,11 +103,23 @@ public class PlayerControl : MonoBehaviour {
 		
 	}
 	
-	void resetInput()
+	public void resetInput()
 	{
 		up=false;
 		down=false;
 		left=false;
 		right=false;
+	}
+	
+	void OnCollisionEnter(Collision coll)
+	{
+		
+		//quick way to make you die when you run into the planet. Should probably be standardized.
+		Collider other = coll.collider;
+		if (other.tag=="Planet")
+		{
+			this.GetComponent<PlayerCollision>().hit (other.gameObject);
+		}
+		
 	}
 }
