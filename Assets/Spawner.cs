@@ -13,17 +13,16 @@ public class Spawner : MonoBehaviour {
 	int lenAvail;
 	bool complete;
 	GameObject pickedEnemy;
-	public GameObject[] spawnEnemies;
 	protected Vector2 point;
-	public int[] weight; //weight: Chance for enemy to spawn
-	public int[] delay;  //delay: delay in seconds before inserting enemy in spawn sequence.
-	private int[] available;
 	int i;
+	int[] available;
+	public EnemyList[] enemyList;
+	
 	
 	// Use this for initialization
 	void Start () {
 	complete = false;
-	available = new int[spawnEnemies.Length];
+	available = new int[enemyList.Length];
 		
 	timer=spawnTimer;
 	}
@@ -41,17 +40,17 @@ public class Spawner : MonoBehaviour {
 		{
 			lenAvail = 0;
 			totalWeight=0;
-			for(i = 0; i < spawnEnemies.Length; i++)
+			for(i = 0; i < enemyList.Length; i++)
 			{
-				if(delay[i] <= Time.time)
+				if(enemyList[i].delay <= Time.time)
 				{
 					available[lenAvail] = i;
 					lenAvail++;
-					totalWeight += weight[i];
+					totalWeight += enemyList[i].weight;
 				}
 			}
 			
-			if(lenAvail == spawnEnemies.Length)
+			if(lenAvail == enemyList.Length)
 			{
 				complete = true;
 			}
@@ -83,6 +82,7 @@ public class Spawner : MonoBehaviour {
 				
 
 				point.Set (x,y);
+				
 				GameObject newSpawn = (GameObject)Instantiate(pickedEnemy,point,new Quaternion(0,0,0,0));
 				newSpawn.GetComponent<Orbit>().center=this.gameObject;
 			}
@@ -92,6 +92,7 @@ public class Spawner : MonoBehaviour {
 		
 	}
 	
+	
 	// Picks which enemy to spawn based on their weight against a random number
 	public GameObject pickSpawn()
 	{
@@ -100,12 +101,12 @@ public class Spawner : MonoBehaviour {
 		k = 1;
 		for(i = 0; i < lenAvail; i++)
 		{
-			if(randomNumber >= k && randomNumber < weight[available[i]] + k)
+			if(randomNumber >= k && randomNumber < enemyList[available[i]].weight + k)
 			{
-				return spawnEnemies[available[i]];
+				return enemyList[available[i]].enemy;
 			}
 			
-			k += weight[available[i]];
+			k += enemyList[available[i]].weight;
 		}
 		
 		return null; //If it gets here then there is an issue
@@ -113,3 +114,14 @@ public class Spawner : MonoBehaviour {
 	
 }
 
+[System.Serializable]
+public class EnemyList {
+
+	public GameObject enemy;
+	public int weight;
+	public int delay;
+	
+	EnemyList(){
+		
+	}
+}
