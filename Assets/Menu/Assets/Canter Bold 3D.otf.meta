@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 66ae63c14a814ef4b8444f9112903b63
+TrueTypeFontImporter:
+  serializedVersion: 2
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  use2xBehaviour: 0
+  fontNames:
+  - Canter3D
+  customCharacters: 
+  fontRenderingMode: 0
+  userData: 
