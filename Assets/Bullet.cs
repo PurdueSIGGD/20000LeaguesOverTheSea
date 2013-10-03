@@ -15,8 +15,7 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (this.gameObject.transform.position.magnitude>maxRadius)
-			this.GetComponent<Rigidbody>().velocity*=-1;
-
+			this.GetComponent<Rigidbody>().velocity*=-1;		
 	}
 	void FixedUpdate()
 	{
