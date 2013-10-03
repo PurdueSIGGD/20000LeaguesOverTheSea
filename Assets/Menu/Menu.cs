@@ -10,10 +10,12 @@ public class Menu : MonoBehaviour {
 	
 	GUIText Title; 
 	GUIText Play;
+	GUIText Exit;
 	
 	void Start() {
     	Title = GameObject.Find ("menuTitle").guiText;
 		Play = GameObject.Find ("menuPlay").guiText;
+		Exit = GameObject.Find ("menuExit").guiText;
     }
 	
 	void OnGUI () {
@@ -23,7 +25,7 @@ public class Menu : MonoBehaviour {
 			Application.LoadLevel("first");
 		}
 		
-		if(Input.GetMouseButtonDown(0) && Play.GetScreenRect().Contains(Input.mousePosition))
+		if(Input.GetMouseButtonDown(0) && Exit.GetScreenRect().Contains(Input.mousePosition))
 		{
 			Application.Quit();	
 		}
