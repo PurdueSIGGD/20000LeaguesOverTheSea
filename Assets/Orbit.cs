@@ -6,7 +6,7 @@ public class Orbit : MonoBehaviour {
 	
 	public GameObject center;
 	public float initialForce=10;
-	float ForceMultiplier=250;
+	float ForceMultiplier=500;
 	public bool drawLine=false;
 	public int lineResolution=10;
 	
