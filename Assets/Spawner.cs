@@ -5,11 +5,12 @@ using System.Collections.Generic;
 public class Spawner : MonoBehaviour {
 	
 	public int spawnTimer=100;
-	public float maxSpawnRadius=100;
 	public int minSpawnRadius=50;
+	public int maxSpawnRadius=100;
+	int difference;
+	Vector2 direction;
 	int timer, totalWeight;
-	float x, y;
-	int sign;
+	Vector2 x, y;
 	int lenAvail;
 	bool complete;
 	GameObject pickedEnemy;
@@ -18,13 +19,12 @@ public class Spawner : MonoBehaviour {
 	int[] available;
 	public EnemyList[] enemyList;
 	
-	
 	// Use this for initialization
 	void Start () {
-	complete = false;
-	available = new int[enemyList.Length];
-		
-	timer=spawnTimer;
+		complete = false;
+		available = new int[enemyList.Length];
+		difference = maxSpawnRadius - minSpawnRadius;
+		timer=spawnTimer;
 	}
 	
 	// Update is called once per frame
@@ -62,27 +62,15 @@ public class Spawner : MonoBehaviour {
 			pickedEnemy = pickSpawn();
 			if(pickedEnemy != null)
 			{
-				sign = Random.Range(0,2);
-				x = Random.Range(minSpawnRadius,maxSpawnRadius);
-				
-				if(sign == 0)
-				{
-					x *= -1;
-				}
-				
-				sign = Random.Range(0,2);
-				
-				y = Random.Range(minSpawnRadius,maxSpawnRadius);
-				
-				if(sign == 0)
-				{
-					y *= -1;
-				}
-				
-				
+				point = Random.insideUnitCircle * difference;
+				direction = point;
+				direction.Normalize();
+				direction *= minSpawnRadius;
 
-				point.Set (x,y);
+				point += direction;
 				
+				//Debug.Log("spawned at: (" + point.x +", " + point.y + ") magnitude: " + point.magnitude + "\n");
+					
 				GameObject newSpawn = (GameObject)Instantiate(pickedEnemy,point,new Quaternion(0,0,0,0));
 				newSpawn.GetComponent<Orbit>().center=this.gameObject;
 			}
