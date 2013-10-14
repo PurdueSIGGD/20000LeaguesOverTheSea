@@ -41,19 +41,13 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 		
-		if(counter == 0)
-		{
-			if (Mathf.Abs(this.gameObject.transform.position.x)>maxx || Mathf.Abs(this.gameObject.transform.position.y)>maxy)
-				this.GetComponent<Rigidbody>().velocity*=-1;
-			counter++;
+		// If the player is off the screen reverse the velocity.
+		// Time.frameCount % 10 is used the only check every 10 frames
+		// CameraUtility.isInCameraFrame returns true if it is in the camera view port.
+		if(Time.frameCount % 10 == 1 && !CameraUtility.isInCameraFrame(this.gameObject)) {
+			this.gameObject.transform.rigidbody.velocity *= -1; //Invert the Velocity.	
 		}
-		else
-		{
-			if(counter < 10)
-				counter++;
-			else
-				counter = 0;
-		}
+		
 		if (gun==null)
 			attachGun (guns[currentGun]);
 		//input handling can only be done in update, but physics should be applied in fixedUpdate.

@@ -3,20 +3,26 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 	
-	public float maxRadius=500;
+	//How far bullets can move away from the planent.
+	public float maxRadius = 500;
+	
 	//player bullets have no life, enemy bullets have life, to prevent enemy spam.
 	public int maxLife=0;
 	int currentLife=0;
-	// Use this for initialization
+	
+	// Initialization
 	void Start () {
-		currentLife=maxLife;
+		currentLife = maxLife;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (this.gameObject.transform.position.magnitude>maxRadius)
-			this.GetComponent<Rigidbody>().velocity*=-1;		
+		//If the bullet is greater than the the maxRadius: reverse the velocity. 
+		if (this.gameObject.transform.position.magnitude > maxRadius)
+			this.GetComponent<Rigidbody>().velocity *= -1;
 	}
+	
+	
 	void FixedUpdate()
 	{
 		if (maxLife!=0)

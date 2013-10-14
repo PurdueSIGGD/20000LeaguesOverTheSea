@@ -20,6 +20,12 @@ public class Menu : MonoBehaviour {
 	
 	void OnGUI () {
 		//Best way to detect clicks on GuiText
+		
+		//Input.GetMouseButtonDown(0) 
+		//	Returns the state of the left mousebutton
+		//Play.GetScreenRect().Contains()
+		//	Checks if mouseclick is in area of GuiText
+		
 		if(Input.GetMouseButtonDown(0) && Play.GetScreenRect().Contains(Input.mousePosition))
 		{
 			Application.LoadLevel("first");
