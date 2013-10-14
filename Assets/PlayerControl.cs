@@ -6,19 +6,41 @@ public class PlayerControl : MonoBehaviour {
 	Rigidbody body;
 	bool up, left, down, right;
 	int respawnCountdown;
-	GameObject gunPrefab;
 	GameObject gun;
 	public float maxx=110;
 	public float maxy=65;
 	// Use this for initialization
+	public GameObject[] guns;
+	public int currentGun=0;
+	public bool drawGunLine=true;
 	void Start () {
 	body=this.GetComponent<Rigidbody>();
-	gunPrefab = (GameObject)Resources.Load("PlayerGun");
-	attachGun ();
+	attachGun (guns[currentGun]);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		
+		if (Input.GetKeyDown(KeyCode.Q))
+		{
+			if (gun.GetComponent<BaseWeapon>().unequip())
+			{
+			currentGun=(currentGun+1)%guns.Length;
+			attachGun (guns[currentGun]);
+			}
+			
+			
+		}
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			if (gun.GetComponent<BaseWeapon>().unequip())
+			{
+			currentGun=(currentGun+1)%guns.Length;
+			attachGun (guns[currentGun]);
+			}
+		}
+		
 		if(counter == 0)
 		{
 			if (Mathf.Abs(this.gameObject.transform.position.x)>maxx || Mathf.Abs(this.gameObject.transform.position.y)>maxy)
@@ -33,7 +55,7 @@ public class PlayerControl : MonoBehaviour {
 				counter = 0;
 		}
 		if (gun==null)
-			attachGun ();
+			attachGun (guns[currentGun]);
 		//input handling can only be done in update, but physics should be applied in fixedUpdate.
 		if (Input.GetKeyDown(KeyCode.W))
 			up=true;
@@ -60,11 +82,18 @@ public class PlayerControl : MonoBehaviour {
 			right=false;
 		
 		
+				
+		if (drawGunLine)
+		{
+			gun.GetComponent<BaseWeapon>().drawLine();
+		}
+		
 	}
 	
 	void FixedUpdate()
 	{
 		
+
 	Vector3 direction = body.velocity;
 	Vector3 perpDirection= new Vector3(-direction.y,direction.x,0)*-1;
 	perpDirection.Normalize();
@@ -95,9 +124,13 @@ public class PlayerControl : MonoBehaviour {
 	
 	
 	
-	void attachGun()
+	void attachGun(GameObject gunPrefab)
 	{
-		gunPrefab.GetComponent<AttachGun>().parent=this.gameObject;
+		if (gun!=null)
+		{
+			gun.GetComponent<BaseWeapon>().destroy();
+		}
+		gunPrefab.GetComponent<BaseWeapon>().parent=this.gameObject;
 		gun= (GameObject)Instantiate(gunPrefab,this.transform.position,new Quaternion(0,0,0,0));
 		
 		
