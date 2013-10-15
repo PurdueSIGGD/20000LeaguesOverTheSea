@@ -2,81 +2,71 @@
 using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
-	int counter = 0;
+	
 	Rigidbody body;
-	bool up, left, down, right;
+	bool up, left, down, right; //Movement Booleans
 	int respawnCountdown;
-	GameObject gun;
-	public float maxx=110;
-	public float maxy=65;
+	GameObject gun; // Players Current Gun Object
+	
+	
+	public GameObject[] guns; //Array of Guns available to the player.
+	public int currentGun = 0; //Current Gun in guns
+	public bool drawGunLine = true; 
+	
 	// Use this for initialization
-	public GameObject[] guns;
-	public int currentGun=0;
-	public bool drawGunLine=true;
-	void Start () {
-	body=this.GetComponent<Rigidbody>();
-	attachGun (guns[currentGun]);
+	void Start () 
+	{
+		body = this.GetComponent<Rigidbody>();
+		attachGun (guns[currentGun]);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		
+	void Update () 
+	{
+		//Switch Weapons Code (Perhaps could be consolidated?)
+		//Q current weapon backwards 1 in array
 		if (Input.GetKeyDown(KeyCode.Q))
 		{
 			if (gun.GetComponent<BaseWeapon>().unequip())
 			{
-			currentGun=(currentGun+1)%guns.Length;
-			attachGun (guns[currentGun]);
+				currentGun = (currentGun - 1) % guns.Length;
+				if (currentGun < 0) 
+					currentGun = guns.Length - 1;
+				attachGun(guns[currentGun]);
 			}
-			
-			
 		}
+		//E current weapon forwards 1 in array
 		if (Input.GetKeyDown(KeyCode.E))
 		{
 			if (gun.GetComponent<BaseWeapon>().unequip())
 			{
-			currentGun=(currentGun+1)%guns.Length;
-			attachGun (guns[currentGun]);
+				currentGun = (currentGun + 1) % guns.Length;
+				attachGun(guns[currentGun]);
 			}
 		}
 		
 		// If the player is off the screen reverse the velocity.
 		// Time.frameCount % 10 is used the only check every 10 frames
 		// CameraUtility.isInCameraFrame returns true if it is in the camera view port.
-		if(Time.frameCount % 10 == 1 && !CameraUtility.isInCameraFrame(this.gameObject)) {
+		// TODO: Make perhaps a spring type function where slow the player, rather than bounce.
+		if(Time.frameCount % 10 == 0 && !CameraUtility.isInCameraFrame(this.gameObject)) 
+		{
 			this.gameObject.transform.rigidbody.velocity *= -1; //Invert the Velocity.	
 		}
-		
-		if (gun==null)
+		 
+		//Attach gun if there isnt one.. is this possible?
+		if (gun == null)
 			attachGun (guns[currentGun]);
-		//input handling can only be done in update, but physics should be applied in fixedUpdate.
-		if (Input.GetKeyDown(KeyCode.W))
-			up=true;
 		
-		if (Input.GetKeyUp(KeyCode.W))
-			up=false;
+		//Input handling can only be done in update,  
+		// Physics should be applied in fixedUpdate.
+		//Input.GetKey returns true or false if key is down or up. (Was there a problem with this before?)
+		up = Input.GetKey(KeyCode.W);
+		left = Input.GetKey(KeyCode.A);
+		down = Input.GetKey(KeyCode.S);
+		right = Input.GetKey(KeyCode.D);
 		
-		if (Input.GetKeyDown(KeyCode.A))
-			left=true;
-		
-		if (Input.GetKeyUp(KeyCode.A))
-			left=false;
-		
-		if (Input.GetKeyDown(KeyCode.S))
-			down=true;
-		
-		if (Input.GetKeyUp(KeyCode.S))
-			down=false;
-		
-		if (Input.GetKeyDown(KeyCode.D))
-			right=true;
-		
-		if (Input.GetKeyUp(KeyCode.D))
-			right=false;
-		
-		
-				
+	
 		if (drawGunLine)
 		{
 			gun.GetComponent<BaseWeapon>().drawLine();
@@ -84,64 +74,62 @@ public class PlayerControl : MonoBehaviour {
 		
 	}
 	
+	//Fixed Update, we do physics here.
 	void FixedUpdate()
 	{
+		//Direction vectors for the player, we use this for moving the player.
+		Vector3 direction = body.velocity;
+		//Perpendicular vector of the direction. 
+		Vector3 perpDirection= new Vector3(-direction.y, direction.x, 0) * -1; 
+		//Now we normalize them to unit vectors.
+		perpDirection.Normalize();
+		direction.Normalize();
 		
-
-	Vector3 direction = body.velocity;
-	Vector3 perpDirection= new Vector3(-direction.y,direction.x,0)*-1;
-	perpDirection.Normalize();
-	direction.Normalize();
 		
-		
+		//Physics done for Player movement here.
 		if (up)
 		{	
 			body.AddForce(direction*.1f,ForceMode.Impulse);
 		}
-			if (left)
+		if (left)
 		{
 			body.AddForce(perpDirection*-.2f,ForceMode.Impulse);
 		}
-			if (down)
+		if (down)
 		{
 			body.AddForce(direction*-.1f,ForceMode.Impulse);
 		}
-			if (right)
+		if (right)
 		{
 			body.AddForce(perpDirection*.2f,ForceMode.Impulse);
 		}
-		
-			
-		
 	}
 	
-	
-	
-	
+	//Attach this gun to the player.
 	void attachGun(GameObject gunPrefab)
 	{
-		if (gun!=null)
+		if (gun != null)
 		{
 			gun.GetComponent<BaseWeapon>().destroy();
 		}
-		gunPrefab.GetComponent<BaseWeapon>().parent=this.gameObject;
-		gun= (GameObject)Instantiate(gunPrefab,this.transform.position,new Quaternion(0,0,0,0));
-		
-		
+		gunPrefab.GetComponent<BaseWeapon>().parent = this.gameObject;
+		gun = (GameObject)Instantiate(gunPrefab, this.transform.position, new Quaternion(0,0,0,0));
 	}
 	
+	//Reset the Input
 	public void resetInput()
 	{
-		up=false;
-		down=false;
-		left=false;
-		right=false;
+		up = false;
+		down = false;
+		left = false;
+		right = false;
 	}
 	
+	//Collision Handler for player.
 	void OnCollisionEnter(Collision coll)
 	{
 		
-		//quick way to make you die when you run into the planet. Should probably be standardized.
+		//Quick way to make you die when you run into the planet. Should probably be standardized.
 		Collider other = coll.collider;
 		if (other.tag=="Planet")
 		{
