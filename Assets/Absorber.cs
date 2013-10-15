@@ -76,7 +76,7 @@ public class Absorber : MonoBehaviour {
 		}
 		if(isOdd){
 			this.GetComponent<BasicBulletShoot>().shoot(originalDirection);
-			Debug.Log("Middle Fire!\n");
+			//Debug.Log("Middle Fire!\n");
 		}
 		direction = originalDirection;
 		isOdd = false;
