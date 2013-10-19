@@ -101,7 +101,7 @@ public class Orbit : MonoBehaviour {
 				currentVertex++;
 	
 			}
-			if (next[1].magnitude>40 && lineResolution>1)
+			if (next[1].magnitude>30 && lineResolution>1)
 			{
 				lineResolution=1;
 					
