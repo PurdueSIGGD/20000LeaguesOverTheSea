@@ -4,6 +4,8 @@ using System.Collections;
 public class BulletGun : BaseWeapon {
 	
     GameObject bullet;
+	public int shotCooldownInitial = 30;
+	int shotCooldown = 0;
 	Orbit parentOrbit;
 	
 	
@@ -25,7 +27,7 @@ public class BulletGun : BaseWeapon {
 			this.transform.position=parent.transform.position+offset;
 		
 		Vector3 direction= getMouseDirection();
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && shotCooldown <= 0)
         {
             GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 4,new Quaternion(0,0,0,0));
             //newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
@@ -33,9 +35,12 @@ public class BulletGun : BaseWeapon {
             newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
             newBullet.GetComponent<Orbit>().initialForce = 0;
             newBullet.rigidbody.AddForce(shotVelocity * direction+parent.rigidbody.velocity, ForceMode.VelocityChange);
-             
-
+			shotCooldown = shotCooldownInitial;
         }
+		else
+		{
+			shotCooldown--;
+		}
 	}
 
 	public override void drawLine()
