@@ -8,7 +8,7 @@ public class Orbit : MonoBehaviour {
 	public float initialForce=10;
 	float ForceMultiplier=500;
 	public bool drawLine=false;
-	public int lineResolution=10;
+	public int lineResolution=20;
 	
 	Rigidbody centerBody;
 	Rigidbody body;
@@ -74,7 +74,8 @@ public class Orbit : MonoBehaviour {
 	
 	public void drawOrbitLine(LineRenderer liner, int maxTicks, Vector3[] next)
 	{
-		liner.SetVertexCount(maxTicks/lineResolution+1);
+		liner.SetVertexCount(maxTicks+1);
+		int currentVertex=0;
 		int i;
 		for (i=0;i<maxTicks;i++)
 		{
@@ -82,24 +83,38 @@ public class Orbit : MonoBehaviour {
 			//if orbit line loops back to start, or if it hits the center of whatever it's orbiting around, stop calculating
 			if (i>50 && ((Mathf.Abs(next[0].x-body.position.x)<1 && Mathf.Abs(next[0].y-body.position.y)<1)))
 			{
-				liner.SetPosition(i/lineResolution,next[0]);
-				liner.SetVertexCount(i/lineResolution+1);	
+				liner.SetPosition(currentVertex,next[0]);
+				liner.SetVertexCount(currentVertex+1);	
+				
 				break;
 	
 			}
-			if ((Mathf.Abs(next[0].x-centerBody.position.x)<3 && Mathf.Abs(next[0].y-centerBody.position.y)<3))
+			if ((Mathf.Abs(next[0].x-centerBody.position.x)<5 && Mathf.Abs(next[0].y-centerBody.position.y)<5))
 			{
-				liner.SetVertexCount(i/lineResolution+1);	
+				liner.SetVertexCount(currentVertex+1);	
+				
 				break;
 			}
 			if (i%lineResolution==0)
 			{			
-				liner.SetPosition(i/lineResolution,next[0]);
+				liner.SetPosition(currentVertex,next[0]);
+				currentVertex++;
 	
+			}
+			if (next[1].magnitude>40 && lineResolution>1)
+			{
+				lineResolution=1;
+					
+			}
+			else if (lineResolution==1)
+			{
+				lineResolution=20;
 			}
 			next=getNextPosAndVel(next[0],next[1]);
 		}
-		liner.SetPosition(i/lineResolution,next[0]);
+		liner.SetVertexCount(currentVertex+1);
+		liner.SetPosition(currentVertex,next[0]);
+		lineResolution=20;
 	}
 	
 	public Vector3[] getNextPosAndVel(Vector3 position, Vector3 velocity)
