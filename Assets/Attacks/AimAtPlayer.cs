@@ -15,7 +15,7 @@ public class AimAtPlayer: MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//playerObject = GameObject.Find("Player");
-		parent=this.GetComponent<AttachGun>().parent;
+		//parent=this.GetComponent<AttachGun>().parent;
 		parentOrbit=parent.GetComponent<Orbit>();
         
 	}
