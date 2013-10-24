@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_2_1;UNITY_4_2;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_2_2;UNITY_4_2;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -44,24 +44,30 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Absorber.cs" />
-     <Compile Include="Assets\AimAtPlayer.cs" />
-     <Compile Include="Assets\AimGun.cs" />
-     <Compile Include="Assets\AttachGun.cs" />
+     <Compile Include="Assets\Attacks\AimAtPlayer.cs" />
      <Compile Include="Assets\Attacks\Attack.cs" />
      <Compile Include="Assets\Attacks\BasicBulletShoot.cs" />
-     <Compile Include="Assets\Bullet.cs" />
+     <Compile Include="Assets\Attacks\Bullet.cs" />
+     <Compile Include="Assets\Attacks\Rocket.cs" />
+     <Compile Include="Assets\CameraUtility.cs" />
+     <Compile Include="Assets\Enemies\Absorber.cs" />
      <Compile Include="Assets\InGameMenu.cs" />
      <Compile Include="Assets\Menu\Menu.cs" />
+     <Compile Include="Assets\Menu\SkyBoxMenu.cs" />
      <Compile Include="Assets\Orbit.cs" />
-     <Compile Include="Assets\OrbitControl.cs" />
-     <Compile Include="Assets\PlayerControl.cs" />
-     <Compile Include="Assets\PlayerSpawner.cs" />
+     <Compile Include="Assets\Player\PlayerControls\PlayerControl.cs" />
+     <Compile Include="Assets\Player\PlayerSpawner.cs" />
+     <Compile Include="Assets\Player\PlayerWeapons\BaseWeapon.cs" />
+     <Compile Include="Assets\Player\PlayerWeapons\BulletGun.cs" />
+     <Compile Include="Assets\Player\PlayerWeapons\GravityBall.cs" />
+     <Compile Include="Assets\Player\PlayerWeapons\GravityBallShoot.cs" />
+     <Compile Include="Assets\Player\PlayerWeapons\RocketWeapon.cs" />
      <Compile Include="Assets\Projectile.cs" />
+     <Compile Include="Assets\RocketProjectile.cs" />
      <Compile Include="Assets\Spawner.cs" />
      <Compile Include="Assets\colliders\AbsorberCollision.cs" />
      <Compile Include="Assets\colliders\BasicCollision.cs" />
-     <Compile Include="Assets\colliders\PlantColllision.cs" />
+     <Compile Include="Assets\colliders\PlanetCollision.cs" />
      <Compile Include="Assets\colliders\PlayerCollision.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets (Mobile)\Shaders\Particle Shaders\Mobile Multiply Culled.shader" />
