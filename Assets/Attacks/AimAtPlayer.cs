@@ -12,11 +12,12 @@ public class AimAtPlayer: MonoBehaviour {
 	public int maxFrames=250;
 	int frameCount = 0;
 	
+	public bool predictPosition=false;
 	// Use this for initialization
 	void Start () {
 		//playerObject = GameObject.Find("Player");
 		//parent=this.GetComponent<AttachGun>().parent;
-		parentOrbit=parent.GetComponent<Orbit>();
+		//parentOrbit=parent.GetComponent<Orbit>();
         
 	}
 	
@@ -39,6 +40,29 @@ public class AimAtPlayer: MonoBehaviour {
 		
 		
 		if (frameCount == maxFrames) {
+			if (predictPosition)
+			{
+			
+			if(GameObject.Find("Player") != null){
+			Orbit playerOrbit=playerObject.GetComponent<Orbit>();
+			Vector3 playerPos, PlayerVel;
+			playerPos=playerObject.transform.position;
+			PlayerVel=playerObject.rigidbody.velocity;
+			int i;
+			for (i=0;i<20; i++)
+			{
+				Vector3[] newPosandVel=playerOrbit.getNextPosAndVel(playerPos,PlayerVel);
+				playerPos=newPosandVel[0];
+				PlayerVel=newPosandVel[1];
+						
+			}
+					
+			direction = (playerPos) - this.transform.position;
+			direction.Normalize();
+			
+			}
+
+			}
 			this.GetComponent<Attack>().shoot (direction);
 			frameCount = 0;
 		

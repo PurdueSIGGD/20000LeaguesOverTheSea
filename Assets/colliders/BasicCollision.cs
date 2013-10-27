@@ -21,4 +21,9 @@ public class BasicCollision : MonoBehaviour {
 	{
 		GameObject.DestroyObject(this.gameObject);
 	}
+	
+	public virtual void OnCollisionEnter(Collision coll)
+	{
+		
+	}
 }

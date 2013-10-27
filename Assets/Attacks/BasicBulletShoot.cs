@@ -22,12 +22,9 @@ public class BasicBulletShoot : Attack {
 		
 			Vector3 initialPosition = this.transform.position + direction * offset;
 			Vector3 initialVelocity;
-			if(GameObject.Find("Player") != null){
-				initialVelocity = direction * shotVelocity + GameObject.Find("Player").rigidbody.velocity;
-			}
-			else{
-				initialVelocity = direction * shotVelocity + GameObject.Find("CenterOfGravity").rigidbody.velocity;
-			}
+		
+		
+			initialVelocity = direction * shotVelocity;
 			GameObject newBullet = (GameObject)Instantiate(bullet,initialPosition,new Quaternion(0,0,0,0));
 			newBullet.GetComponent<Bullet>().maxLife=bulletLife;
         	newBullet.GetComponent<Orbit>().center = this.gameObject.GetComponent<Orbit>().center;

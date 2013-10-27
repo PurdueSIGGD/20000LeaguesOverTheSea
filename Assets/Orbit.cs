@@ -137,6 +137,7 @@ public class Orbit : MonoBehaviour {
 		Vector3 perpDirection= new Vector3(-difference.y,difference.x,0)*-1;
 		perpDirection.Normalize();
 		body.AddForce(perpDirection*force,ForceMode.VelocityChange);
+		
 		PredictedPosAndVel=getNextPosAndVel(body.position,body.velocity);
 		}
 }
