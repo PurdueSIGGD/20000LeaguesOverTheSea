@@ -31,6 +31,11 @@ public class LanderCollision : BasicCollision {
 			shootDelay--;
 		
 		}
+		else
+		{
+			this.rigidbody.velocity*=1.02f;
+			
+		}
 	}
 	
 	public override void hit(GameObject collider)
