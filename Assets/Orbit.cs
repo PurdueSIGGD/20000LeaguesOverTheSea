@@ -81,13 +81,24 @@ public class Orbit : MonoBehaviour {
 		{
 					
 			//if orbit line loops back to start, or if it hits the center of whatever it's orbiting around, stop calculating
-			if (i>50 && ((Mathf.Abs(next[0].x-body.position.x)<1 && Mathf.Abs(next[0].y-body.position.y)<1)))
+			if (i>50 && ((Mathf.Abs(next[0].x-body.position.x)<2 && Mathf.Abs(next[0].y-body.position.y)<2)))
 			{
 				liner.SetPosition(currentVertex,next[0]);
 				liner.SetVertexCount(currentVertex+1);	
 				
 				break;
 	
+			}
+			
+			if(i%100 == 0)
+			{
+				 if(!CameraUtility.isInCameraFrame(next[0]))
+				{
+					liner.SetPosition(currentVertex,next[0]);
+					liner.SetVertexCount(currentVertex+1);	
+				
+					break;	
+				}
 			}
 			if ((Mathf.Abs(next[0].x-centerBody.position.x)<5 && Mathf.Abs(next[0].y-centerBody.position.y)<5))
 			{
