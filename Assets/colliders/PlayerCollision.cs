@@ -15,7 +15,10 @@ public class PlayerCollision : BasicCollision{
 	
 	public override void hit(GameObject collider)
 	{
-		this.GetComponent<PlayerControl>().resetInput();
-		this.gameObject.SetActive(false);
+		if(!PlayerSpawner.isInvincible)
+		{
+			this.GetComponent<PlayerControl>().resetInput();
+			this.gameObject.SetActive(false);
+		}
 	}
 }

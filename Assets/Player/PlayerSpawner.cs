@@ -7,11 +7,17 @@ public class PlayerSpawner : MonoBehaviour {
 	public bool respawnPenalty = false;
 	public int respawnPenaltyTime = 60;
 	int respawnCountdown=-1;
+	
+	public int spawnInvincibilityInitial = 120;
+	int spawnInvincibilityCounter;
+	public static bool isInvincible;
+	
 	Vector3 initialPos;
 	Vector3 initialVel;
 	Quaternion initialRot;
+	
 	// Use this for initialization
-	void Start () {
+	void Start () {		
 		initialPos=player.transform.position;
 		initialVel=player.rigidbody.velocity;
 		initialRot=player.transform.rotation;
@@ -28,7 +34,6 @@ public class PlayerSpawner : MonoBehaviour {
 		if (respawnCountdown != -1)
 		{
 			respawnCountdown--;
-			
 		}
 		
 		if (respawnCountdown==0)
@@ -41,7 +46,20 @@ public class PlayerSpawner : MonoBehaviour {
 			
 			player.SetActive(true);
 			player.GetComponent<Orbit>().givePerpBoost(player.GetComponent<Orbit>().initialForce);
+			spawnInvincibilityCounter = spawnInvincibilityInitial;
+			isInvincible = true;
 			respawnCountdown--;
+		}
+		
+		// Decrement the spawn invincibility variable until it becomes 0
+		if(isInvincible && spawnInvincibilityCounter > 0)
+		{
+			spawnInvincibilityCounter--;
+			// Check to see if invincibility is over
+			if(spawnInvincibilityCounter == 0)
+			{
+				isInvincible = false;	
+			}
 		}
 	}
 	

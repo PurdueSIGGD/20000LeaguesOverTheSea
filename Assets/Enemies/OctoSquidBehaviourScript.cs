@@ -32,7 +32,7 @@ public class OctoSquidBehaviourScript : MonoBehaviour
 		}
 		else
 		{*/
-			octoSquid.transform.position = playerObject.transform.position + new Vector3(followDistance, followDistance, 0);	
+			octoSquid.transform.position = playerObject.transform.position*2;	
 		//}
 	}
 }

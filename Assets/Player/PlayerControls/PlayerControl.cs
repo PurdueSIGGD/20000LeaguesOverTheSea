@@ -128,13 +128,11 @@ public class PlayerControl : MonoBehaviour {
 	//Collision Handler for player.
 	void OnCollisionEnter(Collision coll)
 	{
-		
 		//Quick way to make you die when you run into the planet. Should probably be standardized.
 		Collider other = coll.collider;
 		if (other.tag=="Planet")
 		{
 			this.GetComponent<PlayerCollision>().hit (other.gameObject);
-		}
-		
+		}	
 	}
 }
