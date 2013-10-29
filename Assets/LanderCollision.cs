@@ -17,7 +17,7 @@ public class LanderCollision : BasicCollision {
 		{
 			if (shootDelay==0)
 			{
-			Debug.Log("shoot");
+			
 			//this.rigidbody.
 			Vector3 direction= this.transform.position-center.transform.position;
 			Vector3 perpDirection= new Vector3(-direction.y,direction.x,0)*-1;
