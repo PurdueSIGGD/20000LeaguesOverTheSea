@@ -22,10 +22,9 @@ public class Absorber : MonoBehaviour {
 	}
 	
 	void Update () {
-		/*if(playerObject.transform != null){
-			direction = playerObject.transform.position - this.transform.position;
-			direction.Normalize();
-		}*/
+		if(playerObject == null){
+			playerObject = GameObject.Find("Player");
+		}
 	}
 	
 	void FixedUpdate() {
@@ -76,7 +75,6 @@ public class Absorber : MonoBehaviour {
 		}
 		if(isOdd){
 			this.GetComponent<BasicBulletShoot>().shoot(originalDirection);
-			//Debug.Log("Middle Fire!\n");
 		}
 		direction = originalDirection;
 		isOdd = false;
