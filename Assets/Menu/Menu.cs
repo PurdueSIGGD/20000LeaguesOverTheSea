@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Menu : MonoBehaviour {
 	/**
-	 * Class where we handle all Menu GUI.
+	 * Class where we handle Menu GUI events.
 	 * 
 	 * is Part of the object 'Gui Constructor' on the Menu Scene
 	 */
@@ -26,16 +26,18 @@ public class Menu : MonoBehaviour {
 		//Play.GetScreenRect().Contains()
 		//	Checks if mouseclick is in area of GuiText
 		
-		if(Input.GetMouseButtonDown(0) && Play.GetScreenRect().Contains(Input.mousePosition))
+		if(Input.GetMouseButtonDown(0))
 		{
-			Application.LoadLevel("first");
+			if( Play.GetScreenRect().Contains(Input.mousePosition)) 
+			{
+				Application.LoadLevel("first");
+			}
+
+			if( Exit.GetScreenRect().Contains(Input.mousePosition))
+			{
+				Application.Quit();	
+			}
 		}
-		
-		if(Input.GetMouseButtonDown(0) && Exit.GetScreenRect().Contains(Input.mousePosition))
-		{
-			Application.Quit();	
-		}
-		
 	}
 	
 }
