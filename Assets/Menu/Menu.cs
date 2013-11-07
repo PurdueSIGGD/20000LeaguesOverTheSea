@@ -16,9 +16,12 @@ public class Menu : MonoBehaviour {
     	//Title = GameObject.Find ("menuTitle").guiText;
 		Play = GameObject.Find ("menuPlay").guiText;
 		Exit = GameObject.Find ("menuExit").guiText;
+		
+		
     }
 	
 	void OnGUI () {
+		GUI.matrix = Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1237f,Screen.height/561f,1f));
 		//Best way to detect clicks on GuiText
 		
 		//Input.GetMouseButtonDown(0) 
