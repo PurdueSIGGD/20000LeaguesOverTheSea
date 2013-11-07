@@ -8,8 +8,6 @@ public class SkyBoxMenu : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Random rnd = new Random();
-		
 		// Random.value returns a value between 0 and 1.0
 		// We take that and subtract 0.5 so the value is between -0.5 and 0.5
 		// and then divide that result by 10 get the wanted range of -0.05 to 0.05
