@@ -14,24 +14,22 @@ public class Menu : MonoBehaviour {
 	
 	void Start() {
     	//Title = GameObject.Find ("menuTitle").guiText;
-		Play = GameObject.Find ("menuPlay").guiText;
-		Exit = GameObject.Find ("menuExit").guiText;
-		
-		
+		//Play = GameObject.Find ("menuPlay").guiText;
+		//Exit = GameObject.Find ("menuExit").guiText;
     }
 	
 	void OnGUI () {
-		GUI.matrix = Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1237f,Screen.height/561f,1f));
+
 		//Best way to detect clicks on GuiText
 		
 		//Input.GetMouseButtonDown(0) 
 		//	Returns the state of the left mousebutton
 		//Play.GetScreenRect().Contains()
 		//	Checks if mouseclick is in area of GuiText
-		
+		/*
 		if(Input.GetMouseButtonDown(0))
 		{
-			if( Play.GetScreenRect().Contains(Input.mousePosition)) 
+			/*if( Play.GetScreenRect().Contains(Input.mousePosition)) 
 			{
 				Application.LoadLevel("stageselect");
 			}
@@ -40,7 +38,7 @@ public class Menu : MonoBehaviour {
 			{
 				Application.Quit();	
 			}
-		}
+		}*/
 	}
 	
 }
