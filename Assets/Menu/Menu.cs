@@ -33,7 +33,7 @@ public class Menu : MonoBehaviour {
 		{
 			if( Play.GetScreenRect().Contains(Input.mousePosition)) 
 			{
-				Application.LoadLevel("first");
+				Application.LoadLevel("stageselect");
 			}
 
 			if( Exit.GetScreenRect().Contains(Input.mousePosition))
