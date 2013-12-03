@@ -19,7 +19,7 @@ public class StageSelect : MonoBehaviour
         StageIV = GameObject.Find("Stage IV").guiText;
         StageV = GameObject.Find("Stage V").guiText;
         StageVI = GameObject.Find("Stage VI").guiText;
-        BossStage1 = GameObject.Find("Boss Stage 1").guiText;
+        BossStage1 = GameObject.Find("Boss Stage I").guiText;
     }
 	
 	void OnGUI () 
