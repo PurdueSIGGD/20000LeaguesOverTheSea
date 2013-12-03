@@ -9,7 +9,7 @@ public class StageSelect : MonoBehaviour
      * is Part of the object 'Gui Constructor' on the Menu Scene
      */
 
-    GUIText StageI, StageII, StageIII, StageIV, StageV, StageVI;
+    GUIText StageI, StageII, StageIII, StageIV, StageV, StageVI, BossStage1;
 	
 	void Start() 
     {
@@ -19,6 +19,7 @@ public class StageSelect : MonoBehaviour
         StageIV = GameObject.Find("Stage IV").guiText;
         StageV = GameObject.Find("Stage V").guiText;
         StageVI = GameObject.Find("Stage VI").guiText;
+        BossStage1 = GameObject.Find("Boss Stage 1").guiText;
     }
 	
 	void OnGUI () 
@@ -48,6 +49,10 @@ public class StageSelect : MonoBehaviour
             else if (StageVI.GetScreenRect().Contains(Input.mousePosition))
             {
                 Application.LoadLevel("stage6");
+            }
+            else if (BossStage1.GetScreenRect().Contains(Input.mousePosition))
+            {
+                Application.LoadLevel("bossstage1");
             }
 		}
 	}

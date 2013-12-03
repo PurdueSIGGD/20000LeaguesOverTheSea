@@ -17,12 +17,14 @@ public class Spawner : MonoBehaviour {
 	protected Vector2 point;
 	int i;
 	int[] available;
+	bool[] bossesSpawned;
 	public EnemyList[] enemyList;
 	
 	// Use this for initialization
 	void Start () {
 		complete = false;
 		available = new int[enemyList.Length];
+		bossesSpawned = new bool[enemyList.Length];
 		difference = maxSpawnRadius - minSpawnRadius;
 		timer=spawnTimer;
 	}
@@ -91,7 +93,10 @@ public class Spawner : MonoBehaviour {
 		{
 			if(randomNumber >= k && randomNumber < enemyList[available[i]].weight + k)
 			{
-				return enemyList[available[i]].enemy;
+				if( !enemyList[available[i]].isBossEnemy || !bossesSpawned[available[i]] ) {
+					bossesSpawned[available[i]] = true;
+					return enemyList[available[i]].enemy;
+				}
 			}
 			
 			k += enemyList[available[i]].weight;
@@ -108,6 +113,7 @@ public class EnemyList {
 	public GameObject enemy;
 	public int weight;
 	public int delay;
+	public bool isBossEnemy;
 	
 	EnemyList(){
 		
