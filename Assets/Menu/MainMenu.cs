@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour {
 	GUISkin guiSkin;
 	
 	void Start() {
-		guiSkin = (GUISkin) Resources.Load("guiSkinMenu");	
+		guiSkin = (GUISkin) Resources.Load("Menu/guiSkinMenu");	
     }
 	
 	void OnGUI () {
