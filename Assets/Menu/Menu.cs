@@ -7,11 +7,11 @@ public class Menu : MonoBehaviour {
 	 */
 	
 	//Scaled Resolution: what the gui is scaled to, we aim for 1080p
-	private static Vector2 scaledR = new Vector2(1920,1080); 
+	private static Vector2 scaledR = new Vector2(1920, 1080); 
 	
 	
 	GUISkin guiSkin;
-	//private int state; //View state. In Main Menu, Stage Select, Settings..
+	//private int state; 
 	
 	void Start() {
 		guiSkin = (GUISkin) Resources.Load("Menu/guiSkinMenu");	
@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour {
     }
 	
 	void OnGUI () {
-		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 1, 0)), 
+		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
 				new Vector3(Screen.width/scaledR.x, Screen.height/scaledR.y, 1));
 		
 		GUI.skin = guiSkin;
@@ -29,7 +29,7 @@ public class Menu : MonoBehaviour {
 	}
 	
 	
-	private int state;
+	private int state; //View state. In Main Menu, Stage Select, Settings..
 	//Switch the current gui state.
 	//// Should this be abstracted to an int?
 	private void display_state()
@@ -49,12 +49,17 @@ public class Menu : MonoBehaviour {
 		GUI.skin.label.fontSize = 175;
 		GUI.Label (scale_rect(new Rect(40, 55, 20, 20)), "Leagues Over the Sea");
 		
+		
 		GUI.skin.label.fontSize = 150;
-		if( GUI.Button(scale_rect(new Rect(10, 55, 10, 12)), "Play", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(8, 38, 22, 15)), "Play", GUI.skin.customStyles[0]))
 		{
 			state = 1;
 		}
-		if( GUI.Button(scale_rect(new Rect(10, 70, 10, 12)), "Exit", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(8, 55, 22, 15)), "Settings", GUI.skin.customStyles[0]))
+		{
+			//state = 2;
+		}
+		if( GUI.Button(scale_rect(new Rect(8, 72, 22, 15)), "Exit", GUI.skin.customStyles[0])) 
 		{
 			Application.Quit();
 		}
