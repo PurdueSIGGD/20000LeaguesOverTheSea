@@ -103,6 +103,10 @@ public class PlayerControl : MonoBehaviour {
 		{
 			body.AddForce(perpDirection*.2f,ForceMode.Impulse);
 		}
+
+		// rotate ship to look ahead (Work in progress)
+		transform.LookAt (body.velocity + body.position);//new Vector3(body.position.x, body.velocity.y + body.position.y, body.position.z));
+		//body.transform.Rotate(new Vector3(0, 0, body.velocity.z * 100));
 	}
 	
 	//Attach this gun to the player.

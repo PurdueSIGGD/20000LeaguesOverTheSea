@@ -1,0 +1,107 @@
+fileFormatVersion: 2
+guid: 8c681245ac0fd4323a07b90532d55383
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Boat_Body
+    100002: //RootNode
+    100004: Left_Cable
+    100006: Left_Gun
+    100008: Mini_Thruster
+    100010: Rear_Thrusters
+    100012: Right_Cabe
+    100014: Right_Gun
+    100016: Thruster_1
+    100018: Thruster_2
+    100020: Thruster_3
+    400000: Boat_Body
+    400002: //RootNode
+    400004: Left_Cable
+    400006: Left_Gun
+    400008: Mini_Thruster
+    400010: Rear_Thrusters
+    400012: Right_Cabe
+    400014: Right_Gun
+    400016: Thruster_1
+    400018: Thruster_2
+    400020: Thruster_3
+    2300000: Boat_Body
+    2300002: Left_Cable
+    2300004: Left_Gun
+    2300006: Mini_Thruster
+    2300008: Right_Cabe
+    2300010: Right_Gun
+    2300012: Thruster_1
+    2300014: Thruster_2
+    2300016: Thruster_3
+    3300000: Boat_Body
+    3300002: Left_Cable
+    3300004: Left_Gun
+    3300006: Mini_Thruster
+    3300008: Right_Cabe
+    3300010: Right_Gun
+    3300012: Thruster_1
+    3300014: Thruster_2
+    3300016: Thruster_3
+    4300000: Boat_Body
+    4300002: Right_Gun
+    4300004: Right_Cabe
+    4300006: Left_Gun
+    4300008: Left_Cable
+    4300010: Thruster_1
+    4300012: Thruster_2
+    4300014: Thruster_3
+    4300016: Mini_Thruster
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 

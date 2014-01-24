@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BigBulletShoot : MonoBehaviour{
+public class BigBulletShoot : MonoBehaviour
+{
 
 	public GameObject bullet = (GameObject)Resources.Load("BigSpaceBullet");
 	public float shotVelocity=30;
@@ -17,20 +18,25 @@ public class BigBulletShoot : MonoBehaviour{
 	bool isCharging = false;
 	Vector3 initialVelocity, direction;
 	
-	void Start () {
+	void Start () 
+	{
 		radiusChange = (radius - 1) / (chargeTime * 10);
 		offset = radius + 2;
 		bulletLife += (int) (chargeTime / Time.deltaTime);
 	}
 	
-	void Update () {
-		if(playerObject == null){
+	void Update () 
+	{
+		if(playerObject == null)
+		{
 			playerObject = GameObject.Find("Player");
 		}
 	}
 	
-	void FixedUpdate(){
-		if(isCharging == true && newBullet != null && playerObject != null){
+	void FixedUpdate()
+	{
+		if(isCharging == true && newBullet != null && playerObject != null)
+		{
 			updateDir = playerObject.transform.position - parent.transform.position;
 			updateDir.Normalize();
 			newBullet.transform.position = parent.transform.position + (offset * updateDir);
@@ -38,7 +44,8 @@ public class BigBulletShoot : MonoBehaviour{
 	}
 	
 	
-	public bool shoot (GameObject newParent) {
+	public bool shoot (GameObject newParent) 
+	{
 			parent = newParent;
 			Vector3 initialPosition = this.transform.position + direction * offset;
 			
@@ -53,33 +60,42 @@ public class BigBulletShoot : MonoBehaviour{
 
 			//this function never fails to shoot when called.
 			return true;
-			
 	}
 	
-	IEnumerator waitingMethod(){
-		for(i = 0; i < chargeTime * 10; i++){
+	IEnumerator waitingMethod()
+	{
+		for(i = 0; i < chargeTime * 10; i++)
+		{
 			yield return new WaitForSeconds(.1f);
-			if(newBullet != null){
+			if(newBullet != null)
+			{
 				newBullet.transform.localScale += new Vector3(radiusChange, radiusChange, radiusChange);
 			}
 		}
-		if(GameObject.Find("Player") != null){
+		if(GameObject.Find("Player") != null)
+		{
 			initialVelocity = updateDir * shotVelocity + playerObject.rigidbody.velocity;
 		}
-		else{
+		else
+		{
 			initialVelocity = updateDir * shotVelocity + GameObject.Find("CenterOfGravity").rigidbody.velocity;
 		}
+
 		isCharging = false;
-		if(newBullet != null){
+		if(newBullet != null)
+		{
 	        newBullet.rigidbody.AddForce(initialVelocity, ForceMode.VelocityChange);
 		}
 	}
-	public bool getStatus(){
+
+	public bool getStatus()
+	{
 		return isCharging;
 	}
-	public void gotHit(){
+
+	public void gotHit()
+	{
 		GameObject.DestroyObject(newBullet);
 		GameObject.DestroyObject(this.gameObject);
 	}
-
 }

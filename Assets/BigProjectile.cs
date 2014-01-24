@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class BigProjectile : MonoBehaviour {
-	int i = 8;
+	int i = 2;
 	
 	// Use this for initialization
 	void Start () {
@@ -38,7 +38,7 @@ public class BigProjectile : MonoBehaviour {
 		if(String.Compare(coll.gameObject.ToString(), this.gameObject.ToString(), false)==0){
 			GameObject.DestroyObject(this.gameObject);
 		}
-		if(i == 6 || coll.gameObject.tag != "Bullet") {	//Evan's amazing work, you can get autographs on monday wednesday and saturday
+		if(i == 0 || coll.gameObject.tag != "Bullet") {	//Evan's amazing work, you can get autographs on monday wednesday and saturday
 			GameObject.DestroyObject(this.gameObject);
 		}
     } 

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChargerShot : MonoBehaviour {
+public class ChargerShot : MonoBehaviour 
+{
 
 	public int fireTime = 3;
 	GameObject playerObject, chargeBeam1, chargeBeam2, chargeShot;
@@ -10,30 +11,37 @@ public class ChargerShot : MonoBehaviour {
 	int timer = 0;
 	
 	
-	void Start () {
+	void Start () 
+	{
 		fireTime = (int)(fireTime / Time.deltaTime);
 		playerObject = GameObject.Find("Player");
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if(playerObject != null){
+	void Update () 
+	{
+		if(playerObject != null)
+		{
 			dirToPlayer = playerObject.transform.position - this.transform.position;
 			transform.LookAt(playerObject.transform, Vector3.forward);
 		}
-		else{
+		else
+		{
 			playerObject = GameObject.Find("Player");
 		}
 	}
 		
 	
-	void FixedUpdate(){
+	void FixedUpdate()
+	{
 		timer++;
-		if(timer >= fireTime){
+		if(timer >= fireTime)
+		{
 			//SpawnBeams();
 			timer = 0;
 			dirToPlayer.Normalize();
-			if(this.GetComponent<BigBulletShoot>().getStatus() == false){
+			if(this.GetComponent<BigBulletShoot>().getStatus() == false)
+			{
 				this.GetComponent<BigBulletShoot>().shoot(this.gameObject);
 			}
 		}

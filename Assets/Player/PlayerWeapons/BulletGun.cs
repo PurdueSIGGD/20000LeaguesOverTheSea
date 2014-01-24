@@ -16,7 +16,7 @@ public class BulletGun : BaseWeapon {
 		parentOrbit=parent.GetComponent<Orbit>();
         bullet = (GameObject)Resources.Load("SpaceBullet");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 			if (parent==null || parent.activeSelf==false)
