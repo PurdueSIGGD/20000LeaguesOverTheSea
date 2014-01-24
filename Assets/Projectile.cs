@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour {
 	
 	}
 	
-	    void OnCollisionEnter(Collision coll)
+	 void OnCollisionEnter(Collision coll)
     {
         Collider other = coll.collider;
 		BasicCollision otherCollider= other.gameObject.GetComponent<BasicCollision>();
