@@ -1,4 +1,4 @@
-20000LeaguesOverTheSea
+20,000 Leagues Over the Sea
 ======================
 
-SIGGD's Space Game
+SIGGD's Space Game, currently in transition from subversion to git.
