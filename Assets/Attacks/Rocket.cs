@@ -12,7 +12,9 @@ public class Rocket : MonoBehaviour {
 	
 	// Initialization
 	void Start () {
-		currentLife = maxLife;
+		if (maxLife != 0) {
+			Destroy(this, (float)maxLife/50.0f); //! lifetime was originally calculated in FixedUpdate at timescale of .02 (or 50 frames/second). Division by 50 retains the original timing when maxLife is set exteranl to this script.
+		}
 	}
 	
 	// Update is called once per frame
@@ -21,17 +23,4 @@ public class Rocket : MonoBehaviour {
 		if (this.gameObject.transform.position.magnitude > maxRadius)
 			this.GetComponent<Rigidbody>().velocity *= -1;
 	}
-	
-	
-	void FixedUpdate()
-	{
-		if (maxLife!=0)
-		{
-			currentLife--;
-			if (currentLife==0)
-				GameObject.DestroyObject(this.gameObject);
-		}
-	}
-
-
 }
