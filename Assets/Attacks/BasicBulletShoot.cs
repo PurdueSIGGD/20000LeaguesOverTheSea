@@ -19,19 +19,19 @@ public class BasicBulletShoot : Attack {
 	
 	public override bool shoot (Vector3 direction)
 	{
+	
+		Vector3 initialPosition = this.transform.position + direction * offset;
+		Vector3 initialVelocity;
+	
+	
+		initialVelocity = direction * shotVelocity;
+		GameObject newBullet = (GameObject)Instantiate(bullet,initialPosition,new Quaternion(0,0,0,0));
+		newBullet.GetComponent<Bullet>().maxLife=bulletLife;
+		newBullet.GetComponent<Orbit>().center = this.gameObject.GetComponent<Orbit>().center;
+		newBullet.GetComponent<Orbit>().initialForce = 0;
+		newBullet.rigidbody.AddForce(initialVelocity, ForceMode.VelocityChange);
+		//this function never fails to shoot when called.
+		return true;
 		
-			Vector3 initialPosition = this.transform.position + direction * offset;
-			Vector3 initialVelocity;
-		
-		
-			initialVelocity = direction * shotVelocity;
-			GameObject newBullet = (GameObject)Instantiate(bullet,initialPosition,new Quaternion(0,0,0,0));
-			newBullet.GetComponent<Bullet>().maxLife=bulletLife;
-        	newBullet.GetComponent<Orbit>().center = this.gameObject.GetComponent<Orbit>().center;
-        	newBullet.GetComponent<Orbit>().initialForce = 0;
-        	newBullet.rigidbody.AddForce(initialVelocity, ForceMode.VelocityChange);
-			//this function never fails to shoot when called.
-			return true;
-			
 	}
 }

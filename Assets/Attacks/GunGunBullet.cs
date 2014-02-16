@@ -24,7 +24,7 @@ public class GunGunBullet : Bullet {
 			this.GetComponent<Rigidbody>().velocity *= -1;
 	
 		if(shot)
-		return;
+			return;
 		
 		Vector3 direction= getMouseDirection();
 		drawLine();
@@ -44,7 +44,7 @@ public class GunGunBullet : Bullet {
 		
 	}
 	
-		public Vector3 getMouseDirection()
+	public Vector3 getMouseDirection()
 	{
 		Ray MousePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
 		float distanceToXYPlane=-MousePosition.origin.z/MousePosition.direction.z;
@@ -54,16 +54,16 @@ public class GunGunBullet : Bullet {
 		return direction;
 	}
 	
-			public void drawLine()
+	public void drawLine()
 	{
 		if (this.GetComponent<Orbit>()==null)
 			return;
-			Vector3 direction= getMouseDirection();
-			Vector3 initialPosition= this.transform.position+direction*4;
-			Vector3 initialVelocity = direction*shotVelocity+this.rigidbody.velocity;
-			
-			Vector3[] first = this.GetComponent<Orbit>().getNextPosAndVel(initialPosition,initialVelocity);
-			this.GetComponent<Orbit>().drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
+		Vector3 direction= getMouseDirection();
+		Vector3 initialPosition= this.transform.position+direction*4;
+		Vector3 initialVelocity = direction*shotVelocity+this.rigidbody.velocity;
+		
+		Vector3[] first = this.GetComponent<Orbit>().getNextPosAndVel(initialPosition,initialVelocity);
+		this.GetComponent<Orbit>().drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
 			
 		
 	}

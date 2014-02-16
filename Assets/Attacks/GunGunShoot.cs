@@ -23,7 +23,7 @@ public class GunGunShoot : BaseWeapon {
             GameObject.Destroy(this.gameObject);
             return;
         }
-			this.transform.position=parent.transform.position+offset;
+		this.transform.position=parent.transform.position+offset;
 		
 		Vector3 direction= getMouseDirection();
 		if (Input.GetMouseButtonDown(0) && shotCooldown <= 0)
@@ -42,16 +42,16 @@ public class GunGunShoot : BaseWeapon {
 		}
 	}
 	
-		public override void drawLine()
+	public override void drawLine()
 	{
 		if (parentOrbit==null)
 			return;
-			Vector3 direction= getMouseDirection();
-			Vector3 initialPosition= this.transform.position+direction*4;
-			Vector3 initialVelocity = direction*shotVelocity+parent.rigidbody.velocity;
-			
-			Vector3[] first = parentOrbit.getNextPosAndVel(initialPosition,initialVelocity);
-			parentOrbit.drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
+		Vector3 direction= getMouseDirection();
+		Vector3 initialPosition= this.transform.position+direction*4;
+		Vector3 initialVelocity = direction*shotVelocity+parent.rigidbody.velocity;
+		
+		Vector3[] first = parentOrbit.getNextPosAndVel(initialPosition,initialVelocity);
+		parentOrbit.drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
 			
 		
 	}
