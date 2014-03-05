@@ -47,20 +47,20 @@ public class AimAtPlayer: MonoBehaviour
 			
 				if(GameObject.Find("Player") != null)
 				{
-				Orbit playerOrbit=playerObject.GetComponent<Orbit>();
-				Vector3 playerPos, PlayerVel;
-				playerPos=playerObject.transform.position;
-				PlayerVel=playerObject.rigidbody.velocity;
-				int i;
-				for (i=0;i<20; i++)
-				{
-					Vector3[] newPosandVel=playerOrbit.getNextPosAndVel(playerPos,PlayerVel);
-					playerPos=newPosandVel[0];
-					PlayerVel=newPosandVel[1];			
-				}
+					Orbit playerOrbit=playerObject.GetComponent<Orbit>();
+					Vector3 playerPos, PlayerVel;
+					playerPos=playerObject.transform.position;
+					PlayerVel=playerObject.rigidbody.velocity;
+					int i;
+					for (i=0;i<20; i++)
+					{
+						Vector3[] newPosandVel=playerOrbit.getNextPosAndVel(playerPos,PlayerVel);
+						playerPos=newPosandVel[0];
+						PlayerVel=newPosandVel[1];			
+					}
 					
-				direction = (playerPos) - this.transform.position;
-				direction.Normalize();
+					direction = (playerPos) - this.transform.position;
+					direction.Normalize();
 				}
 
 			}
