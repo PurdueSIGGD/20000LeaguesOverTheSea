@@ -45,7 +45,7 @@ public class LanderCollision : BasicCollision {
 		
 	}
 	
-	public override void OnCollisionEnter(Collision coll)
+	public void OnCollisionEnter(Collision coll)
 	{
 		if (coll.collider.gameObject.tag=="Planet")
 		{

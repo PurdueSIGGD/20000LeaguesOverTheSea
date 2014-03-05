@@ -23,7 +23,7 @@ public class Orbit : MonoBehaviour {
 			line= this.GetComponent<LineRenderer>();
 		//give intital velocity perpendicular to gravity
 		givePerpBoost(initialForce);
-		 planets = GameObject.FindGameObjectsWithTag("Planet");
+		planets = GameObject.FindGameObjectsWithTag("Planet");
 	}
 	
 	// Update is called once per frame
