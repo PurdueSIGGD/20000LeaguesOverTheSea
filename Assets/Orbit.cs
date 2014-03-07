@@ -34,20 +34,6 @@ public class Orbit : MonoBehaviour {
 	
 	void FixedUpdate(){
 
-        //changes the orbit if there are more than 2 planets; changes based on distance to planet
-		bool centerChanged=false;
-		if (planets.Length > 1) {
-			GameObject closestPlanet = center;
-			int distanceFromThis = (int) Mathf.Sqrt(Mathf.Pow(center.transform.position.x - this.transform.position.x, 2) - Mathf.Pow(center.transform.position.y - this.transform.position.y, 2));
-			for (int i = 0; i < planets.Length; i++) {
-				if (Mathf.Sqrt(Mathf.Pow(planets[i].transform.position.x - this.transform.position.x, 2) - Mathf.Pow(planets[i].transform.position.y - this.transform.position.y, 2)) <= distanceFromThis) {
-					center = planets[i];
-					centerBody = center.GetComponent<Rigidbody>();
-					centerChanged=true;
-				}
-			}
-		}
-
 		//calculate force and direction towards center of gravity 
 		Vector3 difference= centerBody.position-body.position;
 		float distance = difference.magnitude;
@@ -57,7 +43,7 @@ public class Orbit : MonoBehaviour {
 		body.AddForce(direction.x*force,direction.y*force,0,ForceMode.VelocityChange);
 		if (drawLine)
 		{
-			if (PredictedPosAndVel[0]==body.position && PredictedPosAndVel[1]==body.velocity && !centerChanged)
+			if (PredictedPosAndVel[0]==body.position && PredictedPosAndVel[1]==body.velocity)
 			{
 				//assume calculations haven't changed and line does not need recalculated.
 				PredictedPosAndVel=getNextPosAndVel(body.position,body.velocity);
