@@ -54,9 +54,10 @@ public class AimAtPlayer: MonoBehaviour
 					int i;
 					for (i=0;i<20; i++)
 					{
-						Vector3[] newPosandVel=playerOrbit.getNextPosAndVel(playerPos,PlayerVel);
-						playerPos=newPosandVel[0];
-						PlayerVel=newPosandVel[1];			
+						//Vector3[] newPosandVel=playerOrbit.getNextPosAndVel(playerPos,PlayerVel);
+						//Vector3 newPosandVel = ;
+						playerPos=Vector3.zero;
+						PlayerVel=Vector3.zero;			
 					}
 						
 					direction = (playerPos) - this.transform.position;

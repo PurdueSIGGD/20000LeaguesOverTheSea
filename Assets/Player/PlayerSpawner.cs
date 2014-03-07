@@ -45,7 +45,7 @@ public class PlayerSpawner : MonoBehaviour {
 			player.transform.rotation=initialRot;
 			
 			player.SetActive(true);
-			player.GetComponent<Orbit>().givePerpBoost(player.GetComponent<Orbit>().initialForce);
+			//player.GetComponent<Orbit>().applyPerpForce(player.GetComponent<Orbit>().initialForce);
 			spawnInvincibilityCounter = spawnInvincibilityInitial;
 			isInvincible = true;
 			respawnCountdown--;

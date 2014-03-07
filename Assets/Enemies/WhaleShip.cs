@@ -127,7 +127,8 @@ public class WhaleShip : MonoBehaviour {
 		//GameObject.Instantiate(dropType,,new Quaternion(0,0,0,1));
 			
 		GameObject newSpawn = (GameObject)Instantiate(dropType,point,new Quaternion(0,0,0,1));
-		newSpawn.GetComponent<Orbit>().center=center;
+		//
+		//newSpawn.GetComponent<Orbit>().center=center;
 		newSpawn.renderer.material.color = new Color(1.0f, 0.6f, 0.1f, 0.0f);
 	}
 }

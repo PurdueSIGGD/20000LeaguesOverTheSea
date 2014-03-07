@@ -33,8 +33,8 @@ public class HarpoonGun : BaseWeapon {
 			//newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
 			//newBullet.transform.position = this.transform.position + direction * 5;
 			newBullet.GetComponent<HarpoonProjectile>().parent=parent;
-			newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
-			newBullet.GetComponent<Orbit>().initialForce = 0;
+			//newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
+			newBullet.GetComponent<Orbit>().initialPerpForce = 0;
 			newBullet.rigidbody.AddForce(shotVelocity * direction+parent.rigidbody.velocity, ForceMode.VelocityChange);
 			shotCooldown = shotCooldownInitial;
 		}
@@ -52,8 +52,8 @@ public class HarpoonGun : BaseWeapon {
 		Vector3 initialPosition= this.transform.position+direction*4;
 		Vector3 initialVelocity = direction*shotVelocity+parent.rigidbody.velocity;
 		
-		Vector3[] first = parentOrbit.getNextPosAndVel(initialPosition,initialVelocity);
-		parentOrbit.drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
+		//Vector3[] first = parentOrbit.getNextPosAndVel(initialPosition,initialVelocity);
+		//parentOrbit.drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
 		
 		
 	}

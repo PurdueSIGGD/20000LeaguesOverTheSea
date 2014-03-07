@@ -53,8 +53,8 @@ public class BigBulletShoot : MonoBehaviour
 			isCharging = true;
 		
 			newBullet.GetComponent<Bullet>().maxLife=bulletLife;
-        	newBullet.GetComponent<Orbit>().center = this.gameObject.GetComponent<Orbit>().center;
-        	newBullet.GetComponent<Orbit>().initialForce = 0;
+        	//newBullet.GetComponent<Orbit>().center = this.gameObject.GetComponent<Orbit>().center;
+			newBullet.GetComponent<Orbit>().initialPerpForce = 0;
 			
 			StartCoroutine(waitingMethod());
 
