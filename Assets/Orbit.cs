@@ -33,6 +33,10 @@ public class Orbit : MonoBehaviour {
 		lineRender = this.GetComponent<LineRenderer>();
 	}
 
+	void Update() {
+		//Debug.Log (gravityAnchors[0].collider.bounds.extents.x + " / " + gravityAnchors[0].collider.bounds.extents.magnitude);
+	}
+
 	//Apply our physics, draw lines.
 	void FixedUpdate(){
 		//Get the force vector from all gravitational bodies
@@ -83,14 +87,14 @@ public class Orbit : MonoBehaviour {
 			//Also force = accelleration as we ignore the craft's mass
 			pos[i] = pos[i-1] + vel * Time.smoothDeltaTime;
 
-			//Stop interpolating if we got off the screen or into a planet.
+			//Stop interpolating if we got off the screen 
 			if(!CameraUtility.isInCameraFrame(pos[i])) {
 				return pos;
 			}
-
+			//or into a planet.
 			foreach (GameObject go in gravityAnchors) {
-				if (Vector3.Distance(pos[i], go.rigidbody.position) < go.collider.bounds.extents.magnitude) {
-					//Debug.Log(go.collider.bounds.extents.magnitude);
+				//If we are closer to the center of the planet than the radius stop 
+				if (Vector3.Distance(pos[i], go.rigidbody.position) < (go.rigidbody.collider.bounds.extents.x)) { //lol
 					return pos;
 				}
 			}
