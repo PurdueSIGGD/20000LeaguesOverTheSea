@@ -18,8 +18,8 @@ public class PlayerSpawner : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {		
-		initialPos=player.transform.position;
-		initialVel=player.rigidbody.velocity;
+		initialPos=new Vector3(player.transform.position.x, player.transform.position.y, 0);
+		initialVel=new Vector3(0,0,0); //player.rigidbody.velocity;
 		initialRot=player.transform.rotation;
 	}
 	
@@ -35,7 +35,7 @@ public class PlayerSpawner : MonoBehaviour {
 		{
 			respawnCountdown--;
 		}
-		
+
 		if (respawnCountdown==0)
 		{
 			
@@ -43,6 +43,7 @@ public class PlayerSpawner : MonoBehaviour {
 			player.transform.position=initialPos;
 			player.rigidbody.velocity=initialVel;
 			player.transform.rotation=initialRot;
+			player.rigidbody.angularVelocity = Vector3.zero;
 			
 			player.SetActive(true);
 			player.GetComponent<Orbit>().givePerpBoost(player.GetComponent<Orbit>().initialForce);
