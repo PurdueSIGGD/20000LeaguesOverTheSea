@@ -59,7 +59,7 @@ public class AimAtPlayer: MonoBehaviour
 						playerPos=Vector3.zero;
 						PlayerVel=Vector3.zero;			
 					}
-						
+					
 					direction = (playerPos) - this.transform.position;
 					direction.Normalize();
 				}

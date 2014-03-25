@@ -1,8 +1,49 @@
 fileFormatVersion: 2
-guid: 955f419e62c304cdb88a5f2f25e94278
+guid: 8229bbb9f7f6a415ba1ca223b652f25d
 ModelImporter:
   serializedVersion: 15
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: abdomen
+    100002: chest
+    100004: fin
+    100006: leftEye
+    100008: polySurface24
+    100010: polySurface25
+    100012: rightEye
+    100014: //RootNode
+    400000: abdomen
+    400002: chest
+    400004: fin
+    400006: leftEye
+    400008: polySurface24
+    400010: polySurface25
+    400012: rightEye
+    400014: //RootNode
+    2300000: abdomen
+    2300002: chest
+    2300004: fin
+    2300006: leftEye
+    2300008: polySurface24
+    2300010: polySurface25
+    2300012: rightEye
+    2300014: //RootNode
+    3300000: abdomen
+    3300002: chest
+    3300004: fin
+    3300006: leftEye
+    3300008: polySurface24
+    3300010: polySurface25
+    3300012: rightEye
+    3300014: //RootNode
+    4300000: body
+    4300002: leftEye
+    4300004: rightEye
+    4300006: polySurface24
+    4300008: polySurface25
+    4300010: chest
+    4300012: abdomen
+    4300014: fin
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

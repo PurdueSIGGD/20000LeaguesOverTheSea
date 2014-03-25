@@ -2,6 +2,8 @@
 using System.Collections;
 using System;
 
+// This exists so a projectile can be hit multiple times before dying
+
 public class BigProjectile : MonoBehaviour {
 	int i = 2;
 	
