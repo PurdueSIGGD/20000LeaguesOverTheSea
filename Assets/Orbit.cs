@@ -15,7 +15,7 @@ public class Orbit : MonoBehaviour {
 	//private float gravityForceConstants = 500;
 	// TODO: gravity constant is the mass of the planet
 
-	public bool drawLine = false;
+	public bool drawOrbit = false;
 	private LineRenderer lineRender;
 	
 	void Start () {
@@ -34,34 +34,11 @@ public class Orbit : MonoBehaviour {
 	}
 
 	//uhh.. draw lines.
-	void Update(){
-		if (drawLine) {
+	void Update() {
+		if (drawOrbit) {
 			//Our Orbit Path, with a smoothed via spline
 			Vector3[] positions = Interpolate();
-			IEnumerable<Vector3> spline = Spline.NewCatmullRom(positions, 1, false);
-			
-			//Draw the splined interpolation of our path!
-			lineRender.SetVertexCount(positions.GetLength(0));
-			IEnumerator<Vector3> thing = spline.GetEnumerator();
-			for (int i = 0; i < positions.GetLength(0); i++) {
-				if(thing.MoveNext()) {
-					lineRender.SetPosition(i, thing.Current);
-
-					//Drawing checks.
-					foreach (GameObject go in gravityAnchors) {
-						//If we are closer to the center of the planet than the radius stop 
-						if (Vector3.Distance(thing.Current, go.rigidbody.position) < (go.rigidbody.collider.bounds.extents.x)) {
-							lineRender.SetVertexCount(i);
-							return;
-						}
-					}
-					if (!CameraUtility.isInCameraFrame(thing.Current) ||
-					    (i > 1000 &&Vector3.Distance(positions[1], thing.Current) < 1)){
-						lineRender.SetVertexCount(i);
-						return;
-					}
-				}
-			}
+			drawLine(positions);
 		}
 	}
 
@@ -81,15 +58,23 @@ public class Orbit : MonoBehaviour {
 
 	//Interpolate our ship's path
 	Vector3[] Interpolate() {
+		return Interpolate(this.gameObject);
+	}
+
+	Vector3[] Interpolate(GameObject go) {
+		return Interpolate(go.rigidbody.position, go.rigidbody.velocity);
+	}
+
+	Vector3[] Interpolate(Vector3 position, Vector3 velocity) {
 		int time = 10000;
 
 
 		List<Vector3> pos = new List<Vector3>();
 
 		//pos[0] = this.rigidbody.position;
-		pos.Add(this.rigidbody.position);
+		pos.Add(position);
 
-		Vector3 vel = this.rigidbody.velocity;
+		Vector3 vel = velocity;
 
 		float deltaTime = Time.smoothDeltaTime;
 
@@ -99,8 +84,8 @@ public class Orbit : MonoBehaviour {
 			/// http://gamedev.stackexchange.com/questions/15708/how-can-i-implement-gravity
 			//Calcualte force/acceleration
 			Vector3 force = Vector3.zero;
-			foreach (GameObject go in gravityAnchors) {
-				force += gravitied(go, pos[i-1]);
+			foreach (GameObject ga in gravityAnchors) {
+				force += gravitied(ga, pos[i-1]);
 			}
 			//r2 = r1 + v*t + a*t*t
 			//Also force = accelleration as we ignore the craft's mass
@@ -108,14 +93,40 @@ public class Orbit : MonoBehaviour {
 
 			//With Verlet, we recalculate the gravity for the velocity
 			Vector3 newforce = Vector3.zero;
-			foreach (GameObject go in gravityAnchors) {
-				newforce += gravitied(go, pos[i]);
+			foreach (GameObject ga in gravityAnchors) {
+				newforce += gravitied(ga, pos[i]);
 			}
 			//v2 = v1 + (a1 + a2) * t
 			//We average the two accelerations/forces for a more accuracy 
 			vel += (force + newforce) / 2 * deltaTime;
 		}
 		return pos.ToArray();
+	}
+
+	void drawLine(Vector3[] positions) {
+		IEnumerable<Vector3> spline = Spline.NewCatmullRom(positions, 1, false);
+		
+		//Draw the splined interpolation of our path!
+		lineRender.SetVertexCount(positions.GetLength(0));
+		IEnumerator<Vector3> thing = spline.GetEnumerator();
+		for (int i = 0; i < positions.GetLength(0); i++) {
+			if(thing.MoveNext()) {
+				lineRender.SetPosition(i, thing.Current);
+				//Drawing checks.
+				foreach (GameObject go in gravityAnchors) {
+					//If we are closer to the center of the planet than the radius stop 
+					if (Vector3.Distance(thing.Current, go.rigidbody.position) < (go.rigidbody.collider.bounds.extents.x)) {
+						lineRender.SetVertexCount(i);
+						return;
+					}
+				}
+				if (!CameraUtility.isInCameraFrame(thing.Current) ||
+				    (i > 1000 &&Vector3.Distance(positions[1], thing.Current) < 1)){
+					lineRender.SetVertexCount(i);
+					return;
+				}
+			}
+		}
 	}
 
 	//Apply a force perpendicular the gravitational anchors
