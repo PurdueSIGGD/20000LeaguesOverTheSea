@@ -52,28 +52,24 @@ public class Orbit : MonoBehaviour {
 
 		// NOTE: ForceMode Velocity Change ignores this object's mass so the force of gravity 
 		//	is applied the same across all objects
-		this.rigidbody.AddForce(force, ForceMode.Force);
+		this.rigidbody.AddForce(force * Time.deltaTime, ForceMode.VelocityChange);
 		//this.rigidbody.velocity =this.rigidbody.velocity + force*Time.fixedDeltaTime;
 	}
 
 	//Interpolate our ship's path
-	Vector3[] Interpolate() {
+	public Vector3[] Interpolate() {
 		return Interpolate(this.gameObject);
 	}
 
-	Vector3[] Interpolate(GameObject go) {
+	public Vector3[] Interpolate(GameObject go) {
 		return Interpolate(go.rigidbody.position, go.rigidbody.velocity);
 	}
 
-	Vector3[] Interpolate(Vector3 position, Vector3 velocity) {
+	public Vector3[] Interpolate(Vector3 position, Vector3 velocity) {
 		int time = 10000;
-
-
 		List<Vector3> pos = new List<Vector3>();
 
-		//pos[0] = this.rigidbody.position;
 		pos.Add(position);
-
 		Vector3 vel = velocity;
 
 		float deltaTime = Time.smoothDeltaTime;
@@ -103,31 +99,37 @@ public class Orbit : MonoBehaviour {
 		return pos.ToArray();
 	}
 
-	void drawLine(Vector3[] positions) {
+	public void drawLine(Vector3[] positions) {
+		drawLine(positions, lineRender);
+	}
+
+	public void drawLine(Vector3[] positions, LineRenderer lr) {
 		IEnumerable<Vector3> spline = Spline.NewCatmullRom(positions, 1, false);
 		
 		//Draw the splined interpolation of our path!
-		lineRender.SetVertexCount(positions.GetLength(0));
+		lr.SetVertexCount(positions.GetLength(0));
 		IEnumerator<Vector3> thing = spline.GetEnumerator();
 		for (int i = 0; i < positions.GetLength(0); i++) {
 			if(thing.MoveNext()) {
-				lineRender.SetPosition(i, thing.Current);
+				lr.SetPosition(i, thing.Current);
+
 				//Drawing checks.
 				foreach (GameObject go in gravityAnchors) {
 					//If we are closer to the center of the planet than the radius stop 
 					if (Vector3.Distance(thing.Current, go.rigidbody.position) < (go.rigidbody.collider.bounds.extents.x)) {
-						lineRender.SetVertexCount(i);
+						lr.SetVertexCount(i);
 						return;
 					}
 				}
 				if (!CameraUtility.isInCameraFrame(thing.Current) ||
-				    (i > 1000 &&Vector3.Distance(positions[1], thing.Current) < 1)){
-					lineRender.SetVertexCount(i);
+				    (i > 500 &&Vector3.Distance(positions[1], thing.Current) < 1)){
+					lr.SetVertexCount(i);
 					return;
 				}
 			}
 		}
 	}
+
 
 	//Apply a force perpendicular the gravitational anchors
 	//	Used to start the object off orbiting around the planet and not falling straight into it.
@@ -157,7 +159,7 @@ public class Orbit : MonoBehaviour {
 
 	Vector3 gravitied(GameObject go, Vector3 position) {
 		Vector3 vector = go.rigidbody.position - position;
-		float magnitude = go.rigidbody.mass / vector.sqrMagnitude;
+		float magnitude = go.rigidbody.mass / vector.sqrMagnitude * 4;
 		return magnitude * vector.normalized;
 	}
 }
