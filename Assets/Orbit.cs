@@ -52,7 +52,7 @@ public class Orbit : MonoBehaviour {
 
 		// NOTE: ForceMode Velocity Change ignores this object's mass so the force of gravity 
 		//	is applied the same across all objects
-		this.rigidbody.AddForce(force * Time.deltaTime, ForceMode.VelocityChange);
+		this.rigidbody.AddForce(force, ForceMode.Acceleration);
 		//this.rigidbody.velocity =this.rigidbody.velocity + force*Time.fixedDeltaTime;
 	}
 
@@ -72,7 +72,7 @@ public class Orbit : MonoBehaviour {
 		pos.Add(position);
 		Vector3 vel = velocity;
 
-		float deltaTime = Time.smoothDeltaTime;
+		float deltaTime = Time.deltaTime;
 
 		for (int i = 1; i < time; i++) {
 			////Velocity_Verlet
