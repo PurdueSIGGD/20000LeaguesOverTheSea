@@ -133,6 +133,10 @@ public class Orbit : MonoBehaviour {
 
 	//Apply a force perpendicular the gravitational anchors
 	//	Used to start the object off orbiting around the planet and not falling straight into it.
+	public void applyPerpForce() {
+		applyPerpForce(initialPerpForce);
+	}
+
 	void applyPerpForce(float force) {
 
 		//Find which gravity object has the largest influence on the craft
