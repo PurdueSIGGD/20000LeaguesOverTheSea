@@ -60,6 +60,7 @@ public class PlayerSpawner : MonoBehaviour {
 			if(spawnInvincibilityCounter == 0)
 			{
 				isInvincible = false;	
+				player.rigidbody.angularVelocity = Vector3.zero;
 			}
 		}
 	}

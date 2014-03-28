@@ -33,10 +33,12 @@ public class AimAtPlayer: MonoBehaviour
 				return;
 			}
 		}
-		
+
 		if (!playerObject.activeSelf)
 			return;
 			
+		transform.LookAt(playerObject.transform, new Vector3(0,1,0));
+
 		Vector3 direction = playerObject.transform.position - this.transform.position;
 		direction.Normalize();
 		

@@ -23,7 +23,7 @@ public class ChargerShot : MonoBehaviour
 		if(playerObject != null)
 		{
 			dirToPlayer = playerObject.transform.position - this.transform.position;
-			transform.LookAt(playerObject.transform, Vector3.forward);
+			transform.LookAt(playerObject.transform, new Vector3(0,0,-1));
 		}
 		else
 		{
