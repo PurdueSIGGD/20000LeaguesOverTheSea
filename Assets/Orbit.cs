@@ -16,6 +16,7 @@ public class Orbit : MonoBehaviour {
 	// TODO: gravity constant is the mass of the planet
 
 	public bool drawOrbit = false;
+	public int linelength = 5000;
 	private LineRenderer lineRender;
 	
 	void Start () {
@@ -38,7 +39,7 @@ public class Orbit : MonoBehaviour {
 		if (drawOrbit) {
 			//Our Orbit Path, with a smoothed via spline
 			Vector3[] positions = Interpolate();
-			drawLine(positions);
+			drawLine(positions, lineRender, linelength);
 		}
 	}
 
@@ -99,17 +100,14 @@ public class Orbit : MonoBehaviour {
 		return pos.ToArray();
 	}
 
-	public void drawLine(Vector3[] positions) {
-		drawLine(positions, lineRender);
-	}
-
-	public void drawLine(Vector3[] positions, LineRenderer lr) {
+	public void drawLine(Vector3[] positions, LineRenderer lr, float dist) {
 		IEnumerable<Vector3> spline = Spline.NewCatmullRom(positions, 1, false);
-		
+		Vector3[] something = Spline.somethingsomethingLine(spline, dist);
+
 		//Draw the splined interpolation of our path!
-		lr.SetVertexCount(positions.GetLength(0));
+		lr.SetVertexCount(something.GetLength(0));
 		IEnumerator<Vector3> thing = spline.GetEnumerator();
-		for (int i = 0; i < positions.GetLength(0); i++) {
+		for (int i = 0; i < something.GetLength(0); i++) {
 			if(thing.MoveNext()) {
 				lr.SetPosition(i, thing.Current);
 
@@ -163,7 +161,7 @@ public class Orbit : MonoBehaviour {
 
 	Vector3 gravitied(GameObject go, Vector3 position) {
 		Vector3 vector = go.rigidbody.position - position;
-		float magnitude = go.rigidbody.mass / vector.sqrMagnitude * 4;
+		float magnitude = go.rigidbody.mass / vector.sqrMagnitude;
 		return magnitude * vector.normalized;
 	}
 }

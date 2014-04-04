@@ -106,4 +106,22 @@ public class Spline {
 				next    * ( 0.5f * percentCompleteCubed -
 				           0.5f * percentCompleteSquared);
 	}
+
+	static public Vector3[] somethingsomethingLine(IEnumerable<Vector3> list, float dist) {
+		List<Vector3> newList = new List<Vector3>();
+
+		Vector3 last = Vector3.zero;
+		foreach(Vector3 v in list) {
+			if (last == Vector3.zero)
+				last = v;
+
+			newList.Add(v);
+			dist -= Vector3.Distance(last, v);
+			if (dist < 0) {
+				break;
+			}
+			last = v;
+		}
+		return newList.ToArray();
+	}
 }

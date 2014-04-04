@@ -53,7 +53,7 @@ public class BulletGun : BaseWeapon {
 		Vector3 initialVelocity = direction * shotVelocity + parent.rigidbody.velocity;
 
 		Vector3[] interpolation = parentOrbit.Interpolate(initialPosition, initialVelocity);
-		parentOrbit.drawLine(interpolation, this.GetComponent<LineRenderer>());
+		parentOrbit.drawLine(interpolation, this.GetComponent<LineRenderer>(), 500);
 
 	}
 }
