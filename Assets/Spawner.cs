@@ -74,7 +74,7 @@ public class Spawner : MonoBehaviour {
 				//Debug.Log("spawned at: (" + point.x +", " + point.y + ") magnitude: " + point.magnitude + "\n");
 					
 				GameObject newSpawn = (GameObject)Instantiate(pickedEnemy,point,new Quaternion(0,0,0,0));
-				newSpawn.GetComponent<Orbit>().center=this.gameObject;
+				//newSpawn.GetComponent<Orbit>().center=this.gameObject;
 			}
 			
 			timer = spawnTimer;

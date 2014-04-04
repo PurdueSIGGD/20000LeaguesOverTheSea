@@ -7,7 +7,7 @@ public class LanderCollision : BasicCollision {
 	public int shootDelay=50;
 	// Use this for initialization
 	void Start () {
-	center=this.GetComponent<Orbit>().center;
+	//center=this.GetComponent<Orbit>().center;
 	}
 	
 	// Update is called once per frame

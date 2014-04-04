@@ -33,8 +33,7 @@ public class GunGunBullet : Bullet {
             GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 4,new Quaternion(0,0,0,0));
             //newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
             //newBullet.transform.position = this.transform.position + direction * 5;
-            newBullet.GetComponent<Orbit>().center = this.GetComponent<Orbit>().center;
-            newBullet.GetComponent<Orbit>().initialForce = 0;
+			newBullet.GetComponent<Orbit>().initialPerpForce = 0;
             newBullet.rigidbody.AddForce(shotVelocity * direction+this.rigidbody.velocity, ForceMode.VelocityChange);
 			shot=true;
 			this.GetComponent<LineRenderer>().enabled=false;
@@ -62,8 +61,8 @@ public class GunGunBullet : Bullet {
 		Vector3 initialPosition= this.transform.position+direction*4;
 		Vector3 initialVelocity = direction*shotVelocity+this.rigidbody.velocity;
 		
-		Vector3[] first = this.GetComponent<Orbit>().getNextPosAndVel(initialPosition,initialVelocity);
-		this.GetComponent<Orbit>().drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
+		//Vector3[] first = this.GetComponent<Orbit>().getNextPosAndVel(initialPosition,initialVelocity);
+		//this.GetComponent<Orbit>().drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
 			
 		
 	}

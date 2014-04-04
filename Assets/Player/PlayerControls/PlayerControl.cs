@@ -105,7 +105,7 @@ public class PlayerControl : MonoBehaviour {
 		}
 
 		// rotate ship to look ahead (Work in progress)
-		transform.LookAt (body.velocity + body.position);//new Vector3(body.position.x, body.velocity.y + body.position.y, body.position.z));
+		transform.LookAt(body.velocity + body.position);
 		//body.transform.Rotate(new Vector3(0, 0, body.velocity.z * 100));
 	}
 	

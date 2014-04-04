@@ -12,8 +12,9 @@ public class BulletGun : BaseWeapon {
 	public float shotVelocity=30;
 	
 	// Use this for initialization
-	void Start () {
-		parentOrbit=parent.GetComponent<Orbit>();
+	void Start () 
+	{
+		parentOrbit = parent.GetComponent<Orbit>();
         bullet = (GameObject)Resources.Load("SpaceBullet");
 	}
 
@@ -32,8 +33,7 @@ public class BulletGun : BaseWeapon {
             GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 4,new Quaternion(0,0,0,0));
             //newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
             //newBullet.transform.position = this.transform.position + direction * 5;
-            newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
-            newBullet.GetComponent<Orbit>().initialForce = 0;
+            newBullet.GetComponent<Orbit>().initialPerpForce = 0;
             newBullet.rigidbody.AddForce(shotVelocity * direction+parent.rigidbody.velocity, ForceMode.VelocityChange);
 			shotCooldown = shotCooldownInitial;
         }
@@ -47,14 +47,13 @@ public class BulletGun : BaseWeapon {
 	{
 		if (parentOrbit==null)
 			return;
-			Vector3 direction= getMouseDirection();
-			Vector3 initialPosition= this.transform.position+direction*4;
-			Vector3 initialVelocity = direction*shotVelocity+parent.rigidbody.velocity;
-			
-			Vector3[] first = parentOrbit.getNextPosAndVel(initialPosition,initialVelocity);
-			parentOrbit.drawOrbitLine(this.GetComponent<LineRenderer>(),10000,first);
-			
-		
-	}
 
+		Vector3 direction= getMouseDirection();
+		Vector3 initialPosition= this.transform.position + direction * 4;
+		Vector3 initialVelocity = direction * shotVelocity + parent.rigidbody.velocity;
+
+		Vector3[] interpolation = parentOrbit.Interpolate(initialPosition, initialVelocity);
+		parentOrbit.drawLine(interpolation, this.GetComponent<LineRenderer>(), 500);
+
+	}
 }
