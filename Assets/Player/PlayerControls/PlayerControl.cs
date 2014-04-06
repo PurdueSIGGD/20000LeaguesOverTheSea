@@ -77,6 +77,13 @@ public class PlayerControl : MonoBehaviour {
 	//Fixed Update, we do physics here.
 	void FixedUpdate()
 	{
+		if(body.angularVelocity != Vector3.zero)
+		{
+			body.angularVelocity = Vector3.zero;
+			body.velocity = new Vector3 (body.velocity.x, body.velocity.y, 0);
+			body.position = new Vector3 (body.position.x, body.position.y, 0);
+		}
+
 		//Direction vectors for the player, we use this for moving the player.
 		Vector3 direction = body.velocity;
 		//Perpendicular vector of the direction. 
@@ -109,6 +116,8 @@ public class PlayerControl : MonoBehaviour {
 		transform.LookAt(this.GetComponent<Orbit>().getNextPosAndVel(body.position, body.velocity)[0], new Vector3(0,0,-1));
 		//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 		//body.transform.Rotate(new Vector3(0, 0, body.velocity.z * 100));
+
+
 	}
 	
 	//Attach this gun to the player.

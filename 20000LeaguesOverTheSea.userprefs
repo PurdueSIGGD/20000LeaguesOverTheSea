@@ -1,15 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Player/PlayerSpawner.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/LanderCollision.cs">
     <Files>
-      <File FileName="Assets/Player/PlayerControls/PlayerControl.cs" Line="109" Column="117" />
+      <File FileName="Assets/Player/PlayerControls/PlayerControl.cs" Line="116" Column="119" />
       <File FileName="Assets/Orbit.cs" Line="1" Column="1" />
-      <File FileName="Assets/Attacks/AimAtPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Attacks/AimAtPlayer.cs" Line="30" Column="45" />
       <File FileName="Assets/Player/PlayerWeapons/BulletGun.cs" Line="1" Column="1" />
       <File FileName="Assets/BigProjectile.cs" Line="1" Column="1" />
       <File FileName="Assets/Enemies/ChargerShot.cs" Line="1" Column="1" />
       <File FileName="Assets/Spawner.cs" Line="1" Column="1" />
       <File FileName="Assets/Player/PlayerSpawner.cs" Line="63" Column="5" />
+      <File FileName="Assets/PlanetRotate.cs" Line="19" Column="21" />
+      <File FileName="Assets/LanderCollision.cs" Line="42" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

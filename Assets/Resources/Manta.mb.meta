@@ -1,0 +1,222 @@
+fileFormatVersion: 2
+guid: 7008aa95c63384eb38692afd954f4f0c
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: body
+    100002: cockpit
+    100004: leftEngines1
+    100006: leftEyeLaser
+    100008: leftJaw
+    100010: leftJawCtrl
+    100012: leftRearSpike
+    100014: lowerLeftWing
+    100016: lowerLeftWingCtrl
+    100018: lowerRightWing
+    100020: lowerRightWingCtrl
+    100022: //RootNode
+    100024: pCube1
+    100026: pCube1 1
+    100028: pCube2
+    100030: pCube2 1
+    100032: pCube3
+    100034: pCube3 1
+    100036: pCube4
+    100038: pCube4 1
+    100040: rightEngines
+    100042: rightEyeLaser
+    100044: rightJaw
+    100046: rightJawCtrl
+    100048: rightRearSpike
+    100050: tailJoint1
+    100052: tailJoint2
+    100054: tailJoint3
+    100056: tailJoint4
+    100058: tailSegment1
+    100060: tailSegment2
+    100062: tailSegment3
+    100064: tailSpike
+    100066: upperLeftWing
+    100068: upperLeftWingCtrl
+    100070: upperRightWing
+    100072: upperRightWingCtrl
+    400000: body
+    400002: cockpit
+    400004: leftEngines1
+    400006: leftEyeLaser
+    400008: leftJaw
+    400010: leftJawCtrl
+    400012: leftRearSpike
+    400014: lowerLeftWing
+    400016: lowerLeftWingCtrl
+    400018: lowerRightWing
+    400020: lowerRightWingCtrl
+    400022: //RootNode
+    400024: pCube1
+    400026: pCube1 1
+    400028: pCube2
+    400030: pCube2 1
+    400032: pCube3
+    400034: pCube3 1
+    400036: pCube4
+    400038: pCube4 1
+    400040: rightEngines
+    400042: rightEyeLaser
+    400044: rightJaw
+    400046: rightJawCtrl
+    400048: rightRearSpike
+    400050: tailJoint1
+    400052: tailJoint2
+    400054: tailJoint3
+    400056: tailJoint4
+    400058: tailSegment1
+    400060: tailSegment2
+    400062: tailSegment3
+    400064: tailSpike
+    400066: upperLeftWing
+    400068: upperLeftWingCtrl
+    400070: upperRightWing
+    400072: upperRightWingCtrl
+    2300000: body
+    2300002: cockpit
+    2300004: leftEngines1
+    2300006: leftEyeLaser
+    2300008: leftJaw
+    2300010: leftRearSpike
+    2300012: lowerLeftWing
+    2300014: lowerRightWing
+    2300016: pCube1
+    2300018: pCube1 1
+    2300020: pCube2
+    2300022: pCube2 1
+    2300024: pCube3
+    2300026: pCube3 1
+    2300028: pCube4
+    2300030: pCube4 1
+    2300032: rightEngines
+    2300034: rightEyeLaser
+    2300036: rightJaw
+    2300038: rightRearSpike
+    2300040: tailJoint1
+    2300042: tailJoint2
+    2300044: tailJoint3
+    2300046: tailJoint4
+    2300048: tailSegment1
+    2300050: tailSegment2
+    2300052: tailSegment3
+    2300054: tailSpike
+    2300056: upperLeftWing
+    2300058: upperRightWing
+    3300000: body
+    3300002: cockpit
+    3300004: leftEngines1
+    3300006: leftEyeLaser
+    3300008: leftJaw
+    3300010: leftRearSpike
+    3300012: lowerLeftWing
+    3300014: lowerRightWing
+    3300016: pCube1
+    3300018: pCube1 1
+    3300020: pCube2
+    3300022: pCube2 1
+    3300024: pCube3
+    3300026: pCube3 1
+    3300028: pCube4
+    3300030: pCube4 1
+    3300032: rightEngines
+    3300034: rightEyeLaser
+    3300036: rightJaw
+    3300038: rightRearSpike
+    3300040: tailJoint1
+    3300042: tailJoint2
+    3300044: tailJoint3
+    3300046: tailJoint4
+    3300048: tailSegment1
+    3300050: tailSegment2
+    3300052: tailSegment3
+    3300054: tailSpike
+    3300056: upperLeftWing
+    3300058: upperRightWing
+    4300000: tailJoint1
+    4300002: tailSegment1
+    4300004: tailJoint2
+    4300006: tailSegment2
+    4300008: tailJoint3
+    4300010: tailSegment3
+    4300012: tailJoint4
+    4300014: tailSpike
+    4300016: upperLeftWing
+    4300018: leftEngines1
+    4300020: pCube2
+    4300022: pCube3
+    4300024: lowerLeftWing
+    4300026: pCube4
+    4300028: leftJaw
+    4300030: pCube1
+    4300032: body
+    4300034: leftRearSpike
+    4300036: rightRearSpike
+    4300038: leftEyeLaser
+    4300040: rightEyeLaser
+    4300042: cockpit
+    4300044: upperRightWing
+    4300046: rightEngines
+    4300048: pCube2
+    4300050: pCube3
+    4300052: lowerRightWing
+    4300054: pCube4
+    4300056: rightJaw
+    4300058: pCube1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
