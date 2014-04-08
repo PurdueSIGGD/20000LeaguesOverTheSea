@@ -46,7 +46,8 @@ public class PlayerSpawner : MonoBehaviour {
 			player.rigidbody.angularVelocity = Vector3.zero;
 			
 			player.SetActive(true);
-			player.GetComponent<Orbit>().givePerpBoost(player.GetComponent<Orbit>().initialForce);
+
+			player.GetComponent<Orbit>().applyPerpForce();
 			spawnInvincibilityCounter = spawnInvincibilityInitial;
 			isInvincible = true;
 			respawnCountdown--;
