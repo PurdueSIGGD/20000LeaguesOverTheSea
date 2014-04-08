@@ -164,4 +164,15 @@ public class Orbit : MonoBehaviour {
 		float magnitude = go.rigidbody.mass / vector.sqrMagnitude;
 		return magnitude * vector.normalized;
 	}
+
+	public GameObject getClosestPlanet(Vector3 v) {
+		GameObject planet = gravityAnchors[0];
+		foreach (GameObject p in gravityAnchors) {
+			if (Vector3.Distance(p.rigidbody.position, v) <=
+			    Vector3.Distance(planet.rigidbody.position, v)) {
+				planet = p;
+			}
+		}
+		return planet;
+	}
 }
