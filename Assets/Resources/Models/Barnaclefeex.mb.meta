@@ -1,23 +1,41 @@
 fileFormatVersion: 2
-guid: fa8a06c37a2454505a6c4b152ad49027
+guid: 8f1cbd9fc34654b22865df5a4f729fea
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: boat
-    100002: //RootNode
-    100004: spotLight1
-    100006: spotLight2
-    100008: spotLight3
-    100010: spotLight4
-    400000: boat
-    400002: //RootNode
-    400004: spotLight1
-    400006: spotLight2
-    400008: spotLight3
-    400010: spotLight4
-    2300000: boat
-    3300000: boat
-    4300000: boat
+    100000: //RootNode
+    100002: body
+    100004: cannon
+    100006: cannon_sleeve
+    100008: directionalLight1
+    100010: directionalLight2
+    100012: door1
+    100014: door2
+    100016: doorPivot
+    400000: //RootNode
+    400002: body
+    400004: cannon
+    400006: cannon_sleeve
+    400008: directionalLight1
+    400010: directionalLight2
+    400012: door1
+    400014: door2
+    400016: doorPivot
+    2300000: body
+    2300002: cannon
+    2300004: cannon_sleeve
+    2300006: door1
+    2300008: door2
+    3300000: body
+    3300002: cannon
+    3300004: cannon_sleeve
+    3300006: door1
+    3300008: door2
+    4300000: body
+    4300002: door1
+    4300004: door2
+    4300006: cannon_sleeve
+    4300008: cannon
     9500000: //RootNode
   materials:
     importMaterials: 1
