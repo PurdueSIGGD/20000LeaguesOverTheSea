@@ -175,4 +175,8 @@ public class Orbit : MonoBehaviour {
 		}
 		return planet;
 	}
+
+	public GameObject[] getPlanets() {
+		return gravityAnchors;		
+	}
 }

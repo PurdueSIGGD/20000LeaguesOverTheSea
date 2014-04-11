@@ -12,12 +12,18 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject[] guns; //Array of Guns available to the player.
 	public int currentGun = 0; //Current Gun in guns
 	public bool drawGunLine = true; 
-	
+
+	private static GameObject player;
+	public static GameObject getPlayer() {
+		return player;
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
 		body = this.GetComponent<Rigidbody>();
 		attachGun (guns[currentGun]);
+		player = gameObject;
 	}
 	
 	// Update is called once per frame
