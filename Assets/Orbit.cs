@@ -10,6 +10,9 @@ public class Orbit : MonoBehaviour {
 
 	//Initial Perpindicular Force 
 	public float initialPerpForce = 50;
+	public bool startCircular=false;
+	public bool preferCircularOrbit=false;
+	public float preferredOrbit=0;
 
 	//Gravity Force Constant, calculation simplification, estimation G*m*M
 	//private float gravityForceConstants = 500;
@@ -18,7 +21,8 @@ public class Orbit : MonoBehaviour {
 	public bool drawOrbit = false;
 	public int linelength = 5000;
 	private LineRenderer lineRender;
-	
+	bool hohmannInProgress=false;	
+	public float hohmannStartDist;
 	void Start () {
 		//If customGravityAnchor is not null make it the only member of the gravityAnchors
 		if (customGravityAnchor != null) {
@@ -28,7 +32,9 @@ public class Orbit : MonoBehaviour {
 			//Unity editor's tag system
 			gravityAnchors = GameObject.FindGameObjectsWithTag("Planet");
 		}
-
+		if (startCircular)
+			forceCircular();
+		else
 		applyPerpForce(initialPerpForce);
 
 		lineRender = this.GetComponent<LineRenderer>();
@@ -36,7 +42,9 @@ public class Orbit : MonoBehaviour {
 
 	//uhh.. draw lines.
 	void Update() {
+
 		if (drawOrbit) {
+
 			//Our Orbit Path, with a smoothed via spline
 			Vector3[] positions = Interpolate();
 			drawLine(positions, lineRender, linelength);
@@ -45,6 +53,13 @@ public class Orbit : MonoBehaviour {
 
 	//Apply our physics.
 	void FixedUpdate(){
+		if(preferCircularOrbit)
+		circularizeOrbit();
+
+		if(preferredOrbit!=0)
+		{
+			OrbitAtHeight(preferredOrbit);
+		}
 		//Get the force vector from all gravitational bodies
 		Vector3 force = Vector3.zero;
 		foreach (GameObject go in gravityAnchors) {
@@ -152,6 +167,116 @@ public class Orbit : MonoBehaviour {
 
 		this.rigidbody.AddForce(perpDirection * force * -1, ForceMode.VelocityChange);
 	}
+
+	void circularizeOrbit()
+	{
+		//Find which gravity object has the largest influence on the craft
+		GameObject closestPlanet = gravityAnchors[0];
+		Vector3 max = gravitied(closestPlanet); //Max dist vector
+
+		foreach (GameObject go in gravityAnchors) {
+			if (max.magnitude < gravitied(go).magnitude) {
+				closestPlanet = go;
+				max = gravitied(go);
+			}
+		}
+		
+		//Rotates the craft to planet vector 90 degrees, tis a neat vector trick
+		Vector3 perpDirection = new Vector3(-max.y, max.x, 0).normalized;
+
+		float IdealSpeed= Mathf.Sqrt(closestPlanet.rigidbody.mass/((this.transform.position-closestPlanet.transform.position).magnitude));
+		Vector3 idealVelocity=IdealSpeed*perpDirection;
+		//this.rigidbody.velocity=idealVelocity;
+		if (Mathf.Abs(this.rigidbody.velocity.magnitude-idealVelocity.magnitude)<.1f)
+			return;
+		if (this.rigidbody.velocity.magnitude<idealVelocity.magnitude)
+		this.rigidbody.AddForce((this.rigidbody.velocity-idealVelocity)*.5f,ForceMode.Acceleration);
+		if (this.rigidbody.velocity.magnitude>idealVelocity.magnitude)
+			this.rigidbody.AddForce((idealVelocity-this.rigidbody.velocity)*.5f,ForceMode.Acceleration);
+
+	}
+
+	void forceCircular()
+	{
+		//Find which gravity object has the largest influence on the craft
+		GameObject closestPlanet = gravityAnchors[0];
+		Vector3 max = gravitied(closestPlanet); //Max dist vector
+		
+		foreach (GameObject go in gravityAnchors) {
+			if (max.magnitude < gravitied(go).magnitude) {
+				closestPlanet = go;
+				max = gravitied(go);
+			}
+		}
+		
+		//Rotates the craft to planet vector 90 degrees, tis a neat vector trick
+		Vector3 perpDirection = new Vector3(-max.y, max.x, 0).normalized;
+		
+		float IdealSpeed= Mathf.Sqrt(closestPlanet.rigidbody.mass/((this.transform.position-closestPlanet.transform.position).magnitude));
+		Vector3 idealVelocity=IdealSpeed*perpDirection;
+		this.rigidbody.velocity=idealVelocity;
+	
+	}
+
+
+	void OrbitAtHeight(float height)
+	{
+
+		//Find which gravity object has the largest influence on the craft
+		GameObject closestPlanet = gravityAnchors[0];
+		Vector3 max = gravitied(closestPlanet); //Max dist vector
+		
+		foreach (GameObject go in gravityAnchors) {
+			if (max.magnitude < gravitied(go).magnitude) {
+				closestPlanet = go;
+				max = gravitied(go);
+			}
+		}
+		
+		//Rotates the craft to planet vector 90 degrees, tis a neat vector trick
+		Vector3 perpDirection = new Vector3(-max.y, max.x, 0).normalized;
+		float currentHeight=Mathf.Abs((this.rigidbody.position-closestPlanet.rigidbody.position).magnitude);
+		//if about right, circularize
+		if (Mathf.Abs(height-currentHeight)>hohmannStartDist+5)
+		{
+			hohmannInProgress=false;
+		}
+		if(Mathf.Abs(height-currentHeight)<5)
+		{
+			circularizeOrbit();
+			if (hohmannInProgress && Mathf.Abs(height-currentHeight)<1)
+			{
+				forceCircular();
+				hohmannInProgress=false;
+			}
+
+
+			return;
+		}
+		if(!hohmannInProgress)
+		{
+
+			//If not near proper orbit, start transfer orbit
+			//Hohmann transfers only work if circular
+			forceCircular();
+			float deltav= Mathf.Sqrt(closestPlanet.rigidbody.mass/currentHeight)*(Mathf.Sqrt(2*height/(currentHeight+height))+1);
+			Debug.Log("Hohmann "+deltav +"Default "+rigidbody.velocity);
+			if(currentHeight-height<0)
+			rigidbody.AddForce(deltav*rigidbody.velocity.normalized*5,ForceMode.Acceleration);
+			else
+				rigidbody.AddForce(-deltav*rigidbody.velocity.normalized*5,ForceMode.Acceleration);
+
+			
+			hohmannStartDist=Mathf.Abs(height-currentHeight);
+			hohmannInProgress=true;
+		}
+
+		 
+
+
+	}
+
+
 
 	//Calculate the Gravitational Force!
 	//Simplified to planet mass / dist ^ 2 * vectorNorm(direction of craft to planet)
