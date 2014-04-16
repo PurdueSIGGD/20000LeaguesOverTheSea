@@ -22,7 +22,7 @@ public class Orbit : MonoBehaviour {
 	public int linelength = 5000;
 	private LineRenderer lineRender;
 	bool hohmannInProgress=false;	
-	public float hohmannStartDist;
+	float hohmannStartDist;
 	void Start () {
 		//If customGravityAnchor is not null make it the only member of the gravityAnchors
 		if (customGravityAnchor != null) {
@@ -260,7 +260,7 @@ public class Orbit : MonoBehaviour {
 			//Hohmann transfers only work if circular
 			forceCircular();
 			float deltav= Mathf.Sqrt(closestPlanet.rigidbody.mass/currentHeight)*(Mathf.Sqrt(2*height/(currentHeight+height))+1);
-			Debug.Log("Hohmann "+deltav +"Default "+rigidbody.velocity);
+			//Debug.Log("Hohmann "+deltav +"Default "+rigidbody.velocity);
 			if(currentHeight-height<0)
 			rigidbody.AddForce(deltav*rigidbody.velocity.normalized*5,ForceMode.Acceleration);
 			else

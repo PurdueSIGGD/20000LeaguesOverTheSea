@@ -4,7 +4,7 @@ using System.Collections;
 public class BulletGun : BaseWeapon {
 	
     GameObject bullet;
-	public int shotCooldownInitial = 30;
+	int shotCooldownInitial = 10;
 	int shotCooldown = 0;
 	Orbit parentOrbit;
 	

@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 	
 	public int spawnTimer=100;
-	public int minSpawnRadius=50;
-	public int maxSpawnRadius=100;
+	public int minSpawnRadius=300;
+	public int maxSpawnRadius=500;
+	public int minWaveSize=5;
+	public int maxWaveSize=10;
+
 	int difference;
 	Vector2 direction;
 	int timer, totalWeight;
@@ -26,7 +29,7 @@ public class Spawner : MonoBehaviour {
 		available = new int[enemyList.Length];
 		bossesSpawned = new bool[enemyList.Length];
 		difference = maxSpawnRadius - minSpawnRadius;
-		timer=spawnTimer;
+		timer=1;
 	}
 	
 	// Update is called once per frame
@@ -61,6 +64,9 @@ public class Spawner : MonoBehaviour {
 		timer--;
 		if (timer <= 0 && lenAvail > 0)
 		{
+			spawnWave();
+			timer = spawnTimer;
+			/*
 			pickedEnemy = pickSpawn();
 			if(pickedEnemy != null)
 			{
@@ -77,7 +83,7 @@ public class Spawner : MonoBehaviour {
 				//newSpawn.GetComponent<Orbit>().center=this.gameObject;
 			}
 			
-			timer = spawnTimer;
+			timer = spawnTimer;*/
 		}
 		
 	}
@@ -103,6 +109,41 @@ public class Spawner : MonoBehaviour {
 		}
 		
 		return null; //If it gets here then there is an issue
+	}
+
+	public bool spawnWave()
+	{
+		//which quadrant
+		int circy =(int) Random.Range(-1,1);
+		int circx=(int) Random.Range(-1,1);
+		int max=(int)Random.Range (minWaveSize,maxWaveSize+1);
+		int spawned=0;
+		while (spawned<max)
+		{
+			Vector2 newPos=Random.insideUnitCircle;
+			//trim to right quadrant, probably a better way to do this.
+			if((circx==0 && newPos.x<0) || (circx==-1 && newPos.x>0))
+				continue;
+			if((circy==0 && newPos.y<0) || (circy==-1 && newPos.y>0))
+				continue;
+			Vector2 direction=newPos.normalized;
+
+		
+			direction*=minSpawnRadius;
+
+			int offset=Random.Range (0,maxSpawnRadius-minSpawnRadius);
+			newPos*=offset;
+			newPos=newPos+direction;
+			pickedEnemy=pickSpawn ();
+			//if enemy list empty
+			if (pickedEnemy==null)
+				return false;
+			GameObject newSpawn = (GameObject)Instantiate(pickedEnemy,newPos,new Quaternion(0,0,0,0));
+			newSpawn.GetComponent<Orbit>().preferredOrbit=50+offset/3;
+			spawned++;
+
+		}
+		return true;
 	}
 	
 }
