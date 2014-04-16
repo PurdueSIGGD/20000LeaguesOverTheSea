@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour {
 		available = new int[enemyList.Length];
 		bossesSpawned = new bool[enemyList.Length];
 		difference = maxSpawnRadius - minSpawnRadius;
-		timer=spawnTimer;
+		timer=1;
 	}
 	
 	// Update is called once per frame
