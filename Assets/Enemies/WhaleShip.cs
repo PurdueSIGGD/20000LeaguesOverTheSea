@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WhaleShip : MonoBehaviour 
 {
-	//GameObject whaleShip;
+	GameObject whaleShip;
 	int hitPoints;
 	//public Color whaleShipColor;
 	public GameObject dropType;
@@ -12,12 +12,20 @@ public class WhaleShip : MonoBehaviour
 	Vector3 direction;
 	GameObject playerObject;
 	bool centered = false;
-	
+
+	GameObject[] planets;
+	int planetCount;
+
 	void Start() 
 	{
-
-		//whaleShip = this.gameObject;
+		whaleShip = this.gameObject;
 		playerObject =  GameObject.Find("Player");
+		planets = GameObject.FindGameObjectsWithTag("Planet");
+		foreach (GameObject planet in planets) 
+		{
+			Debug.Log ("planet!");
+		}
+		planetCount = planets.Length - 1;
 		dropTimer = dropTimerCountdownBase;
 		hitPoints = 50;
 		//gameObject.renderer.material = new Material("blank");//Shader.Find("Unlit/Texture")
@@ -34,8 +42,8 @@ public class WhaleShip : MonoBehaviour
 	void FixedUpdate() 
 	{
 		dropTimer--;
-		GameObject center = GameObject.Find("CenterOfGravity");
-		Vector2 whalePoint = rigidbody.position;
+		//GameObject center = GameObject.Find("CenterOfGravity");
+		//Vector2 whalePoint = rigidbody.position;
 		
 		if( dropTimer % 50 == 0 && dropTimer > dropTimerCountdownBase / 4 && dropTimer < dropTimerCountdownBase * 3 / 4 ) {
 			shoot (3);
@@ -47,9 +55,22 @@ public class WhaleShip : MonoBehaviour
 			
 			dropTimer = dropTimerCountdownBase;
 		}
+		if (planets [planetCount].GetType is WhaleShip) 
+		{
+			planetCount--;
+			if(planetCount < 0)
+				return;
+		}
+		Debug.Log (planetCount);
+		Vector3 moveDirection = planets[0].transform.position - this.transform.position;
+		moveDirection.Normalize ();
+		transform.position += moveDirection * 50;
+		//transform.LookAt (playerObject.transform.position, new Vector3(0,0,-1));
+		transform.LookAt (moveDirection, new Vector3(0,0,-1));
 
-		transform.position = Vector3.zero;
-		transform.LookAt (playerObject.transform.position, new Vector3(0,0,-1));
+
+		//rigidbody.velocity = playerObject.transform.position;
+		//rigidbody.velocity.Normalize ();
 		/*Vector2 centerPoint = center.rigidbody.position;
 		//float angle = Mathf.Atan2 (whalePoint.y - centerPoint.y, whalePoint.x - centerPoint.x);
 		//Vector3 lookAngle = new Vector3(Mathf.Cos (angle), Mathf.Sin (angle), 0 );
@@ -81,7 +102,7 @@ public class WhaleShip : MonoBehaviour
 
 		if(hitPoints < 0)
 		{
-			GameObject.Destroy(this);
+			GameObject.Destroy(GameObject.Find("WhaleShip"));
 		}
 		
 		shoot (5);
@@ -112,17 +133,30 @@ public class WhaleShip : MonoBehaviour
 			direction += perp * spread * .25f;
 			direction.Normalize();
 			//float tempOffset = this.GetComponent<BasicBulletShoot>().offset;
-			this.GetComponent<BasicBulletShoot>().shoot(direction * 1.25f);
+//			this.GetComponent<BasicBulletShoot>().shoot(direction * 1.25f);
 		}
 		if(isOdd){
-			this.GetComponent<BasicBulletShoot>().shoot(originalDirection * 1.25f);
+//			this.GetComponent<BasicBulletShoot>().shoot(originalDirection * 1.25f);
 			//Debug.Log("Middle Fire!\n");
 		}
 		direction = originalDirection;
 		isOdd = false;
 		//StartCoroutine(StupidWaitingMethod());
 	}
-	
+
+	public void decreasePlanetCount()
+	{
+		planetCount--;
+
+		if (planets [planetCount].GetType is WhaleShip)
+				planetCount--;
+
+		if(planetCount < 0)
+		{
+			//The game is over!
+		}
+	}
+
 	/*void dropBomb() {
 		GameObject center = GameObject.Find("CenterOfGravity");
 		Vector2 whalePoint = rigidbody.position;

@@ -7,7 +7,14 @@ public class WhaleShipCollision : BasicCollision
 	{
 		if(collider.tag == "Bullet")
 		{
-			this.GetComponent<WhaleShip>().gotHit();
+			GameObject.Find("WhaleShip").GetComponent<WhaleShip>().gotHit();
+			GameObject.DestroyObject(collider.gameObject);
+		}
+
+		if (collider.tag == "Planet") 
+		{
+			GameObject.DestroyObject(collider.gameObject);
+			GameObject.Find("WhaleShip").GetComponent<WhaleShip>().decreasePlanetCount();
 		}
 
 		if(collider.tag == "Player")
