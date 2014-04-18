@@ -3,91 +3,55 @@ using System.Collections;
 
 public class InGameMenu : MonoBehaviour {
 
-	public Color greenHealth;
-	public Color yellowHealth;
-	public Color redHealth;
-	public float distanceFromPlanet = 1.1f;
-	public float size = 0.4f;
-	public int segments;
+	private bool _paused;
+	public bool paused {
+		get {
+			return _paused;
+		}
+		set{
+			_paused = value;
+			Time.timeScale = (value) ? 0 : 1;
+		}
+	}
 
+	public GUISkin skin;
+	public Rect groupRect;
 
 	//  Right now we just use the escape key to go back to the menu
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Escape)) {
-			Application.LoadLevel("Menu");	
+			//Application.LoadLevel("Menu");	
+			paused = (paused) ? false : true; //toggle 
 		}
 	}
 
-	//Exmaple given line material.
-	static Material lineMaterial;
-	static void CreateLineMaterial() {
-		if( !lineMaterial ) {
-			lineMaterial = new Material( "Shader \"Lines/Colored Blended\" {" +
-			                            "SubShader { Pass { " +
-			                            "    Blend SrcAlpha OneMinusSrcAlpha " +
-			                            "    ZWrite Off Cull Off Fog { Mode Off } " +
-			                            "    BindChannels {" +
-			                            "      Bind \"vertex\", vertex Bind \"color\", color }" +
-			                            "} } }" );
-			lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-			lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+	void OnGUI () {
+		if (paused) {
+			GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
+		                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
+			gameMenu();
 		}
 	}
 
-	void drawPlanetHealth(GameObject planet) {
-		float radius = planet.rigidbody.collider.bounds.extents.x;
-
-		if (segments <= 0) {
-			Debug.Log ("Planet Health: Number of segments for drawing less than zero.");
+	void gameMenu() {
+		GUI.BeginGroup(Menu.scale_rect(groupRect, Menu.scaledR));
+		GUI.Box(Menu.scale_rect(new Rect(35,20,30,55), Menu.scaledR), "Pause Menu", skin.box);
+		
+		if( GUI.Button(Menu.scale_rect(new Rect(35, 30, 30, 15), Menu.scaledR), "Resume", skin.customStyles[1]))
+		{
+			paused = false;
 			return;
 		}
-
-		int health = planet.GetComponent<PlanetCollision>().health;
-		Color color;
-		if (health > 50) {
-			color = greenHealth; 
-		} else if (health <= 50 && health > 25) {
-			color = yellowHealth;
-		} else {
-			color = redHealth;
-		}	
-
-		//Build Circle
-		Vector3 builder;
-		for(float i = 0; i < 360 * (health / 100f) - 1; i += 360 / segments) {
-			//Build Segments little messy.
-			GL.Begin(GL.QUADS);
-			GL.Color(color);
-		 
-			builder = new Vector3(Mathf.Cos(Mathf.Deg2Rad * (90 + i)), Mathf.Sin(Mathf.Deg2Rad * (90 + i)), 0);
-			builder *= radius * distanceFromPlanet;
-			GL.Vertex(builder);
-
-			builder = new Vector3(Mathf.Cos(Mathf.Deg2Rad * (90 + i + 360 / segments)), Mathf.Sin(Mathf.Deg2Rad * (90 + i + 360 / segments)), 0);
-			builder *= radius * distanceFromPlanet;
-			GL.Vertex(builder);
-
-			builder = new Vector3(Mathf.Cos(Mathf.Deg2Rad * (90 + i + 360 / segments)), Mathf.Sin(Mathf.Deg2Rad * (90 + i + 360 / segments)), 0);
-			builder *= radius * distanceFromPlanet + radius * size;
-			GL.Vertex(builder);
-
-			builder = new Vector3(Mathf.Cos(Mathf.Deg2Rad * (90 + i)), Mathf.Sin(Mathf.Deg2Rad * (90 + i)), 0);
-			builder *= radius * distanceFromPlanet + radius * size;
-			GL.Vertex(builder);
-
-			GL.End();
+		if( GUI.Button(Menu.scale_rect(new Rect(35, 45, 30, 15), Menu.scaledR), "Options", skin.customStyles[1]))
+		{
+			Application.LoadLevel("Menu");
+			return;
 		}
-	}
-
-	void OnPreRender() {
-		CreateLineMaterial();
-		// set the current material
-		GL.PushMatrix();
-		lineMaterial.SetPass(0);
-		foreach (GameObject g in PlayerControl.getPlayer().GetComponents<Orbit>()[0].getPlanets()) {
-			drawPlanetHealth(g);
+		if( GUI.Button(Menu.scale_rect(new Rect(35, 60, 30, 15), Menu.scaledR), "Exit", skin.customStyles[1]))
+		{
+			Application.LoadLevel("Menu");
+			return;
 		}
-		GL.MultMatrix (transform.localToWorldMatrix);
-		GL.PopMatrix();
+		GUI.EndGroup();
 	}
 }

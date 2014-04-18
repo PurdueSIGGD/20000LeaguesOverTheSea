@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour {
 	 */
 	
 	//Scaled Resolution: what the gui is scaled to, we aim for 1080p
-	private static Vector2 scaledR = new Vector2(1920, 1080); 
+	public static Vector2 scaledR = new Vector2(1920, 1080); 
 	
 	
 	GUISkin guiSkin;
@@ -113,7 +113,7 @@ public class Menu : MonoBehaviour {
 	
 	
 	//Scales the percentage(0-100) rectangle to the scaled Resolution.
-	private Rect scale_rect(Rect r, Vector2 scale)
+	public static Rect scale_rect(Rect r, Vector2 scale)
 	{
 		r.x *= scale.x / 100;
 		r.y *= scale.y / 100;

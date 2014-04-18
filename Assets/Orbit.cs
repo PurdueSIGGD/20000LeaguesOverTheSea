@@ -19,7 +19,7 @@ public class Orbit : MonoBehaviour {
 	// TODO: gravity constant is the mass of the planet
 
 	public bool drawOrbit = false;
-	public int linelength = 5000;
+	public int linelength = 500;
 	private LineRenderer lineRender;
 	bool hohmannInProgress=false;	
 	float hohmannStartDist;
