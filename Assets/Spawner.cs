@@ -9,7 +9,8 @@ public class Spawner : MonoBehaviour {
 	public int maxSpawnRadius=500;
 	public int minWaveSize=5;
 	public int maxWaveSize=10;
-
+	public int numWaves=10;
+	int curWaves=0;
 	int difference;
 	Vector2 direction;
 	int timer, totalWeight;
@@ -22,13 +23,14 @@ public class Spawner : MonoBehaviour {
 	int[] available;
 	bool[] bossesSpawned;
 	public EnemyList[] enemyList;
-	
+	ArrayList liveEnemies;
 	// Use this for initialization
 	void Start () {
 		complete = false;
 		available = new int[enemyList.Length];
 		bossesSpawned = new bool[enemyList.Length];
 		difference = maxSpawnRadius - minSpawnRadius;
+		liveEnemies= new ArrayList();
 		timer=1;
 	}
 	
@@ -60,12 +62,21 @@ public class Spawner : MonoBehaviour {
 				complete = true;
 			}
 		}
-		
-		timer--;
-		if (timer <= 0 && lenAvail > 0)
+
+		liveEnemies.Remove(null);
+
+		if (curWaves>=numWaves && liveEnemies.Count==0)
 		{
-			spawnWave();
-			timer = spawnTimer;
+			winStage();
+		}
+		timer--;
+		if (curWaves<numWaves && timer <= 0 && lenAvail > 0)
+		{
+			if(spawnWave())
+			{
+				curWaves++;
+				timer = spawnTimer;
+			}
 			/*
 			pickedEnemy = pickSpawn();
 			if(pickedEnemy != null)
@@ -139,11 +150,17 @@ public class Spawner : MonoBehaviour {
 			if (pickedEnemy==null)
 				return false;
 			GameObject newSpawn = (GameObject)Instantiate(pickedEnemy,newPos,new Quaternion(0,0,0,0));
+			liveEnemies.Add (newSpawn);
 			newSpawn.GetComponent<Orbit>().preferredOrbit=50+offset/3;
 			spawned++;
 
 		}
 		return true;
+	}
+
+	void winStage()
+	{
+		Debug.Log ("YOU'RE WINNER");
 	}
 	
 }
