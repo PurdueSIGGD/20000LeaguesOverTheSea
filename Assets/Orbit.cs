@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ public class Orbit : MonoBehaviour {
 	//Custom center of gravity, if set it overrides tagged planets
 	public GameObject customGravityAnchor; 
 	private GameObject[] gravityAnchors; //Array of Planets, Stars, etc
+	public bool includeCustomAnchor; //Include the customGravityAnchor with other planets
 
 	//Initial Perpindicular Force 
 	public float initialPerpForce = 50;
@@ -25,13 +27,17 @@ public class Orbit : MonoBehaviour {
 	float hohmannStartDist;
 	void Start () {
 		//If customGravityAnchor is not null make it the only member of the gravityAnchors
-		if (customGravityAnchor != null) {
+		if (!includeCustomAnchor && customGravityAnchor) {
 			gravityAnchors = new GameObject[1];
 			gravityAnchors[0] = customGravityAnchor;
 		} else {
-			//Unity editor's tag system
 			gravityAnchors = GameObject.FindGameObjectsWithTag("Planet");
+			if (includeCustomAnchor && customGravityAnchor) {
+				Array.Resize<GameObject>(ref gravityAnchors, gravityAnchors.Length + 1);
+				gravityAnchors[gravityAnchors.Length - 1] = customGravityAnchor;
+			}
 		}
+
 		if (startCircular)
 			forceCircular();
 		else
@@ -42,7 +48,6 @@ public class Orbit : MonoBehaviour {
 
 	//uhh.. draw lines.
 	void Update() {
-
 		if (drawOrbit) {
 
 			//Our Orbit Path, with a smoothed via spline
