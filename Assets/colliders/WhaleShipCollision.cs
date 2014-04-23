@@ -13,8 +13,9 @@ public class WhaleShipCollision : BasicCollision
 
 		if (collider.tag == "Planet") 
 		{
-			GameObject.DestroyObject(collider.gameObject);
+			Debug.Log("WhaleShip hit a planet");
 			GameObject.Find("WhaleShip").GetComponent<WhaleShip>().decreasePlanetCount();
+			GameObject.DestroyObject(collider.gameObject);
 		}
 
 		if(collider.tag == "Player")

@@ -61,12 +61,12 @@ public class WhaleShip : MonoBehaviour
 			if(planetCount < 0)
 				return;
 		}
-		Debug.Log (planetCount);
-		Vector3 moveDirection = planets[0].transform.position - this.transform.position;
+		//Debug.Log (planetCount);
+		Vector3 moveDirection = planets[planetCount].transform.position - this.transform.position;
 		moveDirection.Normalize ();
-		transform.position += moveDirection * 50;
+		transform.position += moveDirection * .1f;
 		//transform.LookAt (playerObject.transform.position, new Vector3(0,0,-1));
-		transform.LookAt (moveDirection, new Vector3(0,0,-1));
+		transform.LookAt (planets[planetCount].transform.position, new Vector3(0,0,-1));
 
 
 		//rigidbody.velocity = playerObject.transform.position;
@@ -148,15 +148,44 @@ public class WhaleShip : MonoBehaviour
 	{
 		planetCount--;
 
-		if (planets [planetCount].GetType is WhaleShip)
-				planetCount--;
+		if (planets [planetCount].GetType is WhaleShip) 
+		{
+			planetCount--;
+		}
 
 		if(planetCount < 0)
 		{
 			//The game is over!
+
 		}
 	}
 
+
+	void OnCollisionEnter(Collision coll)
+	{
+		Collider other = coll.collider;
+		BasicCollision otherCollider= other.gameObject.GetComponent<BasicCollision>();
+		//if other object has a collision behavior, hit it in whatever way it wants.
+		if (otherCollider!=null)
+		{
+			//should take into account what type of projectile this is.
+			otherCollider.hit (this.gameObject);
+			if (other.tag == "Planet") 
+			{
+				Debug.Log("WhaleShip hit a planet");
+				decreasePlanetCount();
+				GameObject.DestroyObject(other.gameObject);
+			}
+			
+		}
+		else
+		{
+			
+			 //GameObject.DestroyObject(coll.gameObject);
+			
+		}
+		//GameObject.DestroyObject(this.gameObject);
+	}
 	/*void dropBomb() {
 		GameObject center = GameObject.Find("CenterOfGravity");
 		Vector2 whalePoint = rigidbody.position;
