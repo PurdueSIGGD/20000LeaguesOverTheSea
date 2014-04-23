@@ -64,7 +64,7 @@ public class WhaleShip : MonoBehaviour
 		//Debug.Log (planetCount);
 		Vector3 moveDirection = planets[planetCount].transform.position - this.transform.position;
 		moveDirection.Normalize ();
-		transform.position += moveDirection * 5;
+		transform.position += moveDirection * .1f;
 		//transform.LookAt (playerObject.transform.position, new Vector3(0,0,-1));
 		transform.LookAt (planets[planetCount].transform.position, new Vector3(0,0,-1));
 
