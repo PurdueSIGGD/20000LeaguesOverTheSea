@@ -9,7 +9,6 @@ public class DrawWeaponSelect : MonoBehaviour {
 
 	public Rect position = new Rect(0,0,10,10);
 	public Vector2 offset = new Vector2(10, 0);
-	public GUIStyle border;
 
 	// Use this for initialization
 	void Start () {
