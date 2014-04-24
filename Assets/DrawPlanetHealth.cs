@@ -74,8 +74,7 @@ public class DrawPlanetHealth : MonoBehaviour {
 
 	void OnPreRender() {
 		if (!GetComponent<InGameMenu>().paused) {
-			CreateLineMaterial();
-			// set the current material
+			CreateLineMaterial(); // set the current material
 			GL.PushMatrix();
 			lineMaterial.SetPass(0);
 			foreach (GameObject g in PlayerControl.getPlayer().GetComponents<Orbit>()[0].getPlanets()) {

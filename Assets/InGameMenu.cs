@@ -44,11 +44,13 @@ public class InGameMenu : MonoBehaviour {
 		}
 		if( GUI.Button(Menu.scale_rect(new Rect(35, 45, 30, 15), Menu.scaledR), "Options", skin.customStyles[1]))
 		{
+			paused = false;
 			Application.LoadLevel("Menu");
 			return;
 		}
 		if( GUI.Button(Menu.scale_rect(new Rect(35, 60, 30, 15), Menu.scaledR), "Exit", skin.customStyles[1]))
 		{
+			paused = false;
 			Application.LoadLevel("Menu");
 			return;
 		}
