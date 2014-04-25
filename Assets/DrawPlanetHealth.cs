@@ -76,14 +76,14 @@ public class DrawPlanetHealth : MonoBehaviour {
 	void OnPreRender() {
 		if (!GetComponent<InGameMenu>().paused) {
 			try {
-			CreateLineMaterial(); // set the current material
-			GL.PushMatrix();
-			lineMaterial.SetPass(0);
-			foreach (GameObject g in PlayerControl.getPlayer().GetComponents<Orbit>()[0].getPlanets()) {
-				drawPlanetHealth(g);
-			}
-			GL.MultMatrix (transform.localToWorldMatrix);
-			GL.PopMatrix();
+				CreateLineMaterial(); // set the current material
+				GL.PushMatrix();
+				lineMaterial.SetPass(0);
+				foreach (GameObject g in PlayerControl.getPlayer().GetComponents<Orbit>()[0].getPlanets()) {
+					drawPlanetHealth(g);
+				}
+				GL.MultMatrix (transform.localToWorldMatrix);
+				GL.PopMatrix();
 			} catch (Exception ex) {
 				Debug.LogError("Error while drawing planet health.. Matrix stact full depth reached.");
 				//Randomly, this will hit the matrix stack depth and crash.

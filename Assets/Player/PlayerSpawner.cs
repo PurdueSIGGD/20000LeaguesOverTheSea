@@ -67,14 +67,19 @@ public class PlayerSpawner : MonoBehaviour {
 	}
 	
 	// Expose the style of the gui text to the editor to allow font changes
-	public GUIStyle custom;
+	public GUIStyle style;
+	public Vector2 respawnTimerPosition = new Vector2(35,20);
 	
 	void OnGUI () 
 	{
 		if(respawnCountdown <= respawnTimer && respawnCountdown > -1)
 		{
+			GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
+			                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
+			GUI.BeginGroup(Menu.scale_rect(new Rect(0,0,100,100), Menu.scaledR));
 			// Draw the respawn countdown in the center of the screen. Magic numbers make everything look better 
-			GUI.Box(Rect.MinMaxRect(Screen.width/2 - 4,Screen.height/2 - 5,Screen.width/2,Screen.height/2), (1 + respawnCountdown/60).ToString(), custom);
+			GUI.Box(Menu.scale_rect(new Rect(respawnTimerPosition.x, respawnTimerPosition.y,10,10), Menu.scaledR), (1 + respawnCountdown/60).ToString(), style);
+			GUI.EndGroup();
 		}
 	}
 

@@ -15,13 +15,11 @@ public class InGameMenu : MonoBehaviour {
 	}
 
 	public GUISkin skin;
-	public Rect groupRect;
 
 	//  Right now we just use the escape key to go back to the menu
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Escape)) {
-			//Application.LoadLevel("Menu");	
-			paused = (paused) ? false : true; //toggle 
+			paused = (paused) ? false : true; 
 		}
 	}
 
@@ -34,7 +32,7 @@ public class InGameMenu : MonoBehaviour {
 	}
 
 	void gameMenu() {
-		GUI.BeginGroup(Menu.scale_rect(groupRect, Menu.scaledR));
+		GUI.BeginGroup(Menu.scale_rect(new Rect(0,0,100,100), Menu.scaledR));
 		GUI.Box(Menu.scale_rect(new Rect(35,20,30,55), Menu.scaledR), "Pause Menu", skin.box);
 		
 		if( GUI.Button(Menu.scale_rect(new Rect(35, 30, 30, 15), Menu.scaledR), "Resume", skin.customStyles[1]))
