@@ -16,7 +16,7 @@ public class Absorber : MonoBehaviour {
 		playerObject =  GameObject.Find("Player");
 		absorber = this.gameObject;
 		isAbsorbing = true;
-		gameObject.renderer.material.color = absorbing;
+//		gameObject.renderer.material.color = absorbing;
 		numShots = 0;
 		timer = time;
 	}
@@ -37,12 +37,12 @@ public class Absorber : MonoBehaviour {
 	
 	void changeState(){
 		if(isAbsorbing){
-			gameObject.renderer.material.color = vulnerable;
+			//gameObject.renderer.material.color = vulnerable;
 			shoot();
 			isAbsorbing = false;
 		}
 		else{
-			gameObject.renderer.material.color = absorbing;
+			//gameObject.renderer.material.color = absorbing;
 			isAbsorbing = true;
 		}
 	}
