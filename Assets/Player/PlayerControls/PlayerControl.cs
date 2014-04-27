@@ -13,6 +13,9 @@ public class PlayerControl : MonoBehaviour {
 	public int currentGun = 0; //Current Gun in guns
 	public bool drawGunLine = true; 
 
+	public float borderForce = 20f;
+	public float borderGuardDistance = 5f;
+
 	private static GameObject player;
 	public static GameObject getPlayer() {
 		return player;
@@ -51,7 +54,7 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 		
-		// If the player is off the screen reverse the velocity.
+/*		// If the player is off the screen reverse the velocity.
 		// Time.frameCount % 10 is used the only check every 10 frames
 		// CameraUtility.isInCameraFrame returns true if it is in the camera view port.
 		// TODO: Make perhaps a spring type function where slow the player, rather than bounce.
@@ -59,7 +62,7 @@ public class PlayerControl : MonoBehaviour {
 		{
 			this.gameObject.transform.rigidbody.velocity *= -1; //Invert the Velocity.	
 		}
-		 
+*/
 		//Attach gun if there isnt one.. is this possible?
 		if (gun == null)
 			attachGun (guns[currentGun]);
@@ -124,6 +127,38 @@ public class PlayerControl : MonoBehaviour {
 		//transform.position = new Vector3(transform.position.x, transform.position.y, 0);
 		//body.transform.Rotate(new Vector3(0, 0, body.velocity.z * 100));
 
+		//Stop player from leaving playing area.
+		Rect window = CameraUtility.cameraViewingArea;
+		Vector3[] borderGuards = new Vector3[4];
+		
+		borderGuards[0] = new Vector3(body.position.x, window.yMin); //Top 
+		borderGuards[1] = new Vector3(window.xMax, body.position.y); //Right
+		borderGuards[2] = new Vector3(body.position.x, window.yMax); //Bottom
+		borderGuards[3] = new Vector3(window.xMin, body.position.y); //Left
+
+		foreach (Vector3 v in borderGuards) {
+			Vector3 bForce_v = (body.position - v); //Direction
+			Vector3 bForce_f = bForce_v.normalized * borderForce / bForce_v.sqrMagnitude;
+			if (bForce_v.magnitude < borderGuardDistance * 2) {
+				body.AddForce(bForce_f);
+				Debug.Log ("Within 2 * border");
+			}
+
+			//If in border range reduce played speed.
+			if (bForce_v.magnitude < borderGuardDistance && 
+			    body.velocity.magnitude > 10) {
+				//Estimate if the player's current momentum will carry it outside the window.
+				if (window.Contains(body.position + body.velocity * 2)) {
+					//body.velocity *= 0.75f;
+				} else {
+					body.velocity *= 0.75f;
+				}
+
+			}
+		}
+		if (!CameraUtility.isInCameraFrame(body.position)) {
+			this.GetComponent<PlayerCollision>().hit (null);
+		}
 
 	}
 	

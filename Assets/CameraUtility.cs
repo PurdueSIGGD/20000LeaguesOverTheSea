@@ -67,7 +67,7 @@ public class CameraUtility : MonoBehaviour {
 		return isInCameraFrame(obj.transform.position);	
 	}
 	
-	/// <summary>
+	/*/// <summary>
 	/// Gets the camera viewing rectangle.
 	/// Upates the cameraViewingArea if it hasnt be initialized.
 	/// </summary>
@@ -83,5 +83,5 @@ public class CameraUtility : MonoBehaviour {
 		}
 			
 		return cameraViewingArea;	
-	}
+	}*/
 }
