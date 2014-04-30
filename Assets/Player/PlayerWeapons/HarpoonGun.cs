@@ -47,7 +47,7 @@ public class HarpoonGun : BaseWeapon {
 		if (Input.GetMouseButtonDown(0) && shotCooldown <= 0 && hooked)
 		{
 			hooked=false;
-			this.GetComponent<LineRenderer>().SetVertexCount(0);
+			this.GetComponent<LineRenderer>().SetVertexCount(0);	
 			maxDist=0;
 		}
 

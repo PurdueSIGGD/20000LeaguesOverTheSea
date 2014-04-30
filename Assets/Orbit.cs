@@ -7,8 +7,8 @@ public class Orbit : MonoBehaviour {
 
 	//Custom center of gravity, if set it overrides tagged planets
 	public GameObject customGravityAnchor; 
-	private GameObject[] gravityAnchors; //Array of Planets, Stars, etc
-	public bool includeCustomAnchor; //Include the customGravityAnchor with other planets
+	private List<GameObject> gravityAnchors; //Array of Planets, Stars, etc
+	public bool includeCustomAnchor=false; //Include the customGravityAnchor with other planets
 
 	//Initial Perpindicular Force 
 	public float initialPerpForce = 50;
@@ -27,9 +27,20 @@ public class Orbit : MonoBehaviour {
 	float hohmannStartDist;
 	void Start () {
 		//If customGravityAnchor is not null make it the only member of the gravityAnchors
+		gravityAnchors = new List<GameObject>();
+
+		if (customGravityAnchor!=null)
+		{
+			gravityAnchors.Add(customGravityAnchor);
+
+		}
+		if (includeCustomAnchor ||customGravityAnchor==null )
+			foreach(GameObject g in GameObject.FindGameObjectsWithTag("Planet"))
+				gravityAnchors.Add(g);
+		/*
 		if (!includeCustomAnchor && customGravityAnchor) {
-			gravityAnchors = new GameObject[1];
-			gravityAnchors[0] = customGravityAnchor;
+			gravityAnchors = new ArrayList<GameObject>();
+			gravityAnchors.add(customGravityAnchor);
 		} else {
 			gravityAnchors = GameObject.FindGameObjectsWithTag("Planet");
 			if (includeCustomAnchor && customGravityAnchor) {
@@ -37,6 +48,7 @@ public class Orbit : MonoBehaviour {
 				gravityAnchors[gravityAnchors.Length - 1] = customGravityAnchor;
 			}
 		}
+		*/
 
 		if (startCircular)
 			forceCircular();
@@ -48,6 +60,9 @@ public class Orbit : MonoBehaviour {
 
 	//uhh.. draw lines.
 	void Update() {
+	gravityAnchors.Remove(null);
+
+	
 		if (drawOrbit) {
 
 			//Our Orbit Path, with a smoothed via spline
@@ -87,13 +102,13 @@ public class Orbit : MonoBehaviour {
 	}
 
 	public Vector3[] Interpolate(Vector3 position, Vector3 velocity) {
-		int time = 10000;
+		int time = linelength;
 		List<Vector3> pos = new List<Vector3>();
 
 		pos.Add(position);
 		Vector3 vel = velocity;
 
-		float deltaTime = Time.deltaTime;
+		float deltaTime = Time.fixedDeltaTime;
 
 		for (int i = 1; i < time; i++) {
 			////Velocity_Verlet
@@ -106,28 +121,30 @@ public class Orbit : MonoBehaviour {
 			}
 			//r2 = r1 + v*t + a*t*t
 			//Also force = accelleration as we ignore the craft's mass
-			pos.Add(pos[i-1] + deltaTime * (vel + deltaTime  * force / 2));
+			pos.Add(pos[i-1] + deltaTime * (vel + deltaTime  * force ));
 
 			//With Verlet, we recalculate the gravity for the velocity
-			Vector3 newforce = Vector3.zero;
+			/*Vector3 newforce = Vector3.zero;
 			foreach (GameObject ga in gravityAnchors) {
-				newforce += gravitied(ga, pos[i]);
+				newforce += gravitied(ga, pos[i-1]);
 			}
+			*/
 			//v2 = v1 + (a1 + a2) * t
 			//We average the two accelerations/forces for a more accuracy 
-			vel += (force + newforce) / 2 * deltaTime;
+			//vel += (force + newforce) / 2 * deltaTime;
+
+			vel+=force*deltaTime;
 		}
 		return pos.ToArray();
 	}
 
-	public void drawLine(Vector3[] positions, LineRenderer lr, float dist) {
+	public void drawLine(Vector3[] positions, 	LineRenderer lr, float dist) {
 		IEnumerable<Vector3> spline = Spline.NewCatmullRom(positions, 1, false);
 		Vector3[] something = Spline.somethingsomethingLine(spline, dist);
-
+		lr.SetVertexCount(something.Length);	
 		//Draw the splined interpolation of our path!
-		lr.SetVertexCount(something.GetLength(0));
 		IEnumerator<Vector3> thing = spline.GetEnumerator();
-		for (int i = 0; i < something.GetLength(0); i++) {
+		for (int i = 0; i < something.Length; i++) {
 			if(thing.MoveNext()) {
 				lr.SetPosition(i, thing.Current);
 
@@ -158,6 +175,7 @@ public class Orbit : MonoBehaviour {
 	void applyPerpForce(float force) {
 
 		//Find which gravity object has the largest influence on the craft
+
 		GameObject closestPlanet = gravityAnchors[0];
 		Vector3 max = gravitied(closestPlanet); //Max dist vector
 		foreach (GameObject go in gravityAnchors) {
@@ -306,7 +324,7 @@ public class Orbit : MonoBehaviour {
 		return planet;
 	}
 
-	public GameObject[] getPlanets() {
+	public List<GameObject> getPlanets() {
 		return gravityAnchors;		
 	}
 }
