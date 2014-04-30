@@ -9,13 +9,15 @@ public class Menu : MonoBehaviour {
 	//Scaled Resolution: what the gui is scaled to, we aim for 1080p
 	public static Vector2 scaledR = new Vector2(1920, 1080); 
 	
-	
+	public AudioClip click;
+
 	GUISkin guiSkin;
 	//private int state; 
 	
 	void Start() {
 		guiSkin = (GUISkin) Resources.Load("Menu/guiSkinMenu");	
 		state = 0;
+		//click = (AudioClip) Resources.Load ("Sounds/menu_noise");
     }
 	
 	void OnGUI () {
@@ -40,7 +42,9 @@ public class Menu : MonoBehaviour {
 			default: Debug.LogError("Tried to switch to invaild GUI state."); break;
 		}
 	}
-	
+
+
+
 	private void state_Main()
 	{
 		GUI.skin.label.fontSize = 500;
@@ -53,14 +57,17 @@ public class Menu : MonoBehaviour {
 		GUI.skin.label.fontSize = 150;
 		if( GUI.Button(scale_rect(new Rect(8, 38, 22, 15)), "Play", GUI.skin.customStyles[0]))
 		{
+			audio.PlayOneShot(click, 0.7F);
 			state = 1;
 		}
 		if( GUI.Button(scale_rect(new Rect(8, 55, 22, 15)), "Settings", GUI.skin.customStyles[0]))
 		{
+			audio.PlayOneShot(click, 0.7F);
 			//state = 2;
 		}
 		if( GUI.Button(scale_rect(new Rect(8, 72, 22, 15)), "Exit", GUI.skin.customStyles[0])) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.Quit();
 		}
 	}
@@ -76,36 +83,43 @@ public class Menu : MonoBehaviour {
 		GUI.skin.label.fontSize = 150;
 		if( GUI.Button(scale_rect(new Rect(10, 20, 10, 12)), "Stage I", GUI.skin.label) ) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.LoadLevel("stage1");
 		}
 		
 		if( GUI.Button(scale_rect(new Rect(40, 20, 10, 12)), "Stage II", GUI.skin.label) ) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.LoadLevel("stage2");
 		}
 		
 		if( GUI.Button(scale_rect(new Rect(70, 20, 10, 12)), "Stage III", GUI.skin.label) ) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.LoadLevel("stage3");
 		}
 		
 		if( GUI.Button(scale_rect(new Rect(10, 45, 10, 12)), "Stage IV", GUI.skin.label) ) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.LoadLevel("stage4");
 		}
 		
 		if( GUI.Button(scale_rect(new Rect(40, 45, 10, 12)), "Stage V", GUI.skin.label) ) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.LoadLevel("stage5");
 		}
 		
 		if( GUI.Button(scale_rect(new Rect(70, 45, 10, 12)), "Stage VI", GUI.skin.label) ) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.LoadLevel("stage6");
 		}
 		
 		if( GUI.Button(scale_rect(new Rect(35, 70, 10, 12)), "Boss Stage I", GUI.skin.label) ) 
 		{
+			audio.PlayOneShot(click, 0.7F);
 			Application.LoadLevel("bossstage1");
 		}
 		

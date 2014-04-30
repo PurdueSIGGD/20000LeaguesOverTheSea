@@ -12,6 +12,7 @@ public class WhaleShip : MonoBehaviour
 	Vector3 direction;
 	GameObject playerObject;
 	bool centered = false;
+	public AudioClip[] whaleNoises;
 
 	GameObject[] planets;
 	int planetCount;
@@ -97,7 +98,10 @@ public class WhaleShip : MonoBehaviour
 	
 	public void gotHit()
 	{
+		int rand = Random.Range(0,1);
+
 		Debug.Log ("Hit!");
+		audio.PlayOneShot(whaleNoises[rand]);
 		hitPoints--;
 
 		if(hitPoints < 0)
