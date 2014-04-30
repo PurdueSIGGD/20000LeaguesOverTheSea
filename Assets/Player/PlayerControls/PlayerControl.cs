@@ -141,7 +141,7 @@ public class PlayerControl : MonoBehaviour {
 			Vector3 bForce_f = bForce_v.normalized * borderForce / bForce_v.sqrMagnitude;
 			if (bForce_v.magnitude < borderGuardDistance * 2) {
 				body.AddForce(bForce_f);
-				Debug.Log ("Within 2 * border");
+				//Debug.Log ("Within 2 * border");
 			}
 
 			//If in border range reduce played speed.
