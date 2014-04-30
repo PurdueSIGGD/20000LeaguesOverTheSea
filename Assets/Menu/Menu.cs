@@ -68,47 +68,41 @@ public class Menu : MonoBehaviour {
 	private void state_StageSelect() 
 	{
 		GUI.skin.label.fontSize = 75;
-		if( GUI.Button(scale_rect(new Rect(5, 5, 10, 12)), "Back", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(3, 2, 20, 12)), "Back", GUI.skin.customStyles[0]) ) 
 		{
 			state = 0;
 		}
 		
 		GUI.skin.label.fontSize = 150;
-		if( GUI.Button(scale_rect(new Rect(10, 20, 10, 12)), "Stage I", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(10, 20, 25, 12)), "Stage I", GUI.skin.customStyles[0])) 
 		{
 			Application.LoadLevel("stage1");
 		}
 		
-		if( GUI.Button(scale_rect(new Rect(40, 20, 10, 12)), "Stage II", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(40, 20, 25, 12)), "Stage II", GUI.skin.customStyles[0])) 
 		{
 			Application.LoadLevel("stage2");
 		}
 		
-		if( GUI.Button(scale_rect(new Rect(70, 20, 10, 12)), "Stage III", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(70, 20, 25, 12)), "Stage III", GUI.skin.customStyles[0])) 
 		{
 			Application.LoadLevel("stage3");
 		}
 		
-		if( GUI.Button(scale_rect(new Rect(10, 45, 10, 12)), "Stage IV", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(10, 60, 25, 12)), "Stage IV", GUI.skin.customStyles[0])) 
 		{
 			Application.LoadLevel("stage4");
 		}
 		
-		if( GUI.Button(scale_rect(new Rect(40, 45, 10, 12)), "Stage V", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(40, 60, 25, 12)), "Stage V", GUI.skin.customStyles[0])) 
 		{
 			Application.LoadLevel("stage5");
 		}
 		
-		if( GUI.Button(scale_rect(new Rect(70, 45, 10, 12)), "Stage VI", GUI.skin.label) ) 
+		if( GUI.Button(scale_rect(new Rect(70, 60, 25, 12)), "Stage VI", GUI.skin.customStyles[0]))
 		{
 			Application.LoadLevel("stage6");
 		}
-		
-		if( GUI.Button(scale_rect(new Rect(35, 70, 10, 12)), "Boss Stage I", GUI.skin.label) ) 
-		{
-			Application.LoadLevel("bossstage1");
-		}
-		
 	}
 	
 	
