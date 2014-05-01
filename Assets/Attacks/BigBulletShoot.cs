@@ -21,7 +21,7 @@ public class BigBulletShoot : Attack
 	{
 		bullet = (GameObject)Resources.Load("MantaRayShot");
 		radiusChange = (radius - 1) / (chargeTime * 10);
-		offset = radius + 3;
+		offset = radius + 6;
 		bulletLife += (int) (chargeTime / Time.deltaTime);
 	}
 	

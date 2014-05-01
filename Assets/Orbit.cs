@@ -62,7 +62,10 @@ public class Orbit : MonoBehaviour {
 	void Update() {
 	gravityAnchors.Remove(null);
 
-	
+		this.rigidbody.angularVelocity = Vector3.zero;
+		this.rigidbody.velocity = new Vector3 (this.rigidbody.velocity.x, this.rigidbody.velocity.y, 0);
+		this.transform.position = new Vector3 (this.transform.position.x, this.transform.position.y, 0);
+
 		if (drawOrbit) {
 
 			//Our Orbit Path, with a smoothed via spline

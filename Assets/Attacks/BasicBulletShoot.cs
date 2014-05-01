@@ -2,13 +2,14 @@
 using System.Collections;
 
 public class BasicBulletShoot : Attack {
-	public GameObject bullet;
+	public string bulletType;
+	GameObject bullet;
 	public float shotVelocity=30;
 	public float offset=5;
 	public int bulletLife=500;
 	// Use this for initialization
 	void Start () {
-		bullet  = (GameObject)Resources.Load("SpaceBullet");
+		bullet  = (GameObject)Resources.Load(bulletType);
 	}
 	
 	// Update is called once per frame
