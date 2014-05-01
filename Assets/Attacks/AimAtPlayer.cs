@@ -13,7 +13,7 @@ public class AimAtPlayer: MonoBehaviour
 	public int maxFrames=250;
 	int frameCount = 0;
 	
-	public bool predictPosition=false;
+	public bool predictPosition=true;
 	// Use this for initialization
 	void Start () 
 	{
