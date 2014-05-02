@@ -6,12 +6,14 @@ public class LanderCollision : BasicCollision {
 	GameObject center;
 	public GameObject planet;
 	public int shootDelay=50;
+	public Animator anim;
 
 	// Use this for initialization
 	void Start () 
 	{
 		//center=this.GetComponent<Orbit>().center;
 		planet = GameObject.Find ("CenterOfGravity");
+		anim.speed=0;
 	}
 	
 	// Update is called once per frame
@@ -55,6 +57,8 @@ public class LanderCollision : BasicCollision {
 		if (coll.collider.gameObject.tag=="Planet")
 		{
 			landed=true;
+			anim.speed=1;
+			//anim.Play("OpenBarnacle", 0);
 		}
 	}
 	
