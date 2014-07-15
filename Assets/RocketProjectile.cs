@@ -27,6 +27,8 @@ public class RocketProjectile : MonoBehaviour {
 			coef = 30-lifetime/60;
 		this.rigidbody.AddForce(direction*coef,ForceMode.Acceleration);
 		lifetime++;
+
+		transform.LookAt (direction);
 	}
 	
 	    void OnCollisionEnter(Collision coll)
