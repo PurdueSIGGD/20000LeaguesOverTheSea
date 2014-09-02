@@ -28,10 +28,11 @@ public class RocketProjectile : MonoBehaviour {
 		this.rigidbody.AddForce(direction*coef,ForceMode.Acceleration);
 		lifetime++;
 
-		transform.LookAt (direction);
+		//Could try some Quat Slerp for more smoothness but this works
+		transform.LookAt(rigidbody.position - rigidbody.velocity*1.5f - direction*coef/2);
 	}
 	
-	    void OnCollisionEnter(Collision coll)
+	void OnCollisionEnter(Collision coll)
     {
         Collider other = coll.collider;
 		BasicCollision otherCollider= other.gameObject.GetComponent<BasicCollision>();
@@ -50,5 +51,4 @@ public class RocketProjectile : MonoBehaviour {
 		}
         GameObject.DestroyObject(this.gameObject);
     }
-	
 }
