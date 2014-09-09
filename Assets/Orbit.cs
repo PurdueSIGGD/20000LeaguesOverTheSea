@@ -143,24 +143,24 @@ public class Orbit : MonoBehaviour {
 
 	public void drawLine(Vector3[] positions, 	LineRenderer lr, float dist) {
 		IEnumerable<Vector3> spline = Spline.NewCatmullRom(positions, 1, false);
-		Vector3[] something = Spline.somethingsomethingLine(spline, dist);
-		lr.SetVertexCount(something.Length);	
+		Vector3[] truncatedLine = Spline.truncateLine(spline, dist);
+		lr.SetVertexCount(truncatedLine.Length);	
 		//Draw the splined interpolation of our path!
-		IEnumerator<Vector3> thing = spline.GetEnumerator();
-		for (int i = 0; i < something.Length; i++) {
-			if(thing.MoveNext()) {
-				lr.SetPosition(i, thing.Current);
+		IEnumerator<Vector3> drawPointGen = spline.GetEnumerator();
+		for (int i = 0; i < truncatedLine.Length; i++) {
+			if(drawPointGen.MoveNext()) {
+				lr.SetPosition(i, drawPointGen.Current);
 
 				//Drawing checks.
 				foreach (GameObject go in gravityAnchors) {
 					//If we are closer to the center of the planet than the radius stop 
-					if (Vector3.Distance(thing.Current, go.rigidbody.position) < (go.rigidbody.collider.bounds.extents.x)) {
+					if (Vector3.Distance(drawPointGen.Current, go.rigidbody.position) < (go.rigidbody.collider.bounds.extents.x)) {
 						lr.SetVertexCount(i);
 						return;
 					}
 				}
-				if (!CameraUtility.isInCameraFrame(thing.Current) ||
-				    (i > 500 &&Vector3.Distance(positions[1], thing.Current) < 1)){
+				if (!CameraUtility.isInCameraFrame(drawPointGen.Current) ||
+				    (i > 500 &&Vector3.Distance(positions[1], drawPointGen.Current) < 1)){
 					lr.SetVertexCount(i);
 					return;
 				}

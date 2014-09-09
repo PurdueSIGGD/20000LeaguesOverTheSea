@@ -107,7 +107,7 @@ public class Spline {
 				           0.5f * percentCompleteSquared);
 	}
 
-	static public Vector3[] somethingsomethingLine(IEnumerable<Vector3> list, float dist) {
+	static public Vector3[] truncateLine(IEnumerable<Vector3> list, float dist) {
 		List<Vector3> newList = new List<Vector3>();
 
 		Vector3 last = Vector3.zero;
