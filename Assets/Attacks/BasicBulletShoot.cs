@@ -4,7 +4,7 @@ using System.Collections;
 public class BasicBulletShoot : Attack {
 	public string bulletType;
 	GameObject bullet;
-	public float shotVelocity=30;
+	public float shotVelocity=300;
 	public float offset=5;
 	public int bulletLife=500;
 	// Use this for initialization

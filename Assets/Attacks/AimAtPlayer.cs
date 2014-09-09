@@ -47,7 +47,10 @@ public class AimAtPlayer: MonoBehaviour
 			if (predictPosition)
 			{
 			
-				if(GameObject.Find("Player") != null)
+				direction = (playerObject.GetComponent<Orbit>().TargetPositions[10]) - this.transform.position;
+				direction.Normalize();
+
+				/*if(GameObject.Find("Player") != null)
 				{
 					Orbit playerOrbit=playerObject.GetComponent<Orbit>();
 					Vector3 playerPos, PlayerVel;
@@ -64,7 +67,7 @@ public class AimAtPlayer: MonoBehaviour
 					
 					direction = (playerPos) - this.transform.position;
 					direction.Normalize();
-				}
+				}*/
 
 			}
 			this.GetComponent<Attack>().shoot (direction);

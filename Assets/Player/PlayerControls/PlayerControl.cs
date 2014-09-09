@@ -105,19 +105,19 @@ public class PlayerControl : MonoBehaviour {
 		//Physics done for Player movement here.
 		if (up)
 		{	
-			body.AddForce(direction*.1f,ForceMode.Impulse);
+			body.AddForce(direction*.5f,ForceMode.Impulse);
 		}
 		if (left)
 		{
-			body.AddForce(perpDirection*-.2f,ForceMode.Impulse);
+			body.AddForce(perpDirection*-1.0f,ForceMode.Impulse);
 		}
 		if (down)
 		{
-			body.AddForce(direction*-.1f,ForceMode.Impulse);
+			body.AddForce(direction*-.5f,ForceMode.Impulse);
 		}
 		if (right)
 		{
-			body.AddForce(perpDirection*.2f,ForceMode.Impulse);
+			body.AddForce(perpDirection*1.0f,ForceMode.Impulse);
 		}
 
 		// rotate ship to look ahead (Work in progress)

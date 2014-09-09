@@ -16,6 +16,8 @@ public class Orbit : MonoBehaviour {
 	public bool preferCircularOrbit=false;
 	public float preferredOrbit=0;
 
+	public Vector3[] TargetPositions {get;set;}
+
 	//Gravity Force Constant, calculation simplification, estimation G*m*M
 	//private float gravityForceConstants = 500;
 	// TODO: gravity constant is the mass of the planet
@@ -70,6 +72,7 @@ public class Orbit : MonoBehaviour {
 
 			//Our Orbit Path, with a smoothed via spline
 			Vector3[] positions = Interpolate();
+			TargetPositions = positions;
 			drawLine(positions, lineRender, linelength);
 		}
 	}
@@ -247,7 +250,6 @@ public class Orbit : MonoBehaviour {
 
 	void OrbitAtHeight(float height)
 	{
-
 		//Find which gravity object has the largest influence on the craft
 		GameObject closestPlanet = gravityAnchors[0];
 		Vector3 max = gravitied(closestPlanet); //Max dist vector
@@ -296,13 +298,7 @@ public class Orbit : MonoBehaviour {
 			hohmannStartDist=Mathf.Abs(height-currentHeight);
 			hohmannInProgress=true;
 		}
-
-		 
-
-
 	}
-
-
 
 	//Calculate the Gravitational Force!
 	//Simplified to planet mass / dist ^ 2 * vectorNorm(direction of craft to planet)
