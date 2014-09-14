@@ -8,11 +8,10 @@ public class Menu : MonoBehaviour {
 	
 	//Scaled Resolution: what the gui is scaled to, we aim for 1080p
 	public static Vector2 scaledR = new Vector2(1920, 1080); 
-	
+	public TextAsset creditsFile;
 	public AudioClip click;
 
 	GUISkin guiSkin;
-	//private int state; 
 	
 	void Start() {
 		guiSkin = (GUISkin) Resources.Load("Menu/guiSkinMenu");	
@@ -39,6 +38,7 @@ public class Menu : MonoBehaviour {
 		switch (state) {
 			case 0: state_Main(); break;
 			case 1: state_StageSelect(); break;
+			case 2: state_Credits(); break;
 			default: Debug.LogError("Tried to switch to invaild GUI state."); break;
 		}
 	}
@@ -57,8 +57,9 @@ public class Menu : MonoBehaviour {
 		GUI.skin.label.fontSize = 150;
 		if( GUI.Button(scale_rect(new Rect(8, 38, 22, 15)), "Play", GUI.skin.customStyles[0]))
 		{
+			credits_height = 0;
 			audio.PlayOneShot(click, 0.7F);
-			state = 1;
+			state = 2;
 		}
 		if( GUI.Button(scale_rect(new Rect(8, 55, 22, 15)), "Settings", GUI.skin.customStyles[0]))
 		{
@@ -117,6 +118,32 @@ public class Menu : MonoBehaviour {
 			Application.LoadLevel("stage6");
 		}
 	}
+
+	private float credits_height = 0;
+	private void state_Credits() 
+	{
+		string text = creditsFile.text;
+		int height = 0;
+		foreach (string s in text.Split('\n'))
+		{
+			if (s.Contains("!!")) {
+				GUI.Label (scale_rect(new Rect(0, credits_height + height, 100, 20)), s.Remove(0,2), GUI.skin.customStyles[2]);
+				height += 20;
+			} else if (s.Contains("!")) {
+				GUI.Label (scale_rect(new Rect(0, credits_height + height, 100, 10)), s.Remove(0,1), GUI.skin.customStyles[3]);
+				height += 9;
+			} else {
+				GUI.Label (scale_rect(new Rect(0, credits_height + height, 100, 10)), s, GUI.skin.customStyles[4]);
+				height += 8;
+			}
+		}
+		if (credits_height < -360) //Sadly a hard coded value.
+		{
+			state = 0;
+		}
+		credits_height -= 0.1f; //Rate of Ascent
+
+	}
 	
 	
 	//Scales the percentage(0-100) rectangle to the scaled Resolution.
@@ -130,7 +157,7 @@ public class Menu : MonoBehaviour {
 		return r;
 	}
 	//Mehhhhhhh
-	private Rect scale_rect(Rect r) {
+	public Rect scale_rect(Rect r) {
 		return scale_rect(r, scaledR);	
 	}
 }
