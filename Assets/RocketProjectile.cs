@@ -32,7 +32,7 @@ public class RocketProjectile : MonoBehaviour {
 		transform.LookAt(rigidbody.position - rigidbody.velocity*1.5f - direction*coef/2);
 	}
 	
-	void OnCollisionEnter(Collision coll)
+	/*void OnCollisionEnter(Collision coll)
     {
         Collider other = coll.collider;
 		BasicCollision otherCollider= other.gameObject.GetComponent<BasicCollision>();
@@ -40,7 +40,7 @@ public class RocketProjectile : MonoBehaviour {
 		if (otherCollider!=null)
 		{
 			//should take into account what type of projectile this is.
-			otherCollider.hit (this.gameObject);
+			//otherCollider.hit (this.gameObject);
 			
 		}
         else
@@ -50,5 +50,5 @@ public class RocketProjectile : MonoBehaviour {
 			
 		}
         GameObject.DestroyObject(this.gameObject);
-    }
+    }*/
 }

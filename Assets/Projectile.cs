@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour {
 		if (otherCollider!=null)
 		{
 			//should take into account what type of projectile this is.
-			otherCollider.hit (this.gameObject);
+			//otherCollider.hit (this.gameObject);
 			
 		}
         else

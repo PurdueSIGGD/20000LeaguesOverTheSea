@@ -1,13 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCollision : BasicCollision{
-	public override void hit(GameObject collider)
+public class PlayerCollision : BasicCollision
+{
+	//Collision Handler for player.
+	protected override void OnCollisionEnter(Collision coll)
 	{
-		if(!PlayerSpawner.isInvincible || collider.tag == "Planet")
+		//Quick way to make you die when you run into the planet. Should probably be standardized.
+		Collider other = coll.collider;
+
+		if (!PlayerSpawner.isInvincible || other.tag == "Planet") 
 		{
-			this.GetComponent<PlayerControl>().resetInput();
-			this.gameObject.SetActive(false);
+			this.GetComponent<PlayerControl> ().resetInput ();
+			this.gameObject.SetActive (false);
+		} 
+		else 
+		{
+			GameObject.Destroy(other);
 		}
 	}
 }

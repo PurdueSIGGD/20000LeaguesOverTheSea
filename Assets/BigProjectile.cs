@@ -17,7 +17,7 @@ public class BigProjectile : MonoBehaviour {
 	
 	}
 	
-	void OnCollisionEnter(Collision coll)
+	/*void OnCollisionEnter(Collision coll)
     {
         Collider other = coll.collider;
 		BasicCollision otherCollider= other.gameObject.GetComponent<BasicCollision>();
@@ -43,5 +43,5 @@ public class BigProjectile : MonoBehaviour {
 		if(i == 0 || coll.gameObject.tag != "Bullet") {	//Evan's amazing work, you can get autographs on monday wednesday and saturday
 			GameObject.DestroyObject(this.gameObject);
 		}
-    } 
+    } */
 }

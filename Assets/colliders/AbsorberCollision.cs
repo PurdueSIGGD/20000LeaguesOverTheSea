@@ -2,8 +2,11 @@
 using System.Collections;
 
 public class AbsorberCollision : BasicCollision {
-	public override void hit(GameObject collider){
-		if(collider.tag == "Bullet"){
+	protected override void OnCollisionEnter(Collision col)
+	{
+		Collider collider = col.collider;
+		if(collider.tag == "Bullet")
+		{
 			this.GetComponent<Absorber>().gotHit();
 		}
 		

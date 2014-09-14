@@ -5,10 +5,10 @@ public class PlanetCollision : BasicCollision {
 	
 	public int health = 100;
 
-	public override void hit(GameObject collider)
+	protected override void OnCollisionEnter(Collision col)
 	{
-		Collider coll = collider.collider;
-		if (coll.tag == "Player" || coll.tag == "Enemy") {
+		Collider collider = col.collider;
+		if (collider.tag == "Player" || collider.tag == "Enemy") {
 				health -= 5;
 		}
 		//lower health of planet if hit by planet lowering health sort of thing (not a bullet)

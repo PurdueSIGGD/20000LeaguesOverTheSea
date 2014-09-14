@@ -44,21 +44,19 @@ public class LanderCollision : BasicCollision {
 			this.transform.LookAt(Vector3.zero, direction*-1);//new Vector3(-1,0,0));
 		}
 	}
-	
-	public override void hit(GameObject collider)
-	{
 
-		GameObject.DestroyObject(this.gameObject);
-		
-	}
 	
-	public void OnCollisionEnter(Collision coll)
+	protected override void OnCollisionEnter(Collision coll)
 	{
 		if (coll.collider.gameObject.tag=="Planet")
 		{
 			landed=true;
 			anim.speed=1;
 			//anim.Play("OpenBarnacle", 0);
+		}
+		else
+		{
+			GameObject.Destroy(this);
 		}
 	}
 	

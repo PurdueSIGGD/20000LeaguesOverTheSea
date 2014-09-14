@@ -165,7 +165,7 @@ public class WhaleShip : MonoBehaviour
 	}
 
 
-	void OnCollisionEnter(Collision coll)
+	/*void OnCollisionEnter(Collision coll)
 	{
 		Collider other = coll.collider;
 		BasicCollision otherCollider= other.gameObject.GetComponent<BasicCollision>();
@@ -189,7 +189,7 @@ public class WhaleShip : MonoBehaviour
 			
 		}
 		//GameObject.DestroyObject(this.gameObject);
-	}
+	}*/
 	/*void dropBomb() {
 		GameObject center = GameObject.Find("CenterOfGravity");
 		Vector2 whalePoint = rigidbody.position;

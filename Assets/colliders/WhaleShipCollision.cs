@@ -3,8 +3,10 @@ using System.Collections;
 
 public class WhaleShipCollision : BasicCollision 
 {
-	public override void hit(GameObject collider)
+	protected override void OnCollisionEnter(Collision col)
 	{
+		Collider collider = col.collider;
+
 		if(collider.tag == "Bullet")
 		{
 			GameObject.Find("WhaleShip").GetComponent<WhaleShip>().gotHit();

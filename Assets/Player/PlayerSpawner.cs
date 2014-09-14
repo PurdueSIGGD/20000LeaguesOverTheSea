@@ -24,7 +24,7 @@ public class PlayerSpawner : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
 	{
 		if (respawnCountdown==-1 && player.activeSelf==false)
 		{
@@ -50,6 +50,7 @@ public class PlayerSpawner : MonoBehaviour {
 			player.GetComponent<Orbit>().applyPerpForce();
 			spawnInvincibilityCounter = spawnInvincibilityInitial;
 			isInvincible = true;
+			player.rigidbody.detectCollisions = false;
 			respawnCountdown--;
 		}
 		
@@ -61,6 +62,7 @@ public class PlayerSpawner : MonoBehaviour {
 			if(spawnInvincibilityCounter == 0)
 			{
 				isInvincible = false;	
+				player.rigidbody.detectCollisions = true;
 				player.rigidbody.angularVelocity = Vector3.zero;
 			}
 		}

@@ -16,6 +16,8 @@ public class PlayerControl : MonoBehaviour {
 	public float borderForce = 20f;
 	public float borderGuardDistance = 5f;
 
+	public float movementSpeed = 5f;
+
 	private static GameObject player;
 	public static GameObject getPlayer() {
 		return player;
@@ -103,21 +105,21 @@ public class PlayerControl : MonoBehaviour {
 		
 		
 		//Physics done for Player movement here.
-		if (up)
+		if (up) // && body.velocity.magnitude < new Vector3(10,10,0).magnitude)
 		{	
-			body.AddForce(direction*.5f,ForceMode.Impulse);
+			body.AddForce(direction*(movementSpeed/10),ForceMode.Impulse);
 		}
 		if (left)
 		{
-			body.AddForce(perpDirection*-1.0f,ForceMode.Impulse);
+			body.AddForce(perpDirection*-(2*movementSpeed/10),ForceMode.Impulse);
 		}
-		if (down)
+		if (down) // && body.velocity.magnitude > new Vector3(2,2,0).magnitude)
 		{
-			body.AddForce(direction*-.5f,ForceMode.Impulse);
+			body.AddForce(direction*-(movementSpeed/10),ForceMode.Impulse);
 		}
 		if (right)
 		{
-			body.AddForce(perpDirection*1.0f,ForceMode.Impulse);
+			body.AddForce(perpDirection*(2*movementSpeed/10),ForceMode.Impulse);
 		}
 
 		// rotate ship to look ahead (Work in progress)
@@ -157,7 +159,7 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 		if (!CameraUtility.isInCameraFrame(body.position)) {
-			this.GetComponent<PlayerCollision>().hit (null);
+			//this.GetComponent<PlayerCollision>().hit (null);
 		}
 
 	}
@@ -180,16 +182,5 @@ public class PlayerControl : MonoBehaviour {
 		down = false;
 		left = false;
 		right = false;
-	}
-	
-	//Collision Handler for player.
-	void OnCollisionEnter(Collision coll)
-	{
-		//Quick way to make you die when you run into the planet. Should probably be standardized.
-		Collider other = coll.collider;
-		if (other.tag=="Planet")
-		{
-			this.GetComponent<PlayerCollision>().hit (other.gameObject);
-		}	
 	}
 }
