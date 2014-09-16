@@ -29,11 +29,7 @@ public class RocketWeapon : BaseWeapon {
 		Vector3 direction= getMouseDirection();
 		if (Input.GetMouseButtonDown(0) && shotCooldown <= 0)
         {
-            GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 4,new Quaternion(0,0,0,0));
-            //newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
-            //newBullet.transform.position = this.transform.position + direction * 5;
-            //newBullet.GetComponent<Orbit>().center = this.parent.GetComponent<Orbit>().center;
-			newBullet.GetComponent<Orbit>().initialPerpForce = 0;
+            GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position + direction * 8,new Quaternion(0,0,0,0));
             newBullet.rigidbody.AddForce(shotVelocity * direction+parent.rigidbody.velocity, ForceMode.VelocityChange);
 			shotCooldown = shotCooldownInitial;
         }
