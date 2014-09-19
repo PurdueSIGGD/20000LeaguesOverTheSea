@@ -65,7 +65,20 @@ public class PlayerSpawner : MonoBehaviour {
 				player.rigidbody.detectCollisions = true;
 				player.rigidbody.angularVelocity = Vector3.zero;
 			}
+			//invincibleFlash(); 
 		}
+	}
+
+	void invincibleFlash() 
+	{
+		//Material m = player.renderer.material;
+		Color32 c = player.renderer.material.color;
+		
+		//player.renderer.material = null;
+		player.renderer.material.color = Color.red;
+		//yield return new WaitForSeconds(0.5f);
+		//player.renderer.material = m;
+		//player.renderer.material.color = c;            
 	}
 	
 	// Expose the style of the gui text to the editor to allow font changes

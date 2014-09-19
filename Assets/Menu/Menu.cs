@@ -57,14 +57,15 @@ public class Menu : MonoBehaviour {
 		GUI.skin.label.fontSize = 150;
 		if( GUI.Button(scale_rect(new Rect(8, 38, 22, 15)), "Play", GUI.skin.customStyles[0]))
 		{
+			audio.PlayOneShot(click, 0.7F);
+			Application.LoadLevel("stage1");
+			//state = 1;
+		}
+		if( GUI.Button(scale_rect(new Rect(8, 55, 22, 15)), "Credits", GUI.skin.customStyles[0]))
+		{
 			credits_height = 0;
 			audio.PlayOneShot(click, 0.7F);
 			state = 2;
-		}
-		if( GUI.Button(scale_rect(new Rect(8, 55, 22, 15)), "Settings", GUI.skin.customStyles[0]))
-		{
-			audio.PlayOneShot(click, 0.7F);
-			//state = 2;
 		}
 		if( GUI.Button(scale_rect(new Rect(8, 72, 22, 15)), "Exit", GUI.skin.customStyles[0])) 
 		{

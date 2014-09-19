@@ -9,7 +9,7 @@ public class PlanetCollision : BasicCollision {
 	{
 		Collider collider = col.collider;
 		if (collider.tag == "Player" || collider.tag == "Enemy") {
-				health -= 5;
+				health -= 10;
 		}
 		//lower health of planet if hit by planet lowering health sort of thing (not a bullet)
 
