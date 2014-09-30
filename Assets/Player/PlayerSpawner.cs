@@ -50,7 +50,8 @@ public class PlayerSpawner : MonoBehaviour {
 			player.GetComponent<Orbit>().applyPerpForce();
 			spawnInvincibilityCounter = spawnInvincibilityInitial;
 			isInvincible = true;
-			player.rigidbody.detectCollisions = false;
+			player.rigidbody.detectCollisions = false; //Oh no! We can still run into the planet!
+
 			respawnCountdown--;
 		}
 		
@@ -64,6 +65,13 @@ public class PlayerSpawner : MonoBehaviour {
 				isInvincible = false;	
 				player.rigidbody.detectCollisions = true;
 				player.rigidbody.angularVelocity = Vector3.zero;
+			}
+			//FEAR NOT, WE'LL MAKE A WONDERFUL EXCEPTION FOR Colliding with PLANETS
+			foreach(GameObject planet in player.GetComponent<Orbit>().getPlanets()) {
+				if ((int) Vector3.Distance(player.rigidbody.position, planet.rigidbody.position) < planet.transform.localScale.x) {
+					
+					player.rigidbody.detectCollisions = true; // Turn it back on@!
+				}
 			}
 			//invincibleFlash(); 
 		}
