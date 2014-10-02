@@ -23,7 +23,7 @@ public class GameTimer : MonoBehaviour {
 		                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
 		GUI.BeginGroup(Menu.scale_rect(new Rect(0,0,100,100), Menu.scaledR));
 		// Draw the respawn countdown in the center of the screen. Magic numbers make everything look better 
-		GUI.Box(Menu.scale_rect(new Rect(timerPosition.x, timerPosition.y,10,10), Menu.scaledR), (1 + gameTimer/60).ToString(), style);
+		GUI.Box(Menu.scale_rect(new Rect(timerPosition.x, timerPosition.y,10,10), Menu.scaledR), "Time: " + (gameTimer/3600) + ":" + ((gameTimer/60)%60).ToString() + "." + ((gameTimer % 60)/6).ToString(), style);
 		GUI.EndGroup();
 
 	}
