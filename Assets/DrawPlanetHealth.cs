@@ -32,19 +32,21 @@ public class DrawPlanetHealth : MonoBehaviour {
 		float radius = planet.rigidbody.collider.bounds.extents.x;
 
 		if (segments <= 0) {
-			Debug.Log ("Planet Health: Number of segments for drawing less than zero.");
+			Debug.LogError ("Planet Health: Number of segments for drawing less than zero.");
 			return;
 		}
 
 		int health = planet.GetComponent<PlanetCollision>().health;
 		Color color;
-		if (health > 50) {
+		if (health <= 100 && health > 50) {
 			color = greenHealth; 
 		} else if (health <= 50 && health > 25) {
 			color = yellowHealth;
-		} else {
+		} else if (health > 0) {
 			color = redHealth;
-		}	
+		} else {
+			return;
+		}
 
 		//Build Circle
 		Vector3 builder;
