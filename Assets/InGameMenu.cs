@@ -3,16 +3,7 @@ using System.Collections;
 
 public class InGameMenu : MonoBehaviour {
 
-	private bool _paused;
-	public bool paused {
-		get {
-			return _paused;
-		}
-		set{
-			_paused = value;
-			Time.timeScale = (value) ? 0 : 1;
-		}
-	}
+	public bool paused = false;
 
 	public GUISkin skin;
 
@@ -28,6 +19,9 @@ public class InGameMenu : MonoBehaviour {
 			GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
 		                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
 			gameMenu();
+			Time.timeScale = 0;
+		} else {
+			Time.timeScale = 1;
 		}
 	}
 
