@@ -9,7 +9,7 @@ public class BulletGun : BaseWeapon {
 	Orbit parentOrbit;
 	
 	
-	float shotVelocity=60;
+	float shotVelocity=20;
 	
 	// Use this for initialization
 	void Start () 
