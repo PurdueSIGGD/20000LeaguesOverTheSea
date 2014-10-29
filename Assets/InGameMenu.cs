@@ -4,6 +4,7 @@ using System.Collections;
 public class InGameMenu : MonoBehaviour {
 
 	public bool paused = false;
+	public bool gameOver = false;
 
 	public GUISkin skin;
 
@@ -15,10 +16,16 @@ public class InGameMenu : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		if (paused) {
+		if (paused || gameOver) {
 			GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
 		                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
-			gameMenu();
+
+			if (gameOver) {
+				gameOverMenu();
+			} else {
+				gameMenu ();
+			}
+
 			Time.timeScale = 0;
 		} else {
 			Time.timeScale = 1;
@@ -39,6 +46,23 @@ public class InGameMenu : MonoBehaviour {
 			paused = false;
 			Application.LoadLevel("Menu");
 			return;
+		}
+		GUI.EndGroup();
+	}
+
+	void gameOverMenu() 
+	{
+		
+		GUI.BeginGroup(Menu.scale_rect(new Rect(0,0,100,100), Menu.scaledR));
+		GUI.Box(Menu.scale_rect(new Rect(35,20,30,55), Menu.scaledR), "GAME OVER", skin.box);
+		
+		if( GUI.Button(Menu.scale_rect(new Rect(35, 30, 30, 15), Menu.scaledR), "Retry", skin.customStyles[1]))
+		{
+			Application.LoadLevel("stage1");
+		}
+		if( GUI.Button(Menu.scale_rect(new Rect(35, 45, 30, 15), Menu.scaledR), "Exit", skin.customStyles[1]))
+		{
+			Application.LoadLevel("Menu");
 		}
 		GUI.EndGroup();
 	}
