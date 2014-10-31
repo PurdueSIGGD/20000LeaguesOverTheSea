@@ -37,12 +37,12 @@ public class Absorber : MonoBehaviour {
 	
 	void changeState(){
 		if(isAbsorbing){
-			//gameObject.renderer.material.color = vulnerable;
+			gameObject.renderer.material.color = vulnerable;
 			shoot();
 			isAbsorbing = false;
 		}
 		else{
-			//gameObject.renderer.material.color = absorbing;
+			gameObject.renderer.material.color = absorbing;
 			isAbsorbing = true;
 		}
 	}

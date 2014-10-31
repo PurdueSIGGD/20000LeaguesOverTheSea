@@ -74,6 +74,7 @@ public class PlayerSpawner : MonoBehaviour {
 				}
 			}
 			//invincibleFlash(); 
+			//player.renderer.material.color = Color.red;
 		}
 	}
 
