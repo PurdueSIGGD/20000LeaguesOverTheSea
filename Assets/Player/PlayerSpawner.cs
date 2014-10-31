@@ -96,14 +96,17 @@ public class PlayerSpawner : MonoBehaviour {
 	
 	void OnGUI () 
 	{
-		if(respawnCountdown <= respawnTimer && respawnCountdown > -1)
+		if (!GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InGameMenu>().paused) 
 		{
-			GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
-			                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
-			GUI.BeginGroup(Menu.scale_rect(new Rect(0,0,100,100), Menu.scaledR));
-			// Draw the respawn countdown in the center of the screen. Magic numbers make everything look better 
-			GUI.Box(Menu.scale_rect(new Rect(respawnTimerPosition.x, respawnTimerPosition.y,10,10), Menu.scaledR), (1 + respawnCountdown/60).ToString(), style);
-			GUI.EndGroup();
+			if(respawnCountdown <= respawnTimer && respawnCountdown > -1)
+			{
+				GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
+				                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
+				GUI.BeginGroup(Menu.scale_rect(new Rect(0,0,100,100), Menu.scaledR));
+				// Draw the respawn countdown in the center of the screen. Magic numbers make everything look better 
+				GUI.Box(Menu.scale_rect(new Rect(respawnTimerPosition.x, respawnTimerPosition.y,10,10), Menu.scaledR), (1 + respawnCountdown/60).ToString(), style);
+				GUI.EndGroup();
+			}
 		}
 	}
 

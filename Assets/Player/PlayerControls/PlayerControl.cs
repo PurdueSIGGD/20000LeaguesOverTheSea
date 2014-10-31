@@ -55,16 +55,7 @@ public class PlayerControl : MonoBehaviour {
 				attachGun(guns[currentGun]);
 			}
 		}
-		
-/*		// If the player is off the screen reverse the velocity.
-		// Time.frameCount % 10 is used the only check every 10 frames
-		// CameraUtility.isInCameraFrame returns true if it is in the camera view port.
-		// TODO: Make perhaps a spring type function where slow the player, rather than bounce.
-		if(Time.frameCount % 10 == 0 && !CameraUtility.isInCameraFrame(this.gameObject)) 
-		{
-			this.gameObject.transform.rigidbody.velocity *= -1; //Invert the Velocity.	
-		}
-*/
+
 		//Attach gun if there isnt one.. is this possible?
 		if (gun == null)
 			attachGun (guns[currentGun]);

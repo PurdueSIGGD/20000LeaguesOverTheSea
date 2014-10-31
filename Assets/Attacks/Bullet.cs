@@ -19,8 +19,10 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		//If the bullet is greater than the the maxRadius: reverse the velocity. 
-		if (this.gameObject.transform.position.magnitude > maxRadius)
-			this.GetComponent<Rigidbody>().velocity *= -1;
+		if (this.gameObject.transform.position.magnitude > maxRadius) {
+			//this.GetComponent<Rigidbody>().velocity *= -1;
+			Destroy(this.gameObject);
+		}
 
 		//transform.LookAt (new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, rigidbody.velocity.z), new Vector3(0,0,-1));
 		transform.LookAt (-(transform.position + rigidbody.velocity*10));
