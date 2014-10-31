@@ -3,40 +3,61 @@ using System.Collections;
 
 public class GameTimer : MonoBehaviour {
 
-	int ticks = 0;
-	int gameTimer = 0;
-
-
-	// Update is called once per frame
-	void FixedUpdate () 
-	{
-
-		gameTimer++;
-	}
 
 	public GUIStyle style;
 	public Vector2 timerPosition = new Vector2(35,10);
+
+	float startTime = 0;
+	float highscore = 0;
+
+	//Counting realtime with frames may have problems.
+	void Start ()
+	{
+		startTime = Time.time;
+
+		try {
+			//We store highscore in InGameMenu.cs, because we kan.
+			highscore = PlayerPrefs.GetFloat ("highscore");
+		} catch(PlayerPrefsException ex) {
+			Debug.LogError("Could not reterieve highscore");
+		}
+	}
+
+	
+	public void saveHighscore() {
+		try {
+			//Hopefully we can call this from game over. 
+			PlayerPrefs.SetFloat ("highscore", highscore);
+		} catch(PlayerPrefsException ex) {
+			Debug.LogError("Could not save highscore");
+		}
+	}
+
 
 	void OnGUI () 
 	{
 		GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(0, new Vector3(0, 0, 0)), 
 		                           new Vector3(Screen.width/Menu.scaledR.x, Screen.height/Menu.scaledR.y, 1));
 		GUI.BeginGroup(Menu.scale_rect(new Rect(0,0,100,100), Menu.scaledR));
-		// Draw the respawn countdown in the center of the screen. Magic numbers make everything look better 
-		string time = "Time: ";
 
-		// Calculate minutes
-		if(gameTimer / 3600 < 10)
-			time += 0;
-		time += (gameTimer / 3600) + ":";
+		float gameTime = Time.time - startTime;
 
-		// Calculate seconds to the tenth
-		if(((gameTimer / 60) % 60) < 10)
-			time += 0;
-		time += ((gameTimer / 60) % 60) + "." + ((gameTimer % 60) / 6);
+		if (highscore <= gameTime) {
+			highscore = gameTime;
+		}
 
-		GUI.Box(Menu.scale_rect(new Rect(timerPosition.x, timerPosition.y,10,10), Menu.scaledR), time, style);
+		GUI.Box(Menu.scale_rect(new Rect(timerPosition.x, timerPosition.y, 10, 10), Menu.scaledR), "Score: " + timeToStr(gameTime), style);
+		GUI.Box(Menu.scale_rect(new Rect(timerPosition.x, timerPosition.y + 5, 10, 10), Menu.scaledR), "Highscore: " + timeToStr(highscore), style);
+	
 		GUI.EndGroup();
+	}
 
+	// tim hacks
+	string timeToStr(float tim) {
+		int minutes = Mathf.RoundToInt (tim) / 60; 
+		int seconds = Mathf.RoundToInt (tim) % 60;
+		int hundreds = Mathf.RoundToInt (tim * 100) % 100;
+		
+		return string.Format ("{0}:{1:00}.{2:00}", minutes, seconds, hundreds);
 	}
 }

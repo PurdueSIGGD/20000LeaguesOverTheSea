@@ -20,6 +20,8 @@ public class PlanetCollision : BasicCollision {
 			try {
 				InGameMenu igm = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<InGameMenu>();
 				igm.gameOver = true;
+				GameTimer gt = GetComponentInParent<GameTimer>();
+				gt.saveHighscore();
 			} catch(MissingComponentException ex) {
 				Debug.LogError("welp we tried");
 			}
