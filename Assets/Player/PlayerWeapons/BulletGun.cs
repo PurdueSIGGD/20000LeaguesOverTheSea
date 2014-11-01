@@ -32,7 +32,7 @@ public class BulletGun : BaseWeapon {
 		if (Input.GetMouseButtonDown(0) && shotCooldown <= 0)
         {
 
-            GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 7,new Quaternion(0,0,0,0));
+            GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 8,new Quaternion(0,0,0,0));
 			newBullet.GetComponent<Orbit>().extraFakeMass=fakeMass;
             //newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
             //newBullet.transform.position = this.transform.position + direction * 5;
