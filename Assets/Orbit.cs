@@ -27,6 +27,7 @@ public class Orbit : MonoBehaviour {
 	private LineRenderer lineRender;
 	bool hohmannInProgress=false;	
 	float hohmannStartDist;
+	public float extraFakeMass=0;
 	void Start () {
 		//If customGravityAnchor is not null make it the only member of the gravityAnchors
 		gravityAnchors = new List<GameObject>();
@@ -99,15 +100,15 @@ public class Orbit : MonoBehaviour {
 	}
 
 	//Interpolate our ship's path
-	public Vector3[] Interpolate() {
-		return Interpolate(this.gameObject);
+	public Vector3[] Interpolate(float extraMass=0) {
+		return Interpolate(this.gameObject, extraMass);
 	}
 
-	public Vector3[] Interpolate(GameObject go) {
-		return Interpolate(go.rigidbody.position, go.rigidbody.velocity);
+	public Vector3[] Interpolate(GameObject go, float extraMass=0) {
+		return Interpolate(go.rigidbody.position, go.rigidbody.velocity, extraMass);
 	}
 
-	public Vector3[] Interpolate(Vector3 position, Vector3 velocity) {
+	public Vector3[] Interpolate(Vector3 position, Vector3 velocity, float extraMass=0) {
 		int time = linelength;
 		List<Vector3> pos = new List<Vector3>();
 
@@ -123,7 +124,7 @@ public class Orbit : MonoBehaviour {
 			//Calcualte force/acceleration
 			Vector3 force = Vector3.zero;
 			foreach (GameObject ga in gravityAnchors) {
-				force += gravitied(ga, pos[i-1]);
+				force += gravitied(ga, pos[i-1], extraMass);
 			}
 			//r2 = r1 + v*t + a*t*t
 			//Also force = accelleration as we ignore the craft's mass
@@ -302,13 +303,13 @@ public class Orbit : MonoBehaviour {
 
 	//Calculate the Gravitational Force!
 	//Simplified to planet mass / dist ^ 2 * vectorNorm(direction of craft to planet)
-	Vector3 gravitied(GameObject go) {
+	Vector3 gravitied(GameObject go, float extraMass=0) {
 		return gravitied(go, this.rigidbody.position);
 	}
 
-	Vector3 gravitied(GameObject go, Vector3 position) {
+	Vector3 gravitied(GameObject go, Vector3 position, float extraMass=0) {
 		Vector3 vector = go.rigidbody.position - position;
-		float magnitude = go.rigidbody.mass / vector.sqrMagnitude;
+		float magnitude = (go.rigidbody.mass+extraFakeMass+extraMass) / vector.sqrMagnitude;
 		return magnitude * vector.normalized;
 	}
 

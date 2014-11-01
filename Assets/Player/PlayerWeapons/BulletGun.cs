@@ -7,7 +7,7 @@ public class BulletGun : BaseWeapon {
 	int shotCooldownInitial = 10;
 	int shotCooldown = 0;
 	Orbit parentOrbit;
-	
+	public float fakeMass=350000;
 	
 	public float shotVelocity=60;
 	
@@ -16,6 +16,7 @@ public class BulletGun : BaseWeapon {
 	{
 		parentOrbit = parent.GetComponent<Orbit>();
         bullet = (GameObject)Resources.Load("SpaceBullet");
+
 	}
 
 	// Update is called once per frame
@@ -30,7 +31,9 @@ public class BulletGun : BaseWeapon {
 		Vector3 direction= getMouseDirection();
 		if (Input.GetMouseButtonDown(0) && shotCooldown <= 0)
         {
+
             GameObject newBullet = (GameObject)Instantiate(bullet,this.transform.position+ direction * 7,new Quaternion(0,0,0,0));
+			newBullet.GetComponent<Orbit>().extraFakeMass=fakeMass;
             //newBullet.rigidbody.position = this.rigidbody.position + direction * 5;
             //newBullet.transform.position = this.transform.position + direction * 5;
             newBullet.GetComponent<Orbit>().initialPerpForce = 0;
@@ -52,7 +55,7 @@ public class BulletGun : BaseWeapon {
 		Vector3 initialPosition= this.transform.position + direction * 4;
 		Vector3 initialVelocity = direction * shotVelocity + parent.rigidbody.velocity;
 
-		Vector3[] interpolation = parentOrbit.Interpolate(initialPosition, initialVelocity);
+		Vector3[] interpolation = parentOrbit.Interpolate(initialPosition, initialVelocity,fakeMass);
 		parentOrbit.drawLine(interpolation, this.GetComponent<LineRenderer>(), 500);
 
 	}
